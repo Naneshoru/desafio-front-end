@@ -1,10 +1,13 @@
 import './App.css'
+import Header from './components/header'
+import EmployeesPage from './pages/employees'
 
 function App() {
   return (
-    <>
-      <h1>Vite + React</h1>
-    </>
+    <div className='app'>
+      <Header />
+      <EmployeesPage />
+    </div>
   )
 }
 

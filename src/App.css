@@ -1,7 +1,73 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  font-family: Helvetica;
+
+  /* Colors */
+  --blue-primary: #0500FF;
+  --blue-10: #EDEFFB;
+  --white-neutral: #FFFFFF;
+  --gray-00-neutral: #F0F0F0;
+  --gray-05-neutral: #F5F5F5;
+  --gray-10-neutral: #DFDFDF;
+  --gray-20-neutral: #9E9E9E;
+  --black-neutral: #1C1C1C;
+
+  /* Typo */
+  h1 {
+    font-size: 20px;
+    font-weight: medium;
+    font-family: Helvetica;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: medium;
+    font-family: Helvetica;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: regular;
+    font-family: Helvetica;
+  }
+
+  /* Space */
+  --spc-lt-1: 4px;
+  --spc-lt-2: 8px;
+  --spc-rg-1: 16px;
+  --spc-rg-2: 20px;
+  --spc-rg-3: 28px;
+  --spc-md-1: 32px;
+  --spc-md-2: 40px;
+  --spc-md-3: 60px;
+  --spc-md-4: 80px;
 }
 
+.app {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: var(--gray-00-neutral);
+}
+
+.app header {
+  background-color: var(--white-neutral);
+  height: 60px;
+}
+
+.app header svg {
+  padding-top: 12.58px;
+  padding-left: 21.41px;
+  padding-bottom: 13.42px;
+}
+
+.app .up-tb-head {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2.75rem;
+  padding-left: 2rem;
+  padding-right: 2.75rem;
+  padding-bottom: 1.375rem;
+}
+
+.app .up-tb-head h1 {
+  font-size: 24px
+}
