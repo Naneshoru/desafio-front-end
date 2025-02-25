@@ -1,22 +1,41 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 type InputProps = {
   name?: string
   value?: string
+  type?: string
   placeholder?: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export default function Input({ name = '', value = '', placeholder = '', onChange}: InputProps) {
+export default function Input({ name = '', value = '', type, placeholder = '', onChange}: InputProps) {
   const [inputValue, setInputValue] = useState(value)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value)
-    if (onChange) {
-      onChange(event)
-    }
+    if (onChange) { onChange(event) }
   }
   return (
-    <input type="text" name={name} value={inputValue} onChange={handleChange} placeholder={placeholder}  />
+    <input type={type} name={name} value={inputValue} onChange={handleChange} placeholder={placeholder}  />
+  )
+}
+
+type UncontrolledInputProps = {
+  name?: string
+  type?: string
+  placeholder?: string
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+export function UncontrolledInput ({ name, type, placeholder, onChange }: UncontrolledInputProps) {
+  const ref = useRef<HTMLInputElement | null>(null)
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('ref value', ref.current?.value)
+    if (onChange) { onChange(event) }
+  }
+
+  return (
+    <input ref={ref} type={type} name={name} placeholder={placeholder} onChange={handleChange} />
   )
 }

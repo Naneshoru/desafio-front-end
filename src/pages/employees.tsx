@@ -1,40 +1,53 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+
+import './employees.css'
+
 import TableEmployees from '../components/table-employees';
-import Input from '../components/input';
+import { UncontrolledInput } from '../components/input';
 import EmployeesContext from '../contexts/employees-context';
 import { Employee } from '../models/employee';
+import { useDebounce } from '../hooks/debounce';
 
 export default function Employees() {
-  const { getEmployees, fetchEmployees, setEmployees } = useContext(EmployeesContext)
+  const { getEmployees, fetchEmployees, setEmployees } = useContext(EmployeesContext);
 
   useEffect(() => {
-    getEmployees()
-  }, [])
+    getEmployees();
+  }, []);
+
+  const [debouncedInput, setDebouncedInput] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('[Employees]', event.target.value);
-    const input = event.target.value
-    const query = `?q=${input}`
+    const input = event.target.value;
+    debouncedCallback(input);
+  };
+
+  const debouncedCallback = useDebounce((value: string) => {
+    setDebouncedInput(value);
+  }, 300);
+
+  useEffect(() => {
+    const query = `?q=${debouncedInput}`;
 
     fetchEmployees(query).then((employees: Employee[]) => {
       const byJobNameAdmission = (employees: Employee[]) => {
-        const filteredEmployees = employees.filter((emp: Employee) => 
-          emp.job.toLowerCase().includes(input.toLowerCase()) ||
-          emp.name.toLowerCase().includes(input.toLowerCase()) ||
-          emp.admission_date.toLowerCase().includes(input.toLowerCase()) 
-        )
-        console.log('filteredEmployees', filteredEmployees)
-        setEmployees(filteredEmployees)
-      } 
-      void byJobNameAdmission(employees)
-    })
-  };
+        const filteredEmployees = employees.filter((emp: Employee) =>
+          emp.job.toLowerCase().includes(debouncedInput.toLowerCase()) ||
+          emp.name.toLowerCase().includes(debouncedInput.toLowerCase()) ||
+          emp.admission_date.toLowerCase().includes(debouncedInput.toLowerCase())
+        );
+        console.log('filteredEmployees', filteredEmployees);
+        setEmployees(filteredEmployees);
+      };
+      void byJobNameAdmission(employees);
+    });
+  }, [debouncedInput]);
 
   return (
     <main>
       <div className='up-tb-head'>
         <h1>Funcionários</h1>
-        <Input onChange={handleChange} />
+        <UncontrolledInput onChange={handleChange} placeholder='Pesquisar' />
       </div>
       <TableEmployees />
     </main>

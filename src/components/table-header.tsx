@@ -1,16 +1,17 @@
 import React from 'react'
 import { useWindowSize } from '@uidotdev/usehooks'
+import { Field } from './table'
 
 type GenericItem = { [key: string]: string | number | boolean }
 
 type MobileHeaderProps<T extends GenericItem> = {
-  mainProps: Array<keyof T>
+  mainFields: Array<keyof T>
 }
 
-function MobileHeader<T extends GenericItem>({ mainProps }: MobileHeaderProps<T>) {
+function MobileHeader<T extends GenericItem>({ mainFields }: MobileHeaderProps<T>) {
   return (
     <>
-      {mainProps.map((key) => (
+      {mainFields.map((key) => (
         <th key={String(key)}>{String(key)}</th>
       ))}
     </>
@@ -18,32 +19,38 @@ function MobileHeader<T extends GenericItem>({ mainProps }: MobileHeaderProps<T>
 }
 
 type WebHeaderProps<T extends GenericItem> = {
-  item: T | null
+  item: T
+  fields: Field<T> | undefined
 }
 
-function WebHeader<T extends GenericItem>({ item }: WebHeaderProps<T>) {
+function WebHeader<T extends GenericItem>({ item, fields }: WebHeaderProps<T>) {
   return (
     <>
-      {item ? Object.keys(item).map((key) => (
-        <th key={String(key)}>{String(key)}</th>
-      )) : <></>}
+      {fields 
+        ? fields.map((key) => (
+          <th key={String(key)}>{String(key.displayName)}</th>
+        )) : 
+        (Object.keys(item).map((key) => (
+          <th key={String(key)}>{String(key)}</th>
+        )))}
     </>
   )
 }
 
 type TableHeaderProps<T extends GenericItem> = {
   item: T | null
-  mainProps: Array<keyof T>
+  fields: Field<T> | undefined
+  mainFields: Array<keyof T>
 }
 
-export default function TableHeader<T extends GenericItem>({ item, mainProps }: TableHeaderProps<T>) {
+export default function TableHeader<T extends GenericItem>({ item, fields, mainFields }: TableHeaderProps<T>) {
   const { width } = useWindowSize()
   const mobile = (width ?? 0) <= 375
 
-  return (
+  return item == null ? <></> : (
     <thead>
       <tr>
-        {mobile ? <MobileHeader mainProps={mainProps} /> : <WebHeader item={item} />}
+        {mobile ? <MobileHeader mainFields={mainFields} /> : <WebHeader item={item} fields={fields} />}
       </tr>
     </thead>
   )

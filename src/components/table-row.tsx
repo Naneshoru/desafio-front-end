@@ -1,16 +1,16 @@
 import React from 'react'
 import { useWindowSize } from '@uidotdev/usehooks'
-import { GenericItem } from './table'
+import { Field, GenericItem } from './table'
 
 type MobileRowProps<T extends GenericItem> = {
   item: T, 
-  mainProps: Array<keyof T>
+  mainFields: Array<keyof T>
 }
 
-function MobileRow <T extends GenericItem>({ item, mainProps }: MobileRowProps<T>): React.JSX.Element {
+function MobileRow <T extends GenericItem>({ item, mainFields }: MobileRowProps<T>): React.JSX.Element {
   return (
     <>
-      {mainProps.map((property, index) => (
+      {mainFields.map((property, index) => (
         <td key={index}>{item[property]}</td>
       ))}
     </>
@@ -19,13 +19,18 @@ function MobileRow <T extends GenericItem>({ item, mainProps }: MobileRowProps<T
 
 type WebRowProps<T extends GenericItem> = {
   item: T
+  fields: Field<T> | undefined
 }
 
-function WebRow<T extends GenericItem>({ item }: WebRowProps<T>): React.JSX.Element {
+function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.JSX.Element {
   return (
     <>
-      {Object.values(item).map((value, index) => (
-        <td key={index}>{String(value)}</td>
+      {fields
+        ? fields.map((value, index) => (
+          <td key={index}>{item[String(value)]}</td>
+        ))
+        : Object.values(item).map((value, index) => (
+          <td key={index}>{String(value)}</td>
       ))}
     </>
   )
@@ -33,18 +38,21 @@ function WebRow<T extends GenericItem>({ item }: WebRowProps<T>): React.JSX.Elem
 
 type TableRowProps<T extends GenericItem> = {
   item: T
-  mainProps: Array<keyof T>
+  fields: Field<T> | undefined
+  mainFields: Array<keyof T>
 }
 
-export default function TableRow<T extends GenericItem>({ item, mainProps, ...props }: TableRowProps<T>) {
+export default function TableRow<T extends GenericItem>({ item, fields, mainFields, ...props }: TableRowProps<T>) {
   const { width } = useWindowSize()
   const mobile = (width ?? 0) <= 375
 
   return (
+    item == null ? <></> :
     <tr {...props}>
       {mobile
-        ? <MobileRow item={item} mainProps={mainProps}  />
-        : <WebRow item={item} />}
+        ? <MobileRow item={item} mainFields={mainFields}  />
+        : <WebRow item={item} fields={fields} />}
     </tr>
   )
 }
+

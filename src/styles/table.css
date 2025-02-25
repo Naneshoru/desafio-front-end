@@ -1,0 +1,49 @@
+table {
+  border-collapse:separate;
+  border-spacing: 0;
+}
+
+thead {font-family: Helvetica Neue;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19.54px;
+  letter-spacing: 0%;
+  color: var(--white-neutral);
+  text-transform: uppercase;
+}
+
+thead tr {
+  height: 47px;
+  border-radius: 8px 0 0 8px;
+  background-color: var(--blue-primary);
+
+  
+}
+thead tr  div {
+}
+
+thead tr td {
+
+}
+
+tbody {
+
+}
+
+tbody tr {
+  height: 48px;
+}
+
+tbody tr td {
+
+}
+
+tbody tr td img {
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+}
+
+td {
+  text-align: center;
+}
