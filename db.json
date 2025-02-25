@@ -73,10 +73,10 @@
       "image": "https://www.clipartmax.com/png/middle/277-2772117_user-profile-avatar-woman-icon-avatar-png-profile-icon.png"
     },
     {
-      "id": 9,
+      "id": "9",
       "name": "Ricardo",
       "job": "Front-end",
-      "admission_date": "2025-04-28",
+      "admission_date": "2025-04-28T00:00:00.000Z",
       "phone": "5516994643295",
       "image": "https://www.clipartmax.com/png/middle/3-35708_clergy-clip-art-small-png-avatar.png"
     }

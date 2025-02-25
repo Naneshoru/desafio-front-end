@@ -1,42 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import Table from './table'
+import React, { useContext } from 'react';
+import Table from '../components/table';
+import EmployeesContext from '../contexts/employees-context';
 
 type Employee = {
-  id: number
-  name: string
-  job: string
-  admission_date: string
-  phone: string
-  image: string
-}
-
-async function fetchEmployees () {
-  const data = await fetch('http://localhost:3000/employees?job=Front-end')
-  const employees: Employee[] = await data.json()
-  return employees
-}
+  id: number;
+  name: string;
+  job: string;
+  admission_date: string;
+  phone: string;
+  image: string;
+};
 
 export default function TableEmployees() {
-  const [employees, setEmployees] = useState<Employee[] | null>(null)
+  const { employees } = useContext(EmployeesContext)
 
-  useEffect(() => {
-    try {
-      fetchEmployees()
-        .then((res) => {
-          if (res) {
-            setEmployees(res)
-          } else {
-            setEmployees(null)
-          }
-        })
-    } catch (error) {
-      console.log(error)
-    }
-  }, [])
-
-  const mainProps: Array<keyof Employee> = ['image', 'name']
+  const mainProps: Array<keyof Employee> = ['image', 'name'];
 
   return (
     <Table items={employees} mainProps={mainProps} />
-  )
+  );
 }
