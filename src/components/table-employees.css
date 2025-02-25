@@ -24,7 +24,7 @@ tr td:not(:first-child):not(:last-child) {
 tr th:nth-child(1), 
 tr td:nth-child(1) {
   padding-left: 2rem;
-  padding-right: 2px;
+  padding-right: 6px;
   /* total 1330px na tela */
   /* total 960px */
   /* width: 7.75rem; */
@@ -51,5 +51,5 @@ tr td:nth-child(4) {
 
 tr th:nth-child(5), 
 tr td:nth-child(5) {
-  padding-left: 2rem;
+  padding-left: 6px;
 }
