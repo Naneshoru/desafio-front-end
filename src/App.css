@@ -1,5 +1,11 @@
 @import '/src/styles/input.css';
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 #root {
   font-family: Helvetica;
 
@@ -56,6 +62,7 @@
 }
 
 .app header svg {
+  box-sizing: content-box;
   padding-top: 12.58px;
   padding-left: 21.41px;
   padding-bottom: 13.42px;

@@ -24,13 +24,13 @@ export default function TableEmployees() {
     if (employees?.[index] == null) return [];
     const currentEmployee = employees[index];
     const templates = [
-      <td>{<img src={currentEmployee?.image} alt="employee" ></img>}</td>,
-      <td>{currentEmployee.name}</td>,
-      <td>{currentEmployee.job}</td>,
-      <td>{isoToDDMMYYYY(currentEmployee.admission_date)}</td>,
-      <td>{phoneFormat(currentEmployee.phone)}</td>
+      <td key={`cr-t1`}>{<img src={currentEmployee?.image} alt="employee" ></img>}</td>,
+      <td key={`cr-t2`}>{currentEmployee.name}</td>,
+      <td key={`cr-t3`}>{currentEmployee.job}</td>,
+      <td key={`cr-t4`}>{isoToDDMMYYYY(currentEmployee.admission_date)}</td>,
+      <td key={`cr-t5`}>{phoneFormat(currentEmployee.phone)}</td>
     ]
-    return <tr>{templates}</tr>
+    return <tr key={`cr-${index}`}>{templates}</tr>
   }, [employees])
 
   if (employees == null) return <></>

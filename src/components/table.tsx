@@ -26,7 +26,7 @@ export default function Table <T extends GenericItem>
             customRows(index)
           ))
           : items.map((item, index) => (
-             <TableRow key={index} item={item} fields={fields} mainFields={mainFields} />
+             <TableRow key={`tr-${index}`} item={item} fields={fields} mainFields={mainFields} />
           ))
         }
       </tbody>

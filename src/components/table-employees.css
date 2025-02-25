@@ -12,10 +12,19 @@ input {
   background-color: var(--white-neutral);
 }
 
+tr th {
+}
+
+tr th:not(:first-child):not(:last-child),
+tr td:not(:first-child):not(:last-child) {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
 tr th:nth-child(1), 
 tr td:nth-child(1) {
   padding-left: 2rem;
-
+  padding-right: 2px;
   /* total 1330px na tela */
   /* total 960px */
   /* width: 7.75rem; */
@@ -34,7 +43,13 @@ tr td:nth-child(3) {
   width: 19.479%;
 }
 
-tr th:nth-child(3), 
-tr td:nth-child(3) {
+tr th:nth-child(4), 
+tr td:nth-child(4) {
+  /* width: 216px */
   width: 22.5%;
+}
+
+tr th:nth-child(5), 
+tr td:nth-child(5) {
+  padding-left: 2rem;
 }

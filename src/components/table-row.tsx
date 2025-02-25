@@ -11,7 +11,7 @@ function MobileRow <T extends GenericItem>({ item, mainFields }: MobileRowProps<
   return (
     <>
       {mainFields.map((property, index) => (
-        <td key={index}>{item[property]}</td>
+        <td key={`mr-${index}`}>{item[property]}</td>
       ))}
     </>
   )
@@ -27,10 +27,10 @@ function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.
     <>
       {fields
         ? fields.map((value, index) => (
-          <td key={index}>{item[String(value)]}</td>
+          <td key={`wr-f-${index}`}>{item[String(value)]}</td>
         ))
         : Object.values(item).map((value, index) => (
-          <td key={index}>{String(value)}</td>
+          <td key={`wr-${index}`}>{String(value)}</td>
       ))}
     </>
   )

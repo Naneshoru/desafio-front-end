@@ -11,8 +11,8 @@ type MobileHeaderProps<T extends GenericItem> = {
 function MobileHeader<T extends GenericItem>({ mainFields }: MobileHeaderProps<T>) {
   return (
     <>
-      {mainFields.map((key) => (
-        <th key={String(key)}>{String(key)}</th>
+      {mainFields.map((key, index) => (
+        <th key={`mh-${index}`}>{String(key)}</th>
       ))}
     </>
   )
@@ -27,11 +27,11 @@ function WebHeader<T extends GenericItem>({ item, fields }: WebHeaderProps<T>) {
   return (
     <>
       {fields 
-        ? fields.map((key) => (
-          <th key={String(key)}>{String(key.displayName)}</th>
+        ? fields.map((key, index) => (
+          <th key={`wh-f-${index}`}>{String(key.displayName)}</th>
         )) : 
-        (Object.keys(item).map((key) => (
-          <th key={String(key)}>{String(key)}</th>
+        (Object.keys(item).map((key, index) => (
+          <th key={`wh-${index}`}>{String(key)}</th>
         )))}
     </>
   )
