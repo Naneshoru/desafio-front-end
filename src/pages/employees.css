@@ -2,3 +2,8 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+main .up-tb-head + .table-wrapper {
+  margin-inline: 2rem;
+  margin-bottom: 5rem;
+}

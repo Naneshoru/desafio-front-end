@@ -36,7 +36,7 @@ export default function TableEmployees() {
   if (employees == null) return <></>
 
   return (
-    <>
+    <div className='table-wrapper'>
     {/* <Debug value={customRows} /> */}
       <Table 
         items={employees} 
@@ -44,6 +44,6 @@ export default function TableEmployees() {
         mainFields={mainFields} 
         customRows={customRows}
       />
-    </>
+    </div>
   );
 }

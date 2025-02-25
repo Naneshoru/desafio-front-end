@@ -34,7 +34,7 @@ export default function Employees() {
         const filteredEmployees = employees.filter((emp: Employee) =>
           emp.job.toLowerCase().includes(debouncedInput.toLowerCase()) ||
           emp.name.toLowerCase().includes(debouncedInput.toLowerCase()) ||
-          emp.admission_date.toLowerCase().includes(debouncedInput.toLowerCase())
+          emp.admission_date.includes(debouncedInput)
         );
         console.log('filteredEmployees', filteredEmployees);
         setEmployees(filteredEmployees);

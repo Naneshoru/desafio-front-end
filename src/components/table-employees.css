@@ -1,3 +1,40 @@
 input {
   width: 287px;
 }
+
+.table-wrapper {
+  overflow: auto;
+  border-radius: 8px;
+}
+
+.table-wrapper table {
+  width: 100%;
+  background-color: var(--white-neutral);
+}
+
+tr th:nth-child(1), 
+tr td:nth-child(1) {
+  padding-left: 2rem;
+
+  /* total 1330px na tela */
+  /* total 960px */
+  /* width: 7.75rem; */
+  width: 12.916%;
+}
+
+tr th:nth-child(2), 
+tr td:nth-child(2) {
+  /* width: 14.375rem; */
+  width: 23.958%;
+}
+
+tr th:nth-child(3), 
+tr td:nth-child(3) {
+  /* width: 187px; */
+  width: 19.479%;
+}
+
+tr th:nth-child(3), 
+tr td:nth-child(3) {
+  width: 22.5%;
+}

@@ -1,6 +1,7 @@
 table {
-  border-collapse:separate;
   border-spacing: 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 thead {font-family: Helvetica Neue;
@@ -40,10 +41,10 @@ tbody tr td {
 tbody tr td img {
   height: 34px;
   width: 34px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 50%;
 }
 
-td {
-  text-align: center;
+td, th {
+  text-align: left;
 }
