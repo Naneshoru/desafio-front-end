@@ -16,9 +16,8 @@ thead tr {
   height: 47px;
   border-radius: 8px 0 0 8px;
   background-color: var(--blue-primary);
-
-  
 }
+
 thead tr  div {
 }
 
@@ -41,6 +40,7 @@ tbody tr td {
 tbody tr td img {
   height: 34px;
   width: 34px;
+  object-fit: cover;
   border-radius: 50%;
 }
 
