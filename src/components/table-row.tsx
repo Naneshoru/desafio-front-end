@@ -19,7 +19,7 @@ function MobileRow <T extends GenericItem>({ item, mainFields }: MobileRowProps<
 
 type WebRowProps<T extends GenericItem> = {
   item: T
-  fields: Field<T> | undefined
+  fields: Field<T>[] | undefined
 }
 
 function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.JSX.Element {
@@ -38,7 +38,7 @@ function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.
 
 type TableRowProps<T extends GenericItem> = {
   item: T
-  fields: Field<T> | undefined
+  fields: Field<T>[] | undefined
   mainFields: Array<keyof T>
   mobileWidth?: number
 }

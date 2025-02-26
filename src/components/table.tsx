@@ -4,10 +4,10 @@ import TableRow from './table-row'
 
 export type GenericItem = { [key: string]: string | number | boolean }
 
-export type Field<T extends GenericItem> = Array<{ name: keyof T, displayName: string }>
+export type Field<T extends GenericItem> = { name: keyof T, displayName: string }
 
 export type TableProps <T extends GenericItem> = {
-  fields?: Field<T> | undefined
+  fields?: Field<T>[] | undefined
   mainFields: Array<keyof T>
   items: T[] | null
   customRows?: (index: number) => React.JSX.Element | React.JSX.Element[]

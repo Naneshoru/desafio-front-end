@@ -1,26 +1,35 @@
 import React from 'react'
 import { useWindowSize } from '@uidotdev/usehooks'
 import { Field } from './table'
+import useFieldsMap from '../hooks/fields-map'
 
 type GenericItem = { [key: string]: string | number | boolean }
 
 type MobileHeaderProps<T extends GenericItem> = {
   mainFields: Array<keyof T>
+  fields?: Field<T>[]
 }
 
-function MobileHeader<T extends GenericItem>({ mainFields }: MobileHeaderProps<T>) {
+function MobileHeader<T extends GenericItem>({ fields, mainFields }: MobileHeaderProps<T>) {
+
+  const fieldsMap = useFieldsMap(fields)
   return (
     <>
-      {mainFields.map((key, index) => (
-        <th key={`mh-${index}`}>{String(key)}</th>
-      ))}
+      {fields 
+        ? mainFields.map((key, index) => (
+          <th key={`mh-${index}`}>{fieldsMap[String(key)]}</th>
+        ))
+        : mainFields.map((key, index) => (
+          <th key={`mh-${index}`}>{String(key)}</th>
+        ))
+      }
     </>
   )
 }
 
 type WebHeaderProps<T extends GenericItem> = {
   item: T
-  fields: Field<T> | undefined
+  fields: Field<T>[] | undefined
 }
 
 function WebHeader<T extends GenericItem>({ item, fields }: WebHeaderProps<T>) {
@@ -39,7 +48,7 @@ function WebHeader<T extends GenericItem>({ item, fields }: WebHeaderProps<T>) {
 
 type TableHeaderProps<T extends GenericItem> = {
   item: T | null
-  fields: Field<T> | undefined
+  fields: Field<T>[] | undefined
   mainFields: Array<keyof T>
   mobileWidth?: number
 }
@@ -52,7 +61,8 @@ export default function TableHeader<T extends GenericItem>({ item, fields, mainF
     <thead>
       <tr>
         {mobile 
-          ? <MobileHeader mainFields={mainFields} /> : <WebHeader item={item} fields={fields} />}
+          ? <MobileHeader mainFields={mainFields} fields={fields} /> 
+          : <WebHeader item={item} fields={fields} />}
       </tr>
     </thead>
   )

@@ -3,7 +3,7 @@ import React, { useCallback, useContext } from 'react';
 import './table-employees.css';
 import '../styles/table.css';
 
-import Table from '../components/table';
+import Table, { Field } from '../components/table';
 import EmployeesContext from '../contexts/employees-context';
 import { Employee } from '../models/employee';
 import { isoToDDMMYYYY, phoneFormat } from '../utils/formatters';
@@ -15,7 +15,7 @@ export default function TableEmployees() {
   const mobileWidth = 540
   const mobile = (width ?? 0) <= mobileWidth;
 
-  const fields: Array<{ name: keyof Employee, displayName: string }> = [
+  const fields: Field<Employee>[] = [
     { name: 'image', displayName: 'Foto' }, 
     { name: 'name', displayName: 'Nome' }, 
     { name: 'job', displayName: 'Cargo' }, 
