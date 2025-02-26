@@ -1,4 +1,6 @@
 @import '/src/styles/input.css';
+@import '/src/styles/flex.css';
+@import '/src/styles/spacing.css';
 
 * {
   box-sizing: border-box;
