@@ -50,7 +50,8 @@ export default function TableHeader<T extends GenericItem>({ item, fields, mainF
   return item == null ? <></> : (
     <thead>
       <tr>
-        {mobile ? <MobileHeader mainFields={mainFields} /> : <WebHeader item={item} fields={fields} />}
+        {mobile 
+          ? <MobileHeader mainFields={mainFields} /> : <WebHeader item={item} fields={fields} />}
       </tr>
     </thead>
   )
