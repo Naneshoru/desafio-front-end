@@ -12,6 +12,10 @@ input {
   background-color: var(--white-neutral);
 }
 
+wbr + span {
+  white-space: pre;
+}
+
 tr th {
 }
 
@@ -24,7 +28,7 @@ tr td:not(:first-child):not(:last-child) {
 tr th:nth-child(1), 
 tr td:nth-child(1) {
   padding-left: 2rem;
-  padding-right: 6px;
+  padding-right: 4px;
   /* total 1330px na tela */
   /* total 960px */
   /* width: 7.75rem; */
@@ -51,5 +55,24 @@ tr td:nth-child(4) {
 
 tr th:nth-child(5), 
 tr td:nth-child(5) {
-  padding-left: 6px;
+  padding-left: 4px;
+  padding-right: 8px;
+}
+
+@media (max-width: 540px) {
+  .app .up-tb-head {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.25rem;
+    padding-inline: 1.25rem;
+  }
+
+  main .up-tb-head + .table-wrapper {
+    margin-inline: 1.25rem;
+  }
+
+  .up-tb-head input {
+    width: auto;
+  }
 }

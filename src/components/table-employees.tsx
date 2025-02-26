@@ -24,20 +24,32 @@ export default function TableEmployees() {
     if (employees?.[index] == null) return [];
     const currentEmployee = employees[index];
     const templates = [
-      <td key={`cr-t1`}>{<img src={currentEmployee?.image} alt="employee" ></img>}</td>,
+      <td key={`cr-t1`}><img src={currentEmployee?.image} alt="employee" className="employee-image" /></td>,
       <td key={`cr-t2`}>{currentEmployee.name}</td>,
       <td key={`cr-t3`}>{currentEmployee.job}</td>,
       <td key={`cr-t4`}>{isoToDDMMYYYY(currentEmployee.admission_date)}</td>,
-      <td key={`cr-t5`}>{phoneFormat(currentEmployee.phone)}</td>
-    ]
-    return <tr key={`cr-${index}`}>{templates}</tr>
-  }, [employees])
+      <td key={`cr-t5`}>{wordBreakOpportunity(phoneFormat(currentEmployee.phone))}</td>
+    ];
+    return <tr key={`cr-${index}`}>{templates}</tr>;
+  }, [employees]);
 
-  if (employees == null) return <></>
+  const wordBreakOpportunity = (text: string) => {
+    const [countryCode, areaCode, phone] = text.split(' ');
+ 
+    return (
+      <>
+        {countryCode} {areaCode}
+        <wbr />
+        <span> {phone} </span>
+      </>
+    );
+  };
+
+  if (employees == null) return <></>;
 
   return (
     <div className='table-wrapper'>
-    {/* <Debug value={customRows} /> */}
+      {/* <Debug value={customRows} /> */}
       <Table 
         items={employees} 
         fields={fields} 
