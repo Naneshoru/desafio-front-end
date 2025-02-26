@@ -41,11 +41,12 @@ type TableHeaderProps<T extends GenericItem> = {
   item: T | null
   fields: Field<T> | undefined
   mainFields: Array<keyof T>
+  mobileWidth?: number
 }
 
-export default function TableHeader<T extends GenericItem>({ item, fields, mainFields }: TableHeaderProps<T>) {
+export default function TableHeader<T extends GenericItem>({ item, fields, mainFields, mobileWidth = 375 }: TableHeaderProps<T>) {
   const { width } = useWindowSize()
-  const mobile = (width ?? 0) <= 375
+  const mobile = (width ?? 0) <= mobileWidth
 
   return item == null ? <></> : (
     <thead>

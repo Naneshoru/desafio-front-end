@@ -11,14 +11,15 @@ export type TableProps <T extends GenericItem> = {
   mainFields: Array<keyof T>
   items: T[] | null
   customRows?: (index: number) => React.JSX.Element | React.JSX.Element[]
+  mobileWidth?: number
 }
 
 export default function Table <T extends GenericItem>
-({ items, fields, mainFields, customRows }: TableProps<T>) {
+({ items, fields, mainFields, customRows, mobileWidth }: TableProps<T>) {
   return (
     items == null ? <></> :
     <table>
-      <TableHeader item={items[0]} fields={fields} mainFields={mainFields} />
+      <TableHeader item={items[0]} fields={fields} mainFields={mainFields} mobileWidth={mobileWidth} />
       <tbody>
         {
           customRows
@@ -26,7 +27,7 @@ export default function Table <T extends GenericItem>
             customRows(index)
           ))
           : items.map((item, index) => (
-             <TableRow key={`tr-${index}`} item={item} fields={fields} mainFields={mainFields} />
+             <TableRow key={`tr-${index}`} item={item} fields={fields} mainFields={mainFields} mobileWidth={mobileWidth}/>
           ))
         }
       </tbody>

@@ -7,9 +7,13 @@ import Table from '../components/table';
 import EmployeesContext from '../contexts/employees-context';
 import { Employee } from '../models/employee';
 import { isoToDDMMYYYY, phoneFormat } from '../utils/formatters';
+import { useWindowSize } from '@uidotdev/usehooks';
 
 export default function TableEmployees() {
   const { employees } = useContext(EmployeesContext);
+  const { width } = useWindowSize();
+  const mobileWidth = 540
+  const mobile = (width ?? 0) <= mobileWidth;
 
   const fields: Array<{ name: keyof Employee, displayName: string }> = [
     { name: 'image', displayName: 'Foto' }, 
@@ -23,15 +27,20 @@ export default function TableEmployees() {
   const customRows = useCallback((index: number) => {
     if (employees?.[index] == null) return [];
     const currentEmployee = employees[index];
-    const templates = [
-      <td key={`cr-t1`}><img src={currentEmployee?.image} alt="employee" className="employee-image" /></td>,
-      <td key={`cr-t2`}>{currentEmployee.name}</td>,
-      <td key={`cr-t3`}>{currentEmployee.job}</td>,
-      <td key={`cr-t4`}>{isoToDDMMYYYY(currentEmployee.admission_date)}</td>,
-      <td key={`cr-t5`}>{wordBreakOpportunity(phoneFormat(currentEmployee.phone))}</td>
-    ];
+    const templates = 
+      mobile ? [
+        <td key={`cr-t1`}><img src={currentEmployee?.image} alt="employee" className="employee-image" /></td>,
+        <td key={`cr-t2`}>{currentEmployee.name}</td>,
+      ]
+      : [
+        <td key={`cr-t1`}><img src={currentEmployee?.image} alt="employee" className="employee-image" /></td>,
+        <td key={`cr-t2`}>{currentEmployee.name}</td>,
+        <td key={`cr-t3`}>{currentEmployee.job}</td>,
+        <td key={`cr-t4`}>{isoToDDMMYYYY(currentEmployee.admission_date)}</td>,
+        <td key={`cr-t5`}>{wordBreakOpportunity(phoneFormat(currentEmployee.phone))}</td>
+      ];
     return <tr key={`cr-${index}`}>{templates}</tr>;
-  }, [employees]);
+  }, [employees, mobile]);
 
   const wordBreakOpportunity = (text: string) => {
     const [countryCode, areaCode, phone] = text.split(' ');
@@ -49,12 +58,12 @@ export default function TableEmployees() {
 
   return (
     <div className='table-wrapper'>
-      {/* <Debug value={customRows} /> */}
       <Table 
         items={employees} 
         fields={fields} 
         mainFields={mainFields} 
         customRows={customRows}
+        mobileWidth={mobileWidth}
       />
     </div>
   );
