@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Fragment, useEffect, useState } from 'react';
 import { useWindowSize } from '@uidotdev/usehooks';
 import { Field, GenericItem } from './table';
@@ -25,7 +24,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
   return (
     <Fragment key={rowKey}>
     
-      <tr className='mobile-row'>
+      <tr className={`mobile-row ${open ? 'open' : ''}`}>
        
           {mainFields.map((property, index) => {
             const isLastField = index === mainFields.length - 1;
@@ -49,7 +48,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
        
       </tr>
       
-      <tr className={`collapsible ${open ? 'open' : ''}`} >
+      <tr className={`collapsible`} >
 
         <td colSpan={mainFields.length}>
           <div className='collapsible-content pd-t2 pd-b2 gap1 flex-vertical'>

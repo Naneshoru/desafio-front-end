@@ -2,13 +2,24 @@
 
 }
 
+.mobile-row .mobile-row-line img[alt="chevron-down"] {
+  transition: .3s;
+  cursor: pointer;
+}
+
+.mobile-row.open .mobile-row-line img[alt="chevron-down"] {
+  transform: rotate(180deg);
+}
+
+.mobile-row.open + .collapsible { 
+  display: table-row;
+}
+
 .collapsible {
   display: none;
 }
 
-.collapsible.open{ 
-  display: table-row;
-}
+
 
 .collapsible h2 {
   font-family: 'Helvetica Neue';

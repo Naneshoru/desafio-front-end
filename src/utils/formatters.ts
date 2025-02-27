@@ -1,7 +1,7 @@
 /**
  * @param isoString '2019-12-02T00:00:00.000Z'
  * @returns '11/02/2020'
- * (no Brazil)
+ * (no Brasil)
  */
 const isoToDDMMYYYY = (isoString: string) => {
   const date = new Date(isoString)
@@ -27,6 +27,10 @@ const NN = (value: number) => {
   return value
 }
 
+/**
+ * @param phone '5544999995555'
+ * @returns '+55 (54) 99999-5555'
+ */
 const phoneFormat = (phone: string) => {
   if (phone.length === 13) {
     const countryCode = phone.slice(0, 2)

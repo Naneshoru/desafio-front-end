@@ -31,9 +31,6 @@ wbr + span {
   outline: 1px solid #00000005;
 }
 
-tr th {
-}
-
 tr th:not(:first-child):not(:last-child),
 tr td:not(:first-child):not(:last-child) {
   padding-left: 2px;
