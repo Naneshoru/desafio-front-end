@@ -17,10 +17,10 @@ function MobileHeader<T extends GenericItem>({ fields, mainFields }: MobileHeade
     <>
       {fields 
         ? mainFields.map((key, index) => (
-          <th key={`mh-${index}`}>{fieldsMap[String(key)]}</th>
+          <th key={`mh-${index}`}><h2>{fieldsMap[String(key)]}</h2></th>
         ))
         : mainFields.map((key, index) => (
-          <th key={`mh-${index}`}>{String(key)}</th>
+          <th key={`mh-${index}`}><h2>{String(key)}</h2></th>
         ))
       }
     </>
@@ -37,10 +37,10 @@ function WebHeader<T extends GenericItem>({ item, fields }: WebHeaderProps<T>) {
     <>
       {fields 
         ? fields.map((key, index) => (
-          <th key={`wh-f-${index}`}>{String(key.displayName)}</th>
+          <th key={`wh-f-${index}`}><h2>{String(key.displayName)}</h2></th>
         )) : 
         (Object.keys(item).map((key, index) => (
-          <th key={`wh-${index}`}>{String(key)}</th>
+          <th key={`wh-${index}`}><h2>{String(key)}</h2></th>
         )))}
     </>
   )

@@ -1,6 +1,7 @@
 @import '/src/styles/input.css';
 @import '/src/styles/flex.css';
 @import '/src/styles/spacing.css';
+@import '/src/styles/fonts.css';
 
 * {
   box-sizing: border-box;
@@ -9,7 +10,7 @@
 }
 
 #root {
-  font-family: Helvetica;
+  font-family: Roboto;
 
   /* Colors */
   --blue-primary: #0500FF;
@@ -24,19 +25,19 @@
   /* Typo */
   h1 {
     font-size: 20px;
-    font-weight: medium;
+    font-weight: bold;
     font-family: Helvetica;
   }
 
   h2 {
     font-size: 16px;
-    font-weight: medium;
+    font-weight: bold;
     font-family: Helvetica;
   }
 
   h3 {
     font-size: 16px;
-    font-weight: regular;
+    font-weight: normal;
     font-family: Helvetica;
   }
 

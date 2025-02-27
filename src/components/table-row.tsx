@@ -38,7 +38,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
                   {field?.isImage ? (
                     <img src={String(item[property])} alt={field?.alt} />
                   ) : (
-                    <p>{String(item[property])}</p>
+                    <h3>{String(item[property])}</h3>
                   )}
                   {isLastField && <img src={chevronDown} alt="chevron-down" onClick={() => setOpen(prev => !prev)} />}
                 </div>
@@ -60,8 +60,8 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
                   <img src={String(item[field.name])} alt={field.alt} />
                 ) : (
                   <>
-                    <span>{field.displayName}</span>
-                    <span>{item[field.name]}</span>
+                    <h2>{field.displayName}</h2>
+                    <h3>{item[field.name]}</h3>
                   </>
                 )}
               </div>
@@ -92,13 +92,15 @@ function WebRow<T extends GenericItem>({ item, fields, rowKey }: WebRowProps<T>)
             {field.isImage ? (
               <img src={String(item[field.name])} />
             ) : (
-              item[field.name]
+              <h3>{item[field.name]}</h3>
             )}
           </td>
 
         ))
         : Object.values(item).map((value, index) => (
-          <td key={`wr-${rowKey}-${index}`}>{String(value)}</td>
+          <td key={`wr-${rowKey}-${index}`}>
+            <h3>{String(value)}</h3>
+          </td>
       ))}
     </Fragment>
   );

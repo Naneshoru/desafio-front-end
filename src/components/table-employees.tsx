@@ -32,10 +32,10 @@ export default function TableEmployees() {
 
     const template = [
       <td key={`cr-t1`}><img src={currentEmployee?.image} alt="employee" className="employee-image" /></td>,
-      <td key={`cr-t2`}>{currentEmployee.name}</td>,
-      <td key={`cr-t3`}>{currentEmployee.job}</td>,
-      <td key={`cr-t4`}>{isoToDDMMYYYY(currentEmployee.admission_date)}</td>,
-      <td key={`cr-t5`}>{wordBreakOpportunity(phoneFormat(currentEmployee.phone))}</td>
+      <td key={`cr-t2`}><h3>{currentEmployee.name}</h3></td>,
+      <td key={`cr-t3`}><h3>{currentEmployee.job}</h3></td>,
+      <td key={`cr-t4`}><h3>{isoToDDMMYYYY(currentEmployee.admission_date)}</h3></td>,
+      <td key={`cr-t5`}><h3>{wordBreakOpportunity(phoneFormat(currentEmployee.phone))}</h3></td>
     ];
     
     const customWebRows = <tr key={`cr-${index}`}>{template}</tr>
