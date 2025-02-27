@@ -31,7 +31,6 @@ export function UncontrolledInput ({ name, type, placeholder, onChange }: Uncont
   const ref = useRef<HTMLInputElement | null>(null)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('ref value', ref.current?.value)
     if (onChange) { onChange(event) }
   }
 

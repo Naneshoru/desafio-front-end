@@ -32,6 +32,9 @@
   --spc-md-2: 40px;
   --spc-md-3: 60px;
   --spc-md-4: 80px;
+
+  --thead-height: 47px;
+  --tbody-row-height: 60px;
 }
 
 /* Typo */

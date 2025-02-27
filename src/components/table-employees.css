@@ -4,6 +4,7 @@ input {
   border-bottom-width: 1px;
   border-color: var(--gray-10-neutral);
   border-style: solid;
+  outline-color: var(--blue-primary);
 }
 
 input::placeholder {
@@ -11,7 +12,7 @@ input::placeholder {
 }
 
 .table-wrapper {
-  overflow: auto;
+  /* overflow: auto; */
   border-radius: 8px;
   margin-inline: 2rem;
   margin-bottom: 5rem;
@@ -19,6 +20,11 @@ input::placeholder {
 
 .table-wrapper table {
   width: 100%;
+  background-color: var(--blue-primary);
+}
+
+table tbody tr, 
+table tbody td {
   background-color: var(--white-neutral);
 }
 
@@ -26,10 +32,49 @@ wbr + span {
   white-space: pre;
 }
 
-.table-wrapper tbody tr {
+.table-wrapper tbody {
+  background-color: var(--white-neutral);
+}
+
+
+.table-wrapper table tbody tr.open {
+  box-shadow: 0 -1px 0 0 #00000020, /* Sombra no topo */
+  -1px 0 0 0 #00000020, /* Sombra na esquerda */
+  1px 0 0 0 #00000020;
+}
+
+/* Remover contornos das duas últimas linhas */
+.table-wrapper tbody tr:not(:last-child) {
   box-shadow: 0 0 0 1px #00000020;
   outline: 1px solid #00000005;
 }
+/* para inserir na última visível = penultima quando está fechado */
+.table-wrapper tbody tr:nth-last-child(2), 
+.table-wrapper tbody tr:nth-last-child(1):not(.open) {
+  box-shadow: 0 -1px 0 0 #00000020;
+}
+
+/* Bordas finais */
+/* última linha geral */
+table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}
+
+/* última linha quando fechada = penultima */
+
+table tbody 
+tr:nth-last-child(2):not(.open) td:nth-last-child(2) {
+  border-bottom-left-radius: 8px;
+}
+table tbody 
+tr:nth-last-child(2):not(.open) td:nth-last-child(1) {
+  border-bottom-right-radius: 8px;
+}
+
+/* Padding e Largura das colunas */
 
 tr th:not(:first-child):not(:last-child),
 tr td:not(:first-child):not(:last-child) {
@@ -77,6 +122,7 @@ tr td:last-child {
   tr th:first-child, 
   tr td:first-child {
     padding-left: 1rem;
+    width: 6%;
   }
 
   tr th:first-child:not(:only-child), 
@@ -96,5 +142,12 @@ tr td:last-child {
 
   main .up-tb-head + .table-wrapper {
     margin-inline: 1.25rem;
+  }
+}
+
+@media (max-width: 375px) {
+  tr th:first-child, 
+  tr td:first-child {
+    width: 2.916%;
   }
 }

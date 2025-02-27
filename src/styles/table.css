@@ -10,11 +10,10 @@ thead {
   line-height: 19.54px;
   color: var(--white-neutral);
   text-transform: uppercase;
-  background-color: var(--blue-primary);
 }
 
 thead tr {
-  height: 47px;
+  height: var(--thead-height);
 }
 
 thead tr  div {

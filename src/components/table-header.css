@@ -4,3 +4,14 @@ thead tr h2 {
   line-height: 15.81px;
   letter-spacing: 0;
 }
+
+.header-cell {
+  padding-right: 12.5px;
+}
+
+.white-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--white-neutral);
+}

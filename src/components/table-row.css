@@ -1,5 +1,20 @@
-.mobile-row {
 
+.mobile-row.open{
+  position: sticky;
+  top: 0;
+  z-index: 110;
+  background-color: var(--white-neutral);
+}
+
+.mobile-row.open + .collapsible {
+  position: sticky;
+  top: var(--tbody-row-height);
+  z-index: 100;
+  background-color: var(--white-neutral);
+}
+
+.mobile-row .mobile-row-line h3 {
+  margin-left: -8px;
 }
 
 .mobile-row .mobile-row-line .img-box {
@@ -27,8 +42,6 @@
 .collapsible {
   display: none;
 }
-
-
 
 .collapsible h2 {
   font-family: 'Helvetica Neue';

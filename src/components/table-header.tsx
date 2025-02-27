@@ -18,10 +18,17 @@ function MobileHeader<T extends GenericItem>({ fields, mainFields }: MobileHeade
   return (
     <>
       {fields 
-        ? mainFields.map((key, index) => (
-          <th key={`mh-${index}`}><h2>{fieldsMap[String(key)]}</h2></th>
-        ))
-        : mainFields.map((key, index) => (
+        ? mainFields.map((key, index) => {
+          const isLastField = index === mainFields.length - 1
+          return (
+            <th key={`mh-${index}`}>
+              <div className='header-cell flex justify-between align-center'>
+                <h2>{fieldsMap[String(key)]}</h2>
+                {isLastField && <div className='white-dot' />}
+              </div>
+            </th>
+          )
+        }) : mainFields.map((key, index) => (
           <th key={`mh-${index}`}><h2>{String(key)}</h2></th>
         ))
       }
