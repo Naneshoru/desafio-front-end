@@ -39,7 +39,10 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
                   ) : (
                     <h3>{String(item[property])}</h3>
                   )}
-                  {isLastField && <img src={ChevronDownSvg} alt="chevron-down" onClick={() => setOpen(prev => !prev)} />}
+                  {isLastField && 
+                    <div className='img-box'>
+                      <img src={ChevronDownSvg} alt="chevron-down" onClick={() => setOpen(prev => !prev)} />
+                    </div>}
                 </div>
               </td>
 
