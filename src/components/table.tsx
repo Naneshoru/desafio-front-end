@@ -4,7 +4,12 @@ import TableRow from './table-row'
 
 export type GenericItem = { [key: string]: string | number | boolean }
 
-export type Field<T extends GenericItem> = { name: keyof T, displayName: string }
+export type Field<T extends GenericItem> = { 
+  name: keyof T, 
+  displayName: string, 
+  isImage?: boolean, 
+  alt?: string
+}
 
 export type TableProps <T extends GenericItem> = {
   fields?: Field<T>[] | undefined
@@ -27,7 +32,7 @@ export default function Table <T extends GenericItem>
             customRows(index)
           ))
           : items.map((item, index) => (
-             <TableRow key={`tr-${index}`} item={item} fields={fields} mainFields={mainFields} mobileWidth={mobileWidth}/>
+             <TableRow key={`tr-${index}`} item={item} fields={fields} mainFields={mainFields} />
           ))
         }
       </tbody>

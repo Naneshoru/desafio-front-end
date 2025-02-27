@@ -16,6 +16,11 @@ wbr + span {
   white-space: pre;
 }
 
+.table-wrapper tbody tr {
+  box-shadow: 0 0 0 1px #00000020;
+  outline: 1px solid #00000005;
+}
+
 tr th {
 }
 
@@ -25,41 +30,63 @@ tr td:not(:first-child):not(:last-child) {
   padding-right: 2px;
 }
 
-tr th:nth-child(1), 
-tr td:nth-child(1) {
+/* total 1330px na tela
+/* total 960px */
+/* width: 7.75rem; */
+tr th:first-child, 
+tr td:first-child {
+  padding-top: 13.5px; 
+  padding-bottom: 12.5px;
   padding-left: 2rem;
   padding-right: 4px;
-  /* total 1330px na tela */
-  /* total 960px */
-  /* width: 7.75rem; */
   width: 12.916%;
 }
 
+/* width: 14.375rem; */
 tr th:nth-child(2), 
 tr td:nth-child(2) {
-  /* width: 14.375rem; */
   width: 23.958%;
 }
 
+/* width: 187px; */
 tr th:nth-child(3), 
 tr td:nth-child(3) {
-  /* width: 187px; */
   width: 19.479%;
 }
 
+/* width: 216px */
 tr th:nth-child(4), 
 tr td:nth-child(4) {
-  /* width: 216px */
   width: 22.5%;
 }
 
-tr th:nth-child(5), 
-tr td:nth-child(5) {
+tr th:last-child, 
+tr td:last-child {
   padding-left: 4px;
   padding-right: 8px;
 }
 
 @media (max-width: 540px) {
+  tr th:first-child, 
+  tr td:first-child {
+    padding-left: 1rem;
+  }
+
+  tr th:first-child:not(:only-child), 
+  tr td:first-child:not(:only-child) {
+    padding-right: 4px;
+  }
+
+  tr th:last-child, 
+  tr td:last-child {
+    padding-right: 1.5rem;
+  }
+
+  tr th:last-child:not(:only-child), 
+  tr td:last-child:not(:only-child) {
+    padding-left: 4px;
+  }
+
   .app .up-tb-head {
     flex-direction: column;
     gap: 1.5rem;

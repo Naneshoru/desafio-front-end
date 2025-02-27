@@ -66,27 +66,18 @@
   flex-wrap: wrap;
 }
 
+.gap1 {
+  gap: 1rem;
+}
+
+.gap2 {
+  gap: 2rem;
+}
+
+.gap3 {
+  gap: 3rem;
+}
+
 .gap4 {
-  gap: 4px;
-}
-
-.gap6 {
-  gap: 6px;
-}
-
-.gap8 {
-  gap: 8px;
-}
-
-.gap12 {
-  gap: 12px;
-}
-
-
-.gap16 {
-  gap: 16px;
-}
-
-.gap24 {
-  gap: 24px;
+  gap: 4rem;
 }

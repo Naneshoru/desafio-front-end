@@ -5,18 +5,19 @@ import '../styles/table.css';
 
 import Table, { Field } from '../components/table';
 import EmployeesContext from '../contexts/employees-context';
-import { Employee } from '../models/employee';
 import { isoToDDMMYYYY, phoneFormat } from '../utils/formatters';
 import { useWindowSize } from '@uidotdev/usehooks';
+import { MobileRow } from './table-row';
+import { Employee } from '../models/employee';
 
 export default function TableEmployees() {
   const { employees } = useContext(EmployeesContext);
   const { width } = useWindowSize();
-  const mobileWidth = 540
+  const mobileWidth = 540;
   const mobile = (width ?? 0) <= mobileWidth;
 
   const fields: Field<Employee>[] = [
-    { name: 'image', displayName: 'Foto' }, 
+    { name: 'image', displayName: 'Foto', isImage: true, alt: 'employee image' }, 
     { name: 'name', displayName: 'Nome' }, 
     { name: 'job', displayName: 'Cargo' }, 
     { name: 'admission_date', displayName: 'Data de admissão' },
@@ -26,20 +27,35 @@ export default function TableEmployees() {
 
   const customRows = useCallback((index: number) => {
     if (employees?.[index] == null) return [];
+
     const currentEmployee = employees[index];
-    const templates = 
-      mobile ? [
-        <td key={`cr-t1`}><img src={currentEmployee?.image} alt="employee" className="employee-image" /></td>,
-        <td key={`cr-t2`}>{currentEmployee.name}</td>,
-      ]
-      : [
+
+    const template = 
+      // mobile ? [
+        // <td key={`cr-t1-imagem`}>
+        //   <img src={currentEmployee?.image} alt="employee" className="employee-image" />
+        // </td>,
+        // <td key={`cr-t2-nome`}>
+        //   <div className='flex justify-between align-center pd-r1'>
+        //     {currentEmployee.name} 
+        //     <img src={chevronDown} alt="chevron-down" />
+        //   </div>
+        // </td>,
+      // ]
+      // : 
+      [
         <td key={`cr-t1`}><img src={currentEmployee?.image} alt="employee" className="employee-image" /></td>,
         <td key={`cr-t2`}>{currentEmployee.name}</td>,
         <td key={`cr-t3`}>{currentEmployee.job}</td>,
         <td key={`cr-t4`}>{isoToDDMMYYYY(currentEmployee.admission_date)}</td>,
         <td key={`cr-t5`}>{wordBreakOpportunity(phoneFormat(currentEmployee.phone))}</td>
       ];
-    return <tr key={`cr-${index}`}>{templates}</tr>;
+    
+    const customWebRows = <tr key={`cr-${index}`}>{template}</tr>
+    
+    return mobile ? 
+      <MobileRow item={currentEmployee} fields={fields} mainFields={mainFields} />
+      : customWebRows;
   }, [employees, mobile]);
 
   const wordBreakOpportunity = (text: string) => {

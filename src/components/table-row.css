@@ -1,0 +1,15 @@
+.mobile-row {
+
+}
+
+.mobile-row .mobile-row-line {
+  
+}
+
+.collapsible {
+  display: none;
+}
+
+.collapsible.open{ 
+  display: table-row;
+}
