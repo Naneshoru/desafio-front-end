@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react';
+import React, { JSX, useCallback, useContext } from 'react';
 
 import './table-employees.css';
 import '../styles/table.css';
@@ -28,9 +28,9 @@ export default function TableEmployees() {
   const customRows = useCallback((index: number) => {
     if (employees?.[index] == null) return [];
 
-    const currentEmployee = employees[index];
+    const currentEmployee: Employee = employees[index];
 
-    const template = [
+    const template: JSX.Element[] = [
       <td key={`cr-t1`}><img src={currentEmployee?.image} alt="employee" className="employee-image" /></td>,
       <td key={`cr-t2`}><h3>{currentEmployee.name}</h3></td>,
       <td key={`cr-t3`}><h3>{currentEmployee.job}</h3></td>,
@@ -45,7 +45,7 @@ export default function TableEmployees() {
       : customWebRows;
   }, [employees, mobile]);
 
-  const wordBreakOpportunity = (text: string) => {
+  const wordBreakOpportunity = (text: string): JSX.Element => {
     const [countryCode, areaCode, phone] = text.split(' ');
  
     return (
@@ -56,8 +56,6 @@ export default function TableEmployees() {
       </>
     );
   };
-
-  if (employees == null) return <></>;
 
   return (
     <div className='table-wrapper'>

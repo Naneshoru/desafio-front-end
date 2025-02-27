@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useWindowSize } from '@uidotdev/usehooks';
 import { Field, GenericItem } from './table';
 import ChevronDownSvg from '../assets/charm_chevron-down.svg';
@@ -6,7 +6,7 @@ import ChevronDownSvg from '../assets/charm_chevron-down.svg';
 import './table-row.css'
 
 type MobileRowProps<T extends GenericItem> = {
-  fields: Field<T>[] | undefined;
+  fields: Field<T>[];
   mainFields: Array<keyof T>;
   item: T;
 };
@@ -14,14 +14,14 @@ type MobileRowProps<T extends GenericItem> = {
 export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: MobileRowProps<T>): React.JSX.Element {
   const [open, setOpen] = useState(false);
 
-  const notMainFields = fields?.filter((notMainKey) => !mainFields.includes(notMainKey.name));
+  const notMainFields = fields.filter((notMainKey) => !mainFields.includes(notMainKey.name));
 
   useEffect(() => {
     setOpen(false)
   }, [item])
   
   return (
-    <Fragment>
+    <>
     
       <tr className={`mobile-row ${open ? 'open' : ''}`}>
        
@@ -36,7 +36,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
                   {field?.isImage ? (
                     <img src={String(item[property])} alt={field?.alt} />
                   ) : (
-                    <h3>{String(item[property])}</h3>
+                    <h3>{item[property]}</h3>
                   )}
                   {isLastField && 
                     <div className='img-box'>
@@ -73,44 +73,35 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
 
       </tr>
   
-    </Fragment>
+    </>
   );
 }
 
 type WebRowProps<T extends GenericItem> = {
   item: T;
-  fields?: Field<T>[] | undefined;
+  fields: Field<T>[];
 };
 
 function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.JSX.Element {
   return (
-    <Fragment>
-      {fields
-        ? fields.map((field, index) => (
-
-          <td key={`wr-f-${index}`}>
-            {field.isImage ? (
-              <img src={String(item[field.name])} />
-            ) : (
-              <h3>{item[field.name]}</h3>
-            )}
-          </td>
-
-        ))
-        : Object.values(item).map((value, index) => (
-          <td key={`wr-${index}`}>
-            <h3>{String(value)}</h3>
-          </td>
+    <>
+      {fields.map((field, index) => (
+        <td key={`wr-f-${index}`}>
+          {field.isImage ? (
+            <img src={String(item[field.name])} />
+          ) : (
+            <h3>{item[field.name]}</h3>
+          )}
+        </td>
       ))}
-    </Fragment>
+    </>
   );
 }
 
 type TableRowProps<T extends GenericItem> = {
   item: T;
-  fields?: Field<T>[] | undefined;
+  fields: Field<T>[];
   mainFields: Array<keyof T>;
-  rowKey: string
 };
 
 export default function TableRow<T extends GenericItem>({ item, fields, mainFields }: TableRowProps<T>) {
@@ -118,7 +109,6 @@ export default function TableRow<T extends GenericItem>({ item, fields, mainFiel
   const mobile = (width ?? 0) <= 375;
 
   return (
-    !item ? <></> :
     <tr>
       {mobile
         ? <MobileRow item={item} fields={fields} mainFields={mainFields} />
