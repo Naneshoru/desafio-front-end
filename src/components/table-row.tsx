@@ -2,7 +2,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useWindowSize } from '@uidotdev/usehooks';
 import { Field, GenericItem } from './table';
-import chevronDown from '../assets/charm_chevron-down.svg';
+import ChevronDownSvg from '../assets/charm_chevron-down.svg';
 
 import './table-row.css'
 
@@ -40,7 +40,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
                   ) : (
                     <h3>{String(item[property])}</h3>
                   )}
-                  {isLastField && <img src={chevronDown} alt="chevron-down" onClick={() => setOpen(prev => !prev)} />}
+                  {isLastField && <img src={ChevronDownSvg} alt="chevron-down" onClick={() => setOpen(prev => !prev)} />}
                 </div>
               </td>
 
@@ -55,7 +55,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
           <div className='collapsible-content pd-t2 pd-b2 gap1 flex-vertical'>
 
             {notMainFields?.map((field, index) => (
-              <div className='flex justify-between' key={`nmr-${rowKey}-${index}`}>
+              <div className='flex justify-between gap1' key={`nmr-${rowKey}-${index}`}>
                 {field.isImage ? (
                   <img src={String(item[field.name])} alt={field.alt} />
                 ) : (

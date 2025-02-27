@@ -1,35 +1,31 @@
 @font-face {
-  font-family: Helvetica;
+  font-family: 'Helvetica';
   src: 
-    url('../fonts/Helvetica.ttf') format('truetype'),
-    url('../fonts/Helvetica.woff') format('woff');
-  font-weight: normal; 
-  /* 400 */
+    url('../fonts/Helvetica.woff') format('woff'),
+    url('../fonts/Helvetica.ttf') format('truetype');
+  font-weight: 400; /* Normal */
   font-style: normal;
 }
 
 @font-face {
-  font-family: Helvetica;
+  font-family: 'Helvetica';
   src: url('../fonts/Helvetica-Medium.ttf') format('truetype');
-  font-weight: medium;
-  /* 500 */
+  font-weight: 500; /* Medium */
   font-style: normal;
 }
 
 @font-face {
-  font-family: Helvetica Neue;
+  font-family: 'Helvetica Neue';
   src: 
-    url('../fonts/HelveticaNeue.ttf') format('truetype'),
-    url('../fonts/HelveticaNeue.woff') format('woff');
-  font-weight: normal;
+    url('../fonts/HelveticaNeue.ttf') format('truetype');
+  font-weight: 400; /* Normal */
   font-style: normal;
 }
 
 @font-face {
-  font-family: Helvetica Neue;
-  src: 
-    url('../fonts/HelveticaNeue-Medium.woff') format('woff');
-  font-weight: medium;
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeue-Medium.ttf') format('truetype');
+  font-weight: 500; /* Medium */
   font-style: normal;
 }
 

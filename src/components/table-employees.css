@@ -1,10 +1,20 @@
 input {
   width: 287px;
+  border-radius: 8px;
+  border-bottom-width: 1px;
+  border-color: var(--gray-10-neutral);
+  border-style: solid;
+}
+
+input::placeholder {
+  color: var(--gray-20-neutral);
 }
 
 .table-wrapper {
   overflow: auto;
   border-radius: 8px;
+  margin-inline: 2rem;
+  margin-bottom: 5rem;
 }
 
 .table-wrapper table {
@@ -87,19 +97,7 @@ tr td:last-child {
     padding-left: 4px;
   }
 
-  .app .up-tb-head {
-    flex-direction: column;
-    gap: 1.5rem;
-    padding-top: 1.5rem;
-    padding-bottom: 1.25rem;
-    padding-inline: 1.25rem;
-  }
-
   main .up-tb-head + .table-wrapper {
     margin-inline: 1.25rem;
-  }
-
-  .up-tb-head input {
-    width: auto;
   }
 }

@@ -4,10 +4,50 @@ main {
 }
 
 main h1 {
-  font-family: Helvetica neue;
+  font-family: 'Helvetica neue';
 }
 
-main .up-tb-head + .table-wrapper {
-  margin-inline: 2rem;
-  margin-bottom: 5rem;
+main .up-tb-head h1 {
+  margin: auto 0px;
+}
+
+main .up-tb-head .input-wrapper {
+  position: relative;
+}
+
+main .up-tb-head .input-wrapper input {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19.09px;
+  letter-spacing: 0;
+
+  padding-right: 3rem;
+}
+
+main .up-tb-head .input-wrapper img {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+}
+
+@media (max-width: 540px) {
+  main .up-tb-head h1 {
+    font-family: 'Helvetica Neue';
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 19.76px;
+    letter-spacing: 0;
+  }
+
+  .app .up-tb-head {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.25rem;
+    padding-inline: 1.25rem;
+  }
+
+  .up-tb-head input {
+    width: 100%;
+  }
 }

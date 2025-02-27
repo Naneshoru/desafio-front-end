@@ -7,6 +7,7 @@ import { UncontrolledInput } from '../components/input';
 import EmployeesContext from '../contexts/employees-context';
 import { Employee } from '../models/employee';
 import { useDebounce } from '../hooks/debounce';
+import SearchSvg from '../assets/search.svg'
 
 export default function Employees() {
   const { getEmployees, fetchEmployees, setEmployees } = useContext(EmployeesContext);
@@ -47,7 +48,10 @@ export default function Employees() {
     <main>
       <div className='up-tb-head'>
         <h1>Funcionários</h1>
-        <UncontrolledInput onChange={handleChange} placeholder='Pesquisar' />
+        <div className='input-wrapper'>
+          <UncontrolledInput onChange={handleChange} placeholder='Pesquisar' />
+          <img src={SearchSvg} alt="Seach icon" />
+        </div>
       </div>
       <TableEmployees />
     </main>

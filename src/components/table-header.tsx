@@ -3,6 +3,8 @@ import { useWindowSize } from '@uidotdev/usehooks'
 import { Field } from './table'
 import useFieldsMap from '../hooks/fields-map'
 
+import './table-header.css'
+
 type GenericItem = { [key: string]: string | number | boolean }
 
 type MobileHeaderProps<T extends GenericItem> = {
