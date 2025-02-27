@@ -33,7 +33,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
 
             return (
               
-              <td key={`mr-${index}`} className='mobile-row-line'>
+              <td key={`mr-${rowKey}-${index}`} className='mobile-row-line'>
                 <div className='flex justify-between align-center'>
                   {field?.isImage ? (
                     <img src={String(item[property])} alt={field?.alt} />
@@ -55,7 +55,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
           <div className='collapsible-content pd-t2 pd-b2 gap1 flex-vertical'>
 
             {notMainFields?.map((field, index) => (
-              <div className='flex justify-between' key={`nmr-${index}`}>
+              <div className='flex justify-between' key={`nmr-${rowKey}-${index}`}>
                 {field.isImage ? (
                   <img src={String(item[field.name])} alt={field.alt} />
                 ) : (
@@ -88,7 +88,7 @@ function WebRow<T extends GenericItem>({ item, fields, rowKey }: WebRowProps<T>)
       {fields
         ? fields.map((field, index) => (
 
-          <td key={`wr-f-${index}`}>
+          <td key={`wr-f-${rowKey}-${index}`}>
             {field.isImage ? (
               <img src={String(item[field.name])} />
             ) : (
@@ -98,7 +98,7 @@ function WebRow<T extends GenericItem>({ item, fields, rowKey }: WebRowProps<T>)
 
         ))
         : Object.values(item).map((value, index) => (
-          <td key={`wr-${index}`}>{String(value)}</td>
+          <td key={`wr-${rowKey}-${index}`}>{String(value)}</td>
       ))}
     </Fragment>
   );
