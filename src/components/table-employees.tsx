@@ -44,17 +44,17 @@ export default function TableEmployees() {
       // ]
       // : 
       [
-        <td key={`cr-t1`}><img src={currentEmployee?.image} alt="employee" className="employee-image" /></td>,
-        <td key={`cr-t2`}>{currentEmployee.name}</td>,
-        <td key={`cr-t3`}>{currentEmployee.job}</td>,
-        <td key={`cr-t4`}>{isoToDDMMYYYY(currentEmployee.admission_date)}</td>,
-        <td key={`cr-t5`}>{wordBreakOpportunity(phoneFormat(currentEmployee.phone))}</td>
+        <td key={`cr-t1-${currentEmployee.id}`}><img src={currentEmployee?.image} alt="employee" className="employee-image" /></td>,
+        <td key={`cr-t2-${currentEmployee.id}`}>{currentEmployee.name}</td>,
+        <td key={`cr-t3-${currentEmployee.id}`}>{currentEmployee.job}</td>,
+        <td key={`cr-t4-${currentEmployee.id}`}>{isoToDDMMYYYY(currentEmployee.admission_date)}</td>,
+        <td key={`cr-t5-${currentEmployee.id}`}>{wordBreakOpportunity(phoneFormat(currentEmployee.phone))}</td>
       ];
     
     const customWebRows = <tr key={`cr-${index}`}>{template}</tr>
     
     return mobile ? 
-      <MobileRow item={currentEmployee} fields={fields} mainFields={mainFields} />
+      <MobileRow item={currentEmployee} fields={fields} mainFields={mainFields} rowKey={`cmr-${index}`} />
       : customWebRows;
   }, [employees, mobile]);
 
