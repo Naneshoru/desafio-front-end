@@ -22,25 +22,6 @@
   --gray-20-neutral: #9E9E9E;
   --black-neutral: #1C1C1C;
 
-  /* Typo */
-  h1 {
-    font-size: 20px;
-    font-weight: bold;
-    font-family: Helvetica;
-  }
-
-  h2 {
-    font-size: 16px;
-    font-weight: bold;
-    font-family: Helvetica;
-  }
-
-  h3 {
-    font-size: 16px;
-    font-weight: normal;
-    font-family: Helvetica;
-  }
-
   /* Space */
   --spc-lt-1: 4px;
   --spc-lt-2: 8px;
@@ -51,6 +32,25 @@
   --spc-md-2: 40px;
   --spc-md-3: 60px;
   --spc-md-4: 80px;
+}
+
+/* Typo */
+h1 {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: Helvetica;
+}
+
+h2 {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Helvetica;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: normal;
+  font-family: Helvetica;
 }
 
 .app {
