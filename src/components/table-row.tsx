@@ -57,7 +57,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
           <div className='collapsible-content pd-t2 pd-b2 gap1 flex-vertical'>
 
             {notMainFields?.map((field, index) => (
-              <div className='flex justify-between gap1' key={`nmr-${rowKey}-${index}`}>
+              <div className='flex justify-between gap1 dashed' key={`nmr-${rowKey}-${index}`}>
                 {field.isImage ? (
                   <img src={String(item[field.name])} alt={field.alt} />
                 ) : (
