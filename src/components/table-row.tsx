@@ -9,10 +9,9 @@ type MobileRowProps<T extends GenericItem> = {
   fields: Field<T>[] | undefined;
   mainFields: Array<keyof T>;
   item: T;
-  rowKey: string
 };
 
-export function MobileRow<T extends GenericItem>({ fields, mainFields, item, rowKey }: MobileRowProps<T>): React.JSX.Element {
+export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: MobileRowProps<T>): React.JSX.Element {
   const [open, setOpen] = useState(false);
 
   const notMainFields = fields?.filter((notMainKey) => !mainFields.includes(notMainKey.name));
@@ -22,7 +21,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
   }, [item])
   
   return (
-    <Fragment key={rowKey}>
+    <Fragment>
     
       <tr className={`mobile-row ${open ? 'open' : ''}`}>
        
@@ -32,7 +31,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
 
             return (
               
-              <td key={`mr-${rowKey}-${index}`} className='mobile-row-line'>
+              <td key={`mr-${index}`} className='mobile-row-line'>
                 <div className='flex justify-between align-center'>
                   {field?.isImage ? (
                     <img src={String(item[property])} alt={field?.alt} />
@@ -57,7 +56,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
           <div className='collapsible-content pd-t2 pd-b2 gap1 flex-vertical'>
 
             {notMainFields?.map((field, index) => (
-              <div className='flex justify-between gap1 dashed' key={`nmr-${rowKey}-${index}`}>
+              <div className='flex justify-between gap1 dashed' key={`nmr-${index}`}>
                 {field.isImage ? (
                   <img src={String(item[field.name])} alt={field.alt} />
                 ) : (
@@ -81,16 +80,15 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item, row
 type WebRowProps<T extends GenericItem> = {
   item: T;
   fields?: Field<T>[] | undefined;
-  rowKey: string
 };
 
-function WebRow<T extends GenericItem>({ item, fields, rowKey }: WebRowProps<T>): React.JSX.Element {
+function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.JSX.Element {
   return (
-    <Fragment key={rowKey}>
+    <Fragment>
       {fields
         ? fields.map((field, index) => (
 
-          <td key={`wr-f-${rowKey}-${index}`}>
+          <td key={`wr-f-${index}`}>
             {field.isImage ? (
               <img src={String(item[field.name])} />
             ) : (
@@ -100,7 +98,7 @@ function WebRow<T extends GenericItem>({ item, fields, rowKey }: WebRowProps<T>)
 
         ))
         : Object.values(item).map((value, index) => (
-          <td key={`wr-${rowKey}-${index}`}>
+          <td key={`wr-${index}`}>
             <h3>{String(value)}</h3>
           </td>
       ))}
@@ -115,7 +113,7 @@ type TableRowProps<T extends GenericItem> = {
   rowKey: string
 };
 
-export default function TableRow<T extends GenericItem>({ item, fields, mainFields, rowKey }: TableRowProps<T>) {
+export default function TableRow<T extends GenericItem>({ item, fields, mainFields }: TableRowProps<T>) {
   const { width } = useWindowSize();
   const mobile = (width ?? 0) <= 375;
 
@@ -123,8 +121,8 @@ export default function TableRow<T extends GenericItem>({ item, fields, mainFiel
     !item ? <></> :
     <tr>
       {mobile
-        ? <MobileRow item={item} fields={fields} mainFields={mainFields} rowKey={rowKey} />
-        : <WebRow item={item} fields={fields} rowKey={rowKey} />}
+        ? <MobileRow item={item} fields={fields} mainFields={mainFields} />
+        : <WebRow item={item} fields={fields} />}
     </tr>
   );
 }

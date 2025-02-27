@@ -41,7 +41,7 @@ export default function TableEmployees() {
     const customWebRows = <tr key={`cr-${index}`}>{template}</tr>
     
     return mobile ? 
-      <MobileRow item={currentEmployee} fields={fields} mainFields={mainFields} rowKey={`cmr-${index}`} key={`cmr-${index}`} />
+      <MobileRow item={currentEmployee} fields={fields} mainFields={mainFields} key={`cmr-${index}`} />
       : customWebRows;
   }, [employees, mobile]);
 
