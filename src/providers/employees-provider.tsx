@@ -4,6 +4,7 @@ import EmployeesContext from "../contexts/employees-context";
 
 function EmployeesProvider({ children }: { children: React.ReactElement | React.ReactElement[] }) {
   const [employees, setEmployees] = useState<Employee[] | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   async function getEmployees (params?: string) {
     try {
@@ -11,7 +12,7 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
       if (employees) {
         setEmployees(employees)
       } else {
-        setEmployees(null)
+        setEmployees([])
       }
     } catch (error) {
       console.log(error)
@@ -19,14 +20,16 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
   }
 
   async function fetchEmployees (params?: string) {
+    setIsLoading(true)
     const queryParams = params ?? ''
     const data = await fetch(`http://localhost:3000/employees${queryParams}`)
     const employees: Employee[] = await data.json()
+    setIsLoading(false)
     return employees
   }
 
   return (
-    <EmployeesContext.Provider value={{ getEmployees, fetchEmployees, employees, setEmployees }}>
+    <EmployeesContext.Provider value={{ getEmployees, fetchEmployees, employees, setEmployees, isLoading }}>
       {children}
     </EmployeesContext.Provider>
   )

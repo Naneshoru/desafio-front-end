@@ -6,5 +6,3 @@ export type Employee = {
   phone: string
   image: string
 }
-
-// export type KeyOfEmployee = Array<keyof Employee>

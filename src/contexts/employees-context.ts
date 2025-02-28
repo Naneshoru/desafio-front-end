@@ -6,13 +6,15 @@ type EmployeesContextProps = {
   setEmployees: (employess: Employee[] | null) => void,
   fetchEmployees: (params?: string) => Promise<Employee[]>
   getEmployees: (params?: string) => Promise<void>
+  isLoading: boolean
 }
 
 const initialValues = {
   employees: null,
   setEmployees: () => {},
   fetchEmployees: async () => [],
-  getEmployees: async () => {}
+  getEmployees: async () => {},
+  isLoading: false
 }
 
 const EmployeesContext = createContext<EmployeesContextProps>(initialValues)

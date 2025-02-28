@@ -16,23 +16,8 @@ thead tr {
   height: var(--thead-height);
 }
 
-thead tr  div {
-}
-
-thead tr td {
-
-}
-
-tbody {
-
-}
-
 tbody tr {
   height: 48px;
-}
-
-tbody tr td {
-
 }
 
 tbody tr td img {

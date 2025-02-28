@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react'
-import { useWindowSize } from '@uidotdev/usehooks'
+import React from 'react'
 import { Field } from './table'
 import useFieldsMap from '../hooks/fields-map'
 
 import './table-header.css'
+import useScreenSize from '../hooks/screen-size'
 
 type GenericItem = { [key: string]: string | number | boolean }
 
@@ -21,7 +21,7 @@ function MobileHeader<T extends GenericItem>({ fields, mainFields }: MobileHeade
       {mainFields.map((key, index) => {
           const isLastField = index === mainFields.length - 1
           return (
-            <th key={`mh-${index}`}>
+            <th key={`mh-mf-${index}`}>
               <div className='header-cell flex justify-between align-center'>
                 <h2>{fieldsMap[key]}</h2>
                 {isLastField && <div className='white-dot' />}
@@ -55,8 +55,8 @@ type TableHeaderProps<T extends GenericItem> = {
 }
 
 export default function TableHeader<T extends GenericItem>({ fields, mainFields, mobileWidth = 375 }: TableHeaderProps<T>) {
-  const { width } = useWindowSize()
-  const mobile = useMemo(() => (width ?? 0) <= mobileWidth, [width, mobileWidth])
+  const { size } = useScreenSize(mobileWidth)
+  const mobile = size === 'mobile' 
 
   return (
     <thead>

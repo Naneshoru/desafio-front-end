@@ -10,13 +10,14 @@ import { useDebounce } from '../hooks/debounce';
 import SearchSvg from '../assets/search.svg'
 
 export default function Employees() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { getEmployees, fetchEmployees, setEmployees } = useContext(EmployeesContext);
 
   useEffect(() => {
     getEmployees();
   }, []);
 
-  const [debouncedInput, setDebouncedInput] = useState<string>('');
+  const [debouncedInput, setDebouncedInput] = useState<string | null>(null);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
@@ -28,6 +29,7 @@ export default function Employees() {
   }, 300);
 
   useEffect(() => {
+    if (debouncedInput == null) return
     const query = `?q=${debouncedInput}`;
 
     fetchEmployees(query).then((employees: Employee[]) => {
@@ -38,6 +40,7 @@ export default function Employees() {
           emp.admission_date.includes(debouncedInput)
         );
         console.log('filteredEmployees', filteredEmployees);
+        
         setEmployees(filteredEmployees);
       };
       void byJobNameAdmission(employees);
