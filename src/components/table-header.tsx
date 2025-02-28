@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useWindowSize } from '@uidotdev/usehooks'
 import { Field } from './table'
 import useFieldsMap from '../hooks/fields-map'
@@ -56,7 +56,7 @@ type TableHeaderProps<T extends GenericItem> = {
 
 export default function TableHeader<T extends GenericItem>({ fields, mainFields, mobileWidth = 375 }: TableHeaderProps<T>) {
   const { width } = useWindowSize()
-  const mobile = (width ?? 0) <= mobileWidth
+  const mobile = useMemo(() => (width ?? 0) <= mobileWidth, [width, mobileWidth])
 
   return (
     <thead>

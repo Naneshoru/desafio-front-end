@@ -1,4 +1,4 @@
-import React, { JSX, useCallback, useContext } from 'react';
+import React, { JSX, useCallback, useContext, useMemo } from 'react';
 
 import './table-employees.css';
 import '../styles/table.css';
@@ -14,7 +14,7 @@ export default function TableEmployees() {
   const { employees } = useContext(EmployeesContext);
   const { width } = useWindowSize();
   const mobileWidth = 540;
-  const mobile = (width ?? 0) <= mobileWidth;
+  const mobile = useMemo(() => (width ?? 0) <= mobileWidth, [width]);
 
   const fields: Field<Employee>[] = [
     { name: 'image', displayName: 'Foto', isImage: true, alt: 'employee image' }, 
@@ -25,25 +25,33 @@ export default function TableEmployees() {
   ];
   const mainFields: Array<keyof Employee> = ['image', 'name'];
 
-  const customRows = useCallback((index: number) => {
-    if (employees?.[index] == null) return [];
+  const formattedEmployees = useMemo(() => {
+    return employees?.map(employee => ({
+      ...employee,
+      admission_date: isoToDDMMYYYY(employee.admission_date),
+      phone: phoneFormat(employee.phone)
+    })) ?? null;
+  }, [employees]);
 
-    const currentEmployee: Employee = employees[index];
+  const customRows = useCallback((index: number) => {
+    if (formattedEmployees?.[index] == null) return [];
+
+    const currentEmployee: Employee = formattedEmployees[index];
 
     const template: JSX.Element[] = [
       <td key={`cr-t1`}><img src={currentEmployee?.image} alt="employee" className="employee-image" /></td>,
       <td key={`cr-t2`}><h3>{currentEmployee.name}</h3></td>,
       <td key={`cr-t3`}><h3>{currentEmployee.job}</h3></td>,
-      <td key={`cr-t4`}><h3>{isoToDDMMYYYY(currentEmployee.admission_date)}</h3></td>,
-      <td key={`cr-t5`}><h3>{wordBreakOpportunity(phoneFormat(currentEmployee.phone))}</h3></td>
+      <td key={`cr-t4`}><h3>{currentEmployee.admission_date}</h3></td>,
+      <td key={`cr-t5`}><h3>{wordBreakOpportunity(currentEmployee.phone)}</h3></td>
     ];
     
-    const customWebRows = <tr key={`cr-${index}`}>{template}</tr>
+    const customWebRows = <tr key={`cr-${index}`}>{template}</tr>;
     
     return mobile ? 
       <MobileRow item={currentEmployee} fields={fields} mainFields={mainFields} key={`cmr-${index}`} />
       : customWebRows;
-  }, [employees, mobile]);
+  }, [formattedEmployees, mobile]);
 
   const wordBreakOpportunity = (text: string): JSX.Element => {
     const [countryCode, areaCode, phone] = text.split(' ');
@@ -60,7 +68,7 @@ export default function TableEmployees() {
   return (
     <div className='table-wrapper'>
       <Table 
-        items={employees} 
+        items={formattedEmployees} 
         fields={fields} 
         mainFields={mainFields} 
         customRows={customRows}
