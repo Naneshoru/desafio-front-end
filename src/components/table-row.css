@@ -1,4 +1,3 @@
-
 .mobile-row.open{
   position: sticky;
   top: 0;
@@ -35,13 +34,41 @@
   transform: rotate(180deg);
 }
 
-.mobile-row.open + .collapsible { 
-  display: table-row;
+
+/* Início da animação de Abertura e Fechamento Suave */
+
+.mobile-row.open + .collapsible .collapsible-content { 
+  max-height: 9999px;
+  padding: var(--spc-md-1) var(--spc-rg-1);
 }
 
-.collapsible {
-  display: none;
+.mobile-row.open + .collapsible td { 
+  max-height: 9999px;
+  padding-top: 13.5px;
+  padding-bottom: 12.5px;
+  padding-right: 1.5rem;
+  padding-left: 1rem;
 }
+
+.collapsible .collapsible-content {
+  max-height: 0;
+  padding: 0 var(--spc-rg-1);
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.collapsible { 
+  max-height: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: height .3s ease, max-height 0.3s ease, padding 0.3s ease;
+}
+tr th:last-child, tr td:last-child {
+  padding-block: 0;
+}
+
+/* Fim da animação de abertura e fechamento suave */
 
 .collapsible h2 {
   font-family: 'Helvetica Neue';
