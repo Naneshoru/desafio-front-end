@@ -1,9 +1,9 @@
 import React, { Fragment, JSX, useCallback, useEffect,  useState } from 'react';
-import { Field, GenericItem } from './table';
 import ChevronDownSvg from '../assets/charm_chevron-down.svg';
+import useScreenSize from '../hooks/screen-size';
+import { Field, GenericItem } from '../models/table';
 
 import './table-row.css'
-import useScreenSize from '../hooks/screen-size';
 
 type MobileRowProps<T extends GenericItem> = {
   fields: Field<T>[];

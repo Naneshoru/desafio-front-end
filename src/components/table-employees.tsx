@@ -1,29 +1,31 @@
-import React, { JSX, useCallback, useContext, useMemo } from 'react';
+import React, { JSX, useCallback, useContext, useMemo, useState } from 'react';
 
 import './table-employees.css';
 import '../styles/table.css';
 
-import Table, { Field } from '../components/table';
+import Table from '../components/table';
 import EmployeesContext from '../contexts/employees-context';
 import { isoToDDMMYYYY, phoneFormat } from '../utils/formatters';
 import { MobileRow } from './table-row';
 import { Employee } from '../models/employee';
 import useScreenSize from '../hooks/screen-size';
 import { SkeletonImage, SkeletonText } from './table-body';
+import { Field, GenericItem } from '../models/table';
 
 export default function TableEmployees() {
-  const { employees } = useContext(EmployeesContext);
+  const { employees, getEmployees } = useContext(EmployeesContext);
   const mobileWidth = 540
   const { size } = useScreenSize(mobileWidth)
   const mobile = size === 'mobile' 
 
-  const fields: Field<Employee>[] = [
+  const [fields, setFields] = useState<Field<Employee>[]> (() => [
     { name: 'image', displayName: 'Foto', isImage: true, alt: 'employee image' }, 
-    { name: 'name', displayName: 'Nome' }, 
-    { name: 'job', displayName: 'Cargo' }, 
-    { name: 'admission_date', displayName: 'Data de admissão' },
-    { name: 'phone', displayName: 'Telefone' }
-  ];
+    { name: 'name', displayName: 'Nome', sortable: true }, 
+    { name: 'job', displayName: 'Cargo', sortable: true }, 
+    { name: 'admission_date', displayName: 'Data de admissão', sortable: true },
+    { name: 'phone', displayName: 'Telefone', sortable: true }
+  ])
+
   const mainFields: Array<keyof Employee> = ['image', 'name'];
 
   const formattedEmployees = useMemo(() => {
@@ -96,6 +98,24 @@ export default function TableEmployees() {
     );
   };
 
+  function sortByField <T extends GenericItem> (field: keyof T) {
+    const fieldIndex = fields.findIndex(f => f.name === field)
+    const theField = fields[fieldIndex]
+
+    const newOrder = theField?.order === 'asc' ? 'desc' : 'asc'
+    
+    getEmployees(`?_sort=${String(field)}&_order=${newOrder}`)
+      .then(() => {
+        setFields(prev => {
+          const updatedFields = [...prev]
+          updatedFields[fieldIndex] = {
+            ...theField, order: newOrder
+          }
+          return updatedFields
+        })
+      })
+  }
+
   return (
     <div className='table-wrapper'>
       <Table 
@@ -104,6 +124,7 @@ export default function TableEmployees() {
         mainFields={mainFields} 
         customRows={customRows}
         mobileWidth={mobileWidth}
+        onClick={sortByField}
       />
     </div>
   );

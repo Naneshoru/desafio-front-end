@@ -5,6 +5,10 @@ thead tr h2 {
   letter-spacing: 0;
 }
 
+thead tr th.sortable {
+  cursor: pointer;
+}
+
 .header-cell {
   padding-right: 12.5px;
 }

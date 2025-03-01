@@ -1,17 +1,9 @@
 import React, { JSX } from 'react'
 import TableHeader from './table-header'
 import TableBody from './table-body'
+import { Field, GenericItem } from '../models/table'
 
 import './table.css'
-
-export type GenericItem = { [key: string]: string | number | boolean }
-
-export type Field<T extends GenericItem> = { 
-  name: keyof T, 
-  displayName: string, 
-  isImage?: boolean, 
-  alt?: string
-}
 
 export type TableProps <T extends GenericItem> = {
   fields: Field<T>[]
@@ -23,15 +15,16 @@ export type TableProps <T extends GenericItem> = {
     isLoading: boolean
   ) => JSX.Element
   mobileWidth?: number
+  onClick?: (field: keyof T) => void
 }
 
 export default function Table <T extends GenericItem>
-({ items, fields, mainFields, customRows, mobileWidth }: TableProps<T>) {
+({ items, fields, mainFields, customRows, mobileWidth, onClick }: TableProps<T>) {
   if (fields == null) throw Error('Inserir campos na tabela')
   
   return (
     <table>
-      <TableHeader fields={fields} mainFields={mainFields} mobileWidth={mobileWidth} />
+      <TableHeader fields={fields} mainFields={mainFields} mobileWidth={mobileWidth} onClick={onClick} />
       <TableBody items={items} fields={fields} mainFields={mainFields} customRows={customRows} mobileWidth={mobileWidth} />
     </table>
   )
