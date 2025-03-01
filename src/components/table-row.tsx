@@ -1,4 +1,4 @@
-import React, { Fragment, JSX, useCallback, useEffect,  useState } from 'react';
+import React, { Fragment, JSX, useEffect,  useState } from 'react';
 import ChevronDownSvg from '../assets/charm_chevron-down.svg';
 import useScreenSize from '../hooks/screen-size';
 import { Field, GenericItem } from '../models/table';
@@ -20,9 +20,9 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
     setOpen(false)
   }, [item])
 
-  const toggleOpen = useCallback(() => {
+  const toggleOpen = () => {
     setOpen(prev => !prev);
-  }, []);
+  }
 
   const renderMainFields = (item: T, property: keyof T, isLastField: boolean): JSX.Element => {
     const field: Field<T> | undefined = fields.find(f => f.name === property);

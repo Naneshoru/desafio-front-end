@@ -1,7 +1,7 @@
 import React, { JSX, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import './table-employees.css';
-import '../styles/table.css';
+import '../../styles/table.css';
 
 import Table from '../../components/table';
 import EmployeesContext from '../../contexts/employees-context';
