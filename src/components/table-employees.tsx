@@ -1,4 +1,4 @@
-import React, { JSX, useCallback, useContext, useMemo, useState } from 'react';
+import React, { JSX, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import './table-employees.css';
 import '../styles/table.css';
@@ -17,6 +17,10 @@ export default function TableEmployees() {
   const mobileWidth = 540
   const { size } = useScreenSize(mobileWidth)
   const mobile = size === 'mobile' 
+
+  useEffect(() => {
+    return () => window.history.replaceState({}, document.title, window.location.pathname);
+  }, [])
 
   const [fields, setFields] = useState<Field<Employee>[]> (() => [
     { name: 'image', displayName: 'Foto', isImage: true, alt: 'employee image' }, 
@@ -104,7 +108,13 @@ export default function TableEmployees() {
 
     const newOrder = theField?.order === 'asc' ? 'desc' : 'asc'
     
-    getEmployees(`?_sort=${String(field)}&_order=${newOrder}`)
+    const query = new URLSearchParams(window.location.search)
+    query.set('_sort', String(field))
+    query.set('_order', newOrder)
+    const newUrl = `${window.location.pathname}?${query.toString()}`;
+    window.history.pushState({}, '', newUrl)
+
+    getEmployees(query.toString())
       .then(() => {
         setFields(prev => {
           const updatedFields = [...prev]

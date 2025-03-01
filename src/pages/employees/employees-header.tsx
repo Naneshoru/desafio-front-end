@@ -1,24 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react'
+import EmployeesContext from '../../contexts/employees-context';
+import { UncontrolledInput } from '../../components/input'
+import { Employee } from '../../models/employee';
+import { useDebounce } from '../../hooks/debounce';
+import SearchSvg from '../../assets/search.svg'
 
-import './employees.css'
-
-import TableEmployees from '../components/table-employees';
-import { UncontrolledInput } from '../components/input';
-import EmployeesContext from '../contexts/employees-context';
-import { Employee } from '../models/employee';
-import { useDebounce } from '../hooks/debounce';
-import SearchSvg from '../assets/search.svg'
-
-export default function Employees() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { getEmployees, fetchEmployees, setEmployees } = useContext(EmployeesContext);
-
-  useEffect(() => {
-    getEmployees();
-  }, []);
+export default function HeaderEmployees() {
+  const { fetchEmployees, setEmployees } = useContext(EmployeesContext);
 
   const [debouncedInput, setDebouncedInput] = useState<string | null>(null);
-
+  
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const input = event.target.value;
     debouncedCallback(input);
@@ -27,12 +18,17 @@ export default function Employees() {
   const debouncedCallback = useDebounce((value: string) => {
     setDebouncedInput(value);
   }, 300);
-
+    
   useEffect(() => {
     if (debouncedInput == null) return
-    const query = `?q=${debouncedInput}`;
 
-    fetchEmployees(query).then((employees: Employee[]) => {
+    const query = new URLSearchParams(window.location.search);
+
+    query.set('q', debouncedInput)
+    const newUrl = `${window.location.pathname}?${query.toString()}`;
+    window.history.pushState({}, '', newUrl);
+
+    fetchEmployees(query.toString()).then((employees: Employee[]) => {
       const byJobNameAdmission = (employees: Employee[]) => {
         const filteredEmployees = employees.filter((emp: Employee) =>
           emp.job.toLowerCase().includes(debouncedInput.toLowerCase()) ||
@@ -48,15 +44,14 @@ export default function Employees() {
   }, [debouncedInput]);
 
   return (
-    <main>
-      <div className='up-tb-head'>
+    <section className='up-tb-head'>
+      <header className='flex justify-between gap2'>
         <h1>Funcionários</h1>
         <div className='input-wrapper'>
           <UncontrolledInput onChange={handleChange} placeholder='Pesquisar' />
           <img src={SearchSvg} alt="Seach icon" />
         </div>
-      </div>
-      <TableEmployees />
-    </main>
-  );
+      </header>
+    </section>
+  )
 }

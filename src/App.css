@@ -70,12 +70,12 @@ h3 {
   background-color: var(--gray-00-neutral);
 }
 
-.app header {
+.app > header {
   background-color: var(--white-neutral);
   height: 60px;
 }
 
-.app header svg {
+.app > header svg {
   box-sizing: content-box;
   padding-top: 12.58px;
   padding-left: 21.41px;
@@ -83,12 +83,9 @@ h3 {
 }
 
 .app .up-tb-head {
-  display: flex;
-  justify-content: space-between;
   padding-block: 2rem;
   padding-left: 2rem;
   padding-right: 2.1875rem;
-  gap: 2rem;
 }
 
 

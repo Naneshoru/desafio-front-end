@@ -21,8 +21,7 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
 
   async function fetchEmployees (params?: string) {
     setIsLoading(true)
-    const queryParams = params ?? ''
-    const data = await fetch(`http://localhost:3000/employees${queryParams}`)
+    const data = await fetch(`http://localhost:3000/employees?${params}`)
     const employees: Employee[] = await data.json()
     setIsLoading(false)
     return employees
