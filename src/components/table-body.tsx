@@ -1,7 +1,8 @@
 import { Fragment, JSX } from "react"
 import TableRow from "./table-row"
-import { Field, GenericItem } from "./table"
+
 import useScreenSize from "../hooks/screen-size"
+import { Field, GenericItem } from "../models/table"
 
 import './table-body.css'
 

@@ -3,14 +3,14 @@ import React, { JSX, useCallback, useContext, useEffect, useMemo, useState } fro
 import './table-employees.css';
 import '../styles/table.css';
 
-import Table from '../components/table';
-import EmployeesContext from '../contexts/employees-context';
-import { isoToDDMMYYYY, phoneFormat } from '../utils/formatters';
-import { MobileRow } from './table-row';
-import { Employee } from '../models/employee';
-import useScreenSize from '../hooks/screen-size';
-import { SkeletonImage, SkeletonText } from './table-body';
-import { Field, GenericItem } from '../models/table';
+import Table from '../../components/table';
+import EmployeesContext from '../../contexts/employees-context';
+import { isoToDDMMYYYY, phoneFormat } from '../../utils/formatters';
+import { MobileRow } from '../../components/table-row';
+import { Employee } from '../../models/employee';
+import useScreenSize from '../../hooks/screen-size';
+import { SkeletonImage, SkeletonText } from '../../components/table-body';
+import { Field, GenericItem } from '../../models/table';
 
 export default function TableEmployees() {
   const { employees, getEmployees } = useContext(EmployeesContext);
