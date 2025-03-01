@@ -14,7 +14,7 @@ type MobileRowProps<T extends GenericItem> = {
 export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: MobileRowProps<T>): React.JSX.Element {
   const [open, setOpen] = useState(false);
 
-  const notMainFields = fields.filter((notMainKey) => !mainFields.includes(notMainKey.name));
+  const moreFields = fields.filter((notMainKey) => !mainFields.includes(notMainKey.name));
 
   useEffect(() => {
     setOpen(false)
@@ -24,7 +24,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
     setOpen(prev => !prev);
   }, []);
 
-  const main = (item: T, property: keyof T, isLastField: boolean): JSX.Element => {
+  const renderMainFields = (item: T, property: keyof T, isLastField: boolean): JSX.Element => {
     const field: Field<T> | undefined = fields.find(f => f.name === property);
     
     return (
@@ -47,7 +47,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
     )
   }
  
-  const more = (field: Field<T>, item: T) => {
+  const renderMoreFields = (field: Field<T>, item: T) => {
     return (
       <div className='flex justify-between gap1 dashed'>
         {
@@ -74,17 +74,17 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
           const isLastField = index === mainFields.length - 1;
           return (
             <Fragment key={`mr-mf-${String(property)}`} >
-              {main(item, property, isLastField)}
+              {renderMainFields(item, property, isLastField)}
             </Fragment>
           )
         })}
       </tr>
-      <tr className={`collapsible`} >
+      <tr className={`collapsible-row`} >
         <td colSpan={mainFields.length}>
-          <div className='collapsible-content pd-t2 pd-b2 gap1 flex-vertical'>
-            {notMainFields?.map((field) =>
+          <div className='collapsible-row-content pd-t2 pd-b2 gap1 flex-vertical'>
+            {moreFields?.map((field) =>
               <Fragment key={`mr-nmf-${String(field.name)}`}>
-                {more(field, item)}
+                {renderMoreFields(field, item)}
               </Fragment>
             )}
           </div>

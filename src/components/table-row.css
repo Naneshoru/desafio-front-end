@@ -5,7 +5,7 @@
   background-color: var(--white-neutral);
 }
 
-.mobile-row.open + .collapsible {
+.mobile-row.open + .collapsible-row {
   position: sticky;
   top: var(--tbody-row-height);
   z-index: 100;
@@ -37,12 +37,12 @@
 
 /* Início da animação de Abertura e Fechamento Suave */
 
-.mobile-row.open + .collapsible .collapsible-content { 
+.mobile-row.open + .collapsible-row .collapsible-row-content { 
   max-height: 9999px;
   padding: var(--spc-md-1) var(--spc-rg-1);
 }
 
-.mobile-row.open + .collapsible td { 
+.mobile-row.open + .collapsible-row td { 
   max-height: 9999px;
   padding-top: 13.5px;
   padding-bottom: 12.5px;
@@ -50,14 +50,14 @@
   padding-left: 1rem;
 }
 
-.collapsible .collapsible-content {
+.collapsible-row .collapsible-row-content {
   max-height: 0;
   padding: 0 var(--spc-rg-1);
   overflow: hidden;
   transition: max-height 0.3s ease, padding 0.4s ease;
 }
 
-.collapsible { 
+.collapsible-row { 
   max-height: 0;
   height: 0;
   padding: 0;
@@ -70,7 +70,7 @@ tr th:last-child, tr td:last-child {
 
 /* Fim da animação de abertura e fechamento suave */
 
-.collapsible h2 {
+.collapsible-row h2 {
   font-family: 'Helvetica Neue';
   font-weight: 500;
   font-size: 16px;
@@ -78,7 +78,7 @@ tr th:last-child, tr td:last-child {
   letter-spacing: 0;
 }
 
-.collapsible h3 {
+.collapsible-row h3 {
   font-weight: 400;
   font-size: 16px;
   line-height: 19.09px;
