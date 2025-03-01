@@ -1,6 +1,9 @@
 import { Fragment, JSX } from "react"
 import TableRow from "./table-row"
 import { Field, GenericItem } from "./table"
+import useScreenSize from "../hooks/screen-size"
+
+import './table-body.css'
 
 type TableBodyProps <T extends GenericItem> = {
   fields: Field<T>[]
@@ -15,6 +18,8 @@ type TableBodyProps <T extends GenericItem> = {
 }
 
 const TableBody = <T extends GenericItem>({ fields, mainFields, items, customRows, mobileWidth }: TableBodyProps<T>) => {
+  const { size } = useScreenSize(mobileWidth)
+  const mobile = size === 'mobile' 
 
   const render = () => {
     if (items == null) return renderLoading()
@@ -29,7 +34,7 @@ const TableBody = <T extends GenericItem>({ fields, mainFields, items, customRow
       ))
     }
 
-    return renderEmpty()
+    return renderEmpty(mobile ? mainFields.length : fields.length)
   }
 
   return <tbody>{render()}</tbody>
@@ -47,8 +52,15 @@ const TableBody = <T extends GenericItem>({ fields, mainFields, items, customRow
     return arr
   }
 
-  function renderEmpty () {
-    return <tr><td colSpan={2}>Empty</td></tr>
+  function renderEmpty (colSpan: number) {
+    return <tr>
+      <td colSpan={colSpan} className="gray-05-bg">
+        <div className="render-empty flex flex-center gap05">
+          <h2>Nenhum resultado encontrado</h2>
+          <p>Tente procurar por outro termo de nome, cargo ou data de admissão.</p>
+        </div>
+      </td>
+    </tr>
   }
 }
 

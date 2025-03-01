@@ -1,7 +1,8 @@
-@import '/src/styles/input.css';
+@import '/src/styles/fonts.css';
+@import '/src/styles/colors.css';
 @import '/src/styles/flex.css';
 @import '/src/styles/spacing.css';
-@import '/src/styles/fonts.css';
+@import '/src/styles/input.css';
 
 * {
   box-sizing: border-box;

@@ -66,6 +66,10 @@
   flex-wrap: wrap;
 }
 
+.gap05 {
+  gap: .5rem;
+}
+
 .gap1 {
   gap: 1rem;
 }

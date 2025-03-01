@@ -1,0 +1,8 @@
+.render-empty {
+  height: 64vh;
+  flex-direction: column;
+}
+
+.render-empty p {
+  font-family: 'Helvetica';
+}
