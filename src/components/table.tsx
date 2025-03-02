@@ -1,4 +1,4 @@
-import React, { JSX } from 'react'
+import { JSX } from 'react'
 import TableHeader from './table-header'
 import TableBody from './table-body'
 import { Field, GenericItem } from '../models/table'

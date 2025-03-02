@@ -7,16 +7,7 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
   const [filter, setFilter] = useState<{ search: string }>({ search: '' });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const getEmployees = (async (params?: string): Promise<void> => {
-    const employees = await fetchEmployees(params);
-    if (employees) {
-      setEmployees(employees);
-    } else {
-      setEmployees([]);
-    }
-  })
-
-  async function fetchEmployees(params?: string) {
+  const fetchEmployees = useCallback(async (params?: string) => {
     let employees: Employee[] = [];
     setIsLoading(true);
     try {
@@ -29,14 +20,16 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
       setIsLoading(false);
     }
     return employees;
-  }
+  }, []);
 
-  useEffect(() => {
+  const getEmployees = useCallback(async (params?: string): Promise<void> => {
+    const employees = await fetchEmployees(params);
     if (employees) {
-      const filteredEmployees = filterbyJobNameAdmission(employees, filter);
-      setEmployees(filteredEmployees);
+      setEmployees(employees);
+    } else {
+      setEmployees([]);
     }
-  }, [filter]);
+  }, [fetchEmployees]);
 
   const filterbyJobNameAdmission = useCallback((employees: Employee[], filter: { search: string }): Employee[] => {
     const { search } = filter;
@@ -48,6 +41,14 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
     );
     return filteredEmployees;
   }, []);
+
+  useEffect(() => {
+    if (employees) {
+      const filteredEmployees = filterbyJobNameAdmission(employees, filter);
+      setEmployees(filteredEmployees);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter, filterbyJobNameAdmission]);
 
   return (
     <EmployeesContext.Provider value={{ getEmployees, fetchEmployees, employees, setEmployees, isLoading, filter, setFilter }}>

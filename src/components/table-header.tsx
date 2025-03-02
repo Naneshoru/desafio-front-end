@@ -1,5 +1,3 @@
-import React from 'react'
-
 import useFieldsMap from '../hooks/fields-map'
 import useScreenSize from '../hooks/screen-size'
 import { Field, GenericItem } from '../models/table'

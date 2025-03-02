@@ -1,4 +1,4 @@
-import React, { JSX, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { JSX, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 import './table-employees.css';
 import '../../styles/table.css';
@@ -30,7 +30,7 @@ export default function TableEmployees() {
     { name: 'phone', displayName: 'Telefone', sortable: true }
   ]);
 
-  const mainFields: Array<keyof Employee> = ['image', 'name'];
+  const mainFields: Array<keyof Employee> = useMemo(() => ['image', 'name'], []);
 
   const formattedEmployees = useMemo(() => {
     return employees?.map(employee => ({
@@ -83,7 +83,7 @@ export default function TableEmployees() {
       </tr>
     );
     return <></>;
-  }, [formattedEmployees, mobile]);
+  }, [mobile, fields, mainFields]);
 
   const wordBreakOpportunity = (text: string): JSX.Element => {
     const [countryCode, areaCode, phone] = text.split(' ');

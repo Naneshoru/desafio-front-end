@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 import './employees.css'
 
@@ -12,7 +12,7 @@ export default function Employees() {
 
   useEffect(() => {
     getEmployees()
-  }, []);
+  }, [getEmployees]);
 
   return (
     <main>
