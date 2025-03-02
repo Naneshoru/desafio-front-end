@@ -7,6 +7,8 @@ type EmployeesContextProps = {
   fetchEmployees: (params?: string) => Promise<Employee[]>
   getEmployees: (params?: string) => Promise<void>
   isLoading: boolean
+  filter: { search: string }
+  setFilter: ({ search }: { search: string }) => void
 }
 
 const initialValues = {
@@ -14,7 +16,9 @@ const initialValues = {
   setEmployees: () => {},
   fetchEmployees: async () => [],
   getEmployees: async () => {},
-  isLoading: false
+  isLoading: false,
+  filter: { search: '' },
+  setFilter: () => {}
 }
 
 const EmployeesContext = createContext<EmployeesContextProps>(initialValues)

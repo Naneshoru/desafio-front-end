@@ -3,6 +3,10 @@
   flex-direction: column;
 }
 
+.render-empty h2 {
+  font-size: 18px;
+}
+
 .render-empty p {
   font-family: 'Helvetica';
 }

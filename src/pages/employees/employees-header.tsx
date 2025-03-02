@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import EmployeesContext from '../../contexts/employees-context';
 import { UncontrolledInput } from '../../components/input'
-import { Employee } from '../../models/employee';
 import { useDebounce } from '../../hooks/debounce';
 import SearchSvg from '../../assets/search.svg'
 
 export default function HeaderEmployees() {
-  const { fetchEmployees, setEmployees } = useContext(EmployeesContext);
+  const { getEmployees, setFilter } = useContext(EmployeesContext);
 
   const [debouncedInput, setDebouncedInput] = useState<string | null>(null);
   
@@ -28,19 +27,9 @@ export default function HeaderEmployees() {
     const newUrl = `${window.location.pathname}?${query.toString()}`;
     window.history.pushState({}, '', newUrl);
 
-    fetchEmployees(query.toString()).then((employees: Employee[]) => {
-      const byJobNameAdmission = (employees: Employee[]) => {
-        const filteredEmployees = employees.filter((emp: Employee) =>
-          emp.job.toLowerCase().includes(debouncedInput.toLowerCase()) ||
-          emp.name.toLowerCase().includes(debouncedInput.toLowerCase()) ||
-          emp.admission_date.includes(debouncedInput)
-        );
-        console.log('filteredEmployees', filteredEmployees);
-        
-        setEmployees(filteredEmployees);
-      };
-      void byJobNameAdmission(employees);
-    });
+    getEmployees(query.toString()).then(() =>
+      setFilter({ search: debouncedInput })
+    );
   }, [debouncedInput]);
 
   return (

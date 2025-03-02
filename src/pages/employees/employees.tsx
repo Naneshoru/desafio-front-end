@@ -11,7 +11,7 @@ export default function Employees() {
   const { getEmployees } = useContext(EmployeesContext);
 
   useEffect(() => {
-    getEmployees();
+    getEmployees()
   }, []);
 
   return (
