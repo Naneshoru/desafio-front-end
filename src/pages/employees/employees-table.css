@@ -13,19 +13,19 @@ input::placeholder {
 
 .table-wrapper {
   /* overflow: auto; */
+  display: flex;
   border-radius: 8px;
   margin-inline: 2rem;
   margin-bottom: 5rem;
 }
 
 .table-wrapper table {
-  width: 100%;
   background-color: var(--blue-primary);
 }
 
 table tbody tr, 
 table tbody td {
-  background-color: var(--white-neutral);
+  /* background-color: var(--white-neutral); */
 }
 
 wbr + span {
@@ -37,28 +37,31 @@ wbr + span {
 }
 
 
-/* Acima e dos lados */
 .table-wrapper table tbody tr.open {
-  box-shadow: 0 -1px 0 0 #00000020, /* Sombra no topo */
-  -1px 0 0 0 #00000020, /* Sombra na esquerda */
-  1px 0 0 0 #00000020; /* Sombra na direita */
+  box-shadow: inset 0px 0px 1px 1px var(--gray-10-neutral); 
 }
 
 /* Remover contornos das duas últimas linhas */
-.table-wrapper tbody tr:not(:last-child) {
-  box-shadow: 0 0 0 1px #00000020;
+.table-wrapper tbody tr {
+  box-shadow: inset 0px 0px 1px 1px var(--gray-10-neutral);
   outline: 1px solid #00000005;
 }
+
+.table-wrapper tbody tr:last-child {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
 /* para inserir na última visível = penultima quando está fechado */
 .table-wrapper tbody tr:nth-last-child(2), 
 .table-wrapper tbody tr:nth-last-child(1):not(.open) {
-  box-shadow: 0 -1px 0 0 #00000020;
+  /* box-shadow: 0 -1px 0 0 #00000020; */
 }
 
 /* ajuste no final */
 @media (min-width: 541px) {
   .table-wrapper tbody tr:nth-last-child(2) {
-    box-shadow: 0 -1px 0 0 #00000020, 0 0 0 1px #00000020;
+    /* box-shadow: 0 -1px 0 0 #00000020, 0 0 0 1px #00000020; */
   }
 }
 /* Bordas finais */
@@ -70,11 +73,8 @@ table tbody tr:last-child td:last-child {
   border-bottom-right-radius: 8px;
 }
 
-table tbody tr:last-child,
-table tbody tr:nth-last-child(2):not(.open) {
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
+/* table tbody tr:last-child, */
+
 
 /* última linha quando fechada = penultima */
 @media (max-width: 540px) {
@@ -84,6 +84,11 @@ table tbody tr:nth-last-child(2):not(.open) {
   }
   table tbody 
   tr:nth-last-child(2):not(.open) td:nth-last-child(1) {
+    border-bottom-right-radius: 8px;
+  }
+
+  table tbody tr:nth-last-child(2):not(.open) {
+    border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
   }
 }

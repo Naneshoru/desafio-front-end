@@ -1,3 +1,7 @@
+table {
+  flex-grow: 1;
+}
+
 .skeleton-text {
   display: flex;
   width: 100%;

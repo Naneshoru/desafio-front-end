@@ -73,6 +73,7 @@ h3 {
 .app > header {
   background-color: var(--white-neutral);
   height: 60px;
+  box-shadow: 0px 0px 8px 4px var(--gray-10-neutral);
 }
 
 .app > header svg {
