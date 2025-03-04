@@ -54,6 +54,7 @@ npm i -g json-server@0.17.4
 ```
 
 OBS: você pode usar esta versão do json-server para uma melhor funcionalidade → v0.17.4 <br>
+<br>
 
 • inicie e deixe executando a api simulada com:
 ```bash
@@ -64,10 +65,9 @@ se tiver problemas, execute:
 ```bash
 npx json-server db.json 
 # or 
-yarn json-server <path>/db.json
-# path - o caminho completo até o db.json
+yarn dlx json-server db.json
 ```
-
+Agora pode abrir [http://localhost:3000/employees](http://localhost:3000/employees) no browser.
 
 <br>
 <br>
