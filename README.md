@@ -18,9 +18,14 @@ componentes modularizados para simplificação do fluxo de dados.
 
 ## :rocket: Começando
 
-Após a instalação das dependências,
+• Instalação das dependências:
+```bash
+  npm i
+  # ou
+  yarn
+```
 
-inicie o servidor de desenvolvimento com: 
+• inicie o servidor de desenvolvimento com: 
 ```bash
   npm run dev
   # ou
@@ -29,6 +34,29 @@ inicie o servidor de desenvolvimento com:
 <br>
 
 Abra [http://localhost:5173](http://localhost:5173) com o browser. Esta é a porta padrão do Vite.
+
+<br>
+
+Instale o json server para acessar os dados via api simulada: <br>
+OBS: você pode usar esta versão do json-server para uma melhor funcionalidade → v0.17.4 <br>
+
+```bash
+npm i -g json-server@0.17.4
+```
+
+inicie e deixe executando a api simulada com:
+```bash
+json-server --watch db.json
+```
+
+se tiver problemas, execute: 
+```bash
+npx json-server db.json 
+# or 
+yarn json-server <path>/db.json
+# path - o caminho completo até o db.json
+```
+
 
 <br>
 <br>
@@ -43,10 +71,10 @@ yarn v4.6.0
 ---
 react v19 <br> 
 vite v6.1.0 <br> 
-json-server v0.17.4 - Atenção → use esta versão do json-server para uma melhor funcionalidade <br> 
+json-server v0.17.4 <br> 
 @uidotdev/usehooks v2.4.1 → com hooks utilitários, como um para responder a tamanhos de tela
 
 ---
 
-Context API, para gerenciamento dos estados ####
+Context API, para gerenciamento dos estados <br> 
 fetch API, para requisições http
