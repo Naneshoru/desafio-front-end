@@ -23,11 +23,6 @@ input::placeholder {
   background-color: var(--blue-primary);
 }
 
-table tbody tr, 
-table tbody td {
-  /* background-color: var(--white-neutral); */
-}
-
 wbr + span {
   white-space: pre;
 }
@@ -35,7 +30,6 @@ wbr + span {
 .table-wrapper tbody {
   background-color: var(--white-neutral);
 }
-
 
 .table-wrapper table tbody tr.open {
   box-shadow: inset 0px 0px 1px 1px var(--gray-10-neutral); 
@@ -52,18 +46,6 @@ wbr + span {
   border-bottom-left-radius: 8px;
 }
 
-/* para inserir na última visível = penultima quando está fechado */
-.table-wrapper tbody tr:nth-last-child(2), 
-.table-wrapper tbody tr:nth-last-child(1):not(.open) {
-  /* box-shadow: 0 -1px 0 0 #00000020; */
-}
-
-/* ajuste no final */
-@media (min-width: 541px) {
-  .table-wrapper tbody tr:nth-last-child(2) {
-    /* box-shadow: 0 -1px 0 0 #00000020, 0 0 0 1px #00000020; */
-  }
-}
 /* Bordas finais */
 /* última linha geral */
 table tbody tr:last-child td:first-child {
@@ -72,9 +54,6 @@ table tbody tr:last-child td:first-child {
 table tbody tr:last-child td:last-child {
   border-bottom-right-radius: 8px;
 }
-
-/* table tbody tr:last-child, */
-
 
 /* última linha quando fechada = penultima */
 @media (max-width: 540px) {
@@ -90,6 +69,20 @@ table tbody tr:last-child td:last-child {
   table tbody tr:nth-last-child(2):not(.open) {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+    transition: border-bottom-left-radius 1s .2s, border-bottom-right-radius 1s .2s;
+  }
+  /* tds border */
+  table tbody 
+  tr:nth-last-child(2):not(.open) 
+  td:nth-last-child(2) {
+    border-bottom-left-radius: 12px;
+    transition: border-bottom-left-radius 1s .2s;
+  }
+  table tbody 
+  tr:nth-last-child(2):not(.open) 
+  td:nth-last-child(1) {
+    border-bottom-right-radius: 12px;
+    transition: border-bottom-right-radius 1s .2s;
   }
 }
 
