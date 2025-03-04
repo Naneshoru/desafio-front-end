@@ -89,3 +89,4 @@ json-server v0.17.4 <br>
 
 Context API, para gerenciamento dos estados <br> 
 fetch API, para requisições http
+debounce function, para reduzir o número de buscas ao digitar
