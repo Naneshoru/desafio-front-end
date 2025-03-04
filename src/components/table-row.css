@@ -48,6 +48,9 @@
   padding-bottom: 12.5px;
   padding-right: 1.5rem;
   padding-left: 1rem;
+
+  /* Pode ser o box-shadow aqui */
+  box-shadow: inset 0px 0px 1px 1px var(--gray-10-neutral);
 }
 
 .collapsible-row .collapsible-row-content {
