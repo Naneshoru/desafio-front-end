@@ -14,11 +14,21 @@ componentes modularizados para simplificação do fluxo de dados.
    
 #### 3. Testes <br>
   ...
+  
+---
 
+## :page_facing_up: Pré-requisitos
+
+• Node.js versão 20 ou superior <br>
+• Package manager (e.g. npm, yarn) <br>
+• JSON Server (de preferência 0.17.4) <br>
+• Navegador compatível com ES6+ (Chrome, Edge, Firefox, etc.) <br>
+
+---
 
 ## :rocket: Começando
 
-• Instalação das dependências:
+• instalação das dependências:
 ```bash
   npm i
   # ou
@@ -37,14 +47,15 @@ Abra [http://localhost:5173](http://localhost:5173) com o browser. Esta é a por
 
 <br>
 
-Instale o json server para acessar os dados via api simulada: <br>
-OBS: você pode usar esta versão do json-server para uma melhor funcionalidade → v0.17.4 <br>
+• instale o json server para acessar os dados via api simulada: <br>
 
 ```bash
 npm i -g json-server@0.17.4
 ```
 
-inicie e deixe executando a api simulada com:
+OBS: você pode usar esta versão do json-server para uma melhor funcionalidade → v0.17.4 <br>
+
+• inicie e deixe executando a api simulada com:
 ```bash
 json-server --watch db.json
 ```
