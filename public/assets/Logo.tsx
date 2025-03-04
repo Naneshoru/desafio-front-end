@@ -1,7 +1,5 @@
-import React from 'react'
-
 type LogoProps = {
-  onClick: () => void
+  onClick?: () => void
 }
 export default function Logo({ onClick }: LogoProps) {
   return (

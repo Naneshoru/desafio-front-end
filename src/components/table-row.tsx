@@ -1,5 +1,5 @@
 import React, { Fragment, JSX, useEffect,  useState } from 'react';
-import ChevronDownSvg from '../assets/charm_chevron-down.svg';
+import ChevronDownSvg from '/assets/charm_chevron-down.svg';
 import useScreenSize from '../hooks/screen-size';
 import { Field, GenericItem } from '../models/table';
 

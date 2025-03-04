@@ -41,13 +41,13 @@
 /* Typo */
 h1 {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 500;
   font-family: 'Helvetica';
 }
 
 h2 {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 500;
   font-family: 'Helvetica';
 }
 
@@ -73,6 +73,10 @@ h3 {
 .app > header {
   background-color: var(--white-neutral);
   height: 60px;
+}
+
+.app > header svg {
+  cursor: pointer;
 }
 
 .app > header svg {

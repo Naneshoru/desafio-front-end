@@ -1,18 +1,11 @@
-import Logo from '../assets/Logo'
+import Logo from '../../public/assets/Logo'
 
 import './header.css'
 
-export default function Header() {
-  const navigate = (url: string) => {
-    console.log(url)
-  }
-
-  const onClick = () => {
-    navigate('/')
-  }
+export default function Header() {  
   return (
     <header>
-      <Logo onClick={onClick} />
+      <a href='/' ><Logo /></a>
     </header>
   )
 }
