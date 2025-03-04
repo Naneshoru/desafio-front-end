@@ -31,14 +31,18 @@ componentes modularizados para simplificação do fluxo de dados.
 • instalação das dependências:
 ```bash
   npm i
-  # ou
+```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ou
+```bash
   yarn
 ```
 
 • inicie o servidor de desenvolvimento com: 
 ```bash
   npm run dev
-  # ou
+```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ou
+```bash
   yarn dev
 ```
 <br>
@@ -64,8 +68,10 @@ json-server --watch db.json
 se tiver problemas, execute: 
 ```bash
 npx json-server db.json 
-# or 
-yarn dlx json-server db.json
+```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ou
+```bash
+yarn dlx json-server@0.17.4 db.json
 ```
 Agora pode abrir [http://localhost:3000/employees](http://localhost:3000/employees) no browser.
 
