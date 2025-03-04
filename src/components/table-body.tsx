@@ -5,13 +5,14 @@ import useScreenSize from "../hooks/screen-size"
 import { Field, GenericItem } from "../models/table"
 
 import './table-body.css'
+import { Proccesed } from "./table"
 
 type TableBodyProps <T extends GenericItem> = {
   fields: Field<T>[]
   mainFields: Array<keyof T>
-  items: T[] | null
+  items: T[] | Proccesed<T>[] | null
   customRows?: (
-    item: T,
+    item: T | Proccesed<T>,
     index: number,
     isLoading: boolean
   ) => JSX.Element

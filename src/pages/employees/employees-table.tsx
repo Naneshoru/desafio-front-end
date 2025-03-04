@@ -1,11 +1,10 @@
 import { JSX, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import './table-employees.css';
+import './employees-table.css';
 import '../../styles/table.css';
 
-import Table from '../../components/table';
+import Table, { Proccesed } from '../../components/table';
 import EmployeesContext from '../../contexts/employees-context';
-import { isoToDDMMYYYY, phoneFormat } from '../../utils/formatters';
 import { MobileRow } from '../../components/table-row';
 import { Employee } from '../../models/employee';
 import useScreenSize from '../../hooks/screen-size';
@@ -13,7 +12,7 @@ import { SkeletonImage, SkeletonText } from '../../components/table-body';
 import { Field, GenericItem } from '../../models/table';
 
 export default function TableEmployees() {
-  const { employees, getEmployees, filter, setFilter } = useContext(EmployeesContext);
+  const { proccesedEmployees, getEmployees, filter, setFilter } = useContext(EmployeesContext);
   const mobileWidth = 540;
   const { size } = useScreenSize(mobileWidth);
   const mobile = size === 'mobile';
@@ -32,15 +31,7 @@ export default function TableEmployees() {
 
   const mainFields: Array<keyof Employee> = useMemo(() => ['image', 'name'], []);
 
-  const formattedEmployees = useMemo(() => {
-    return employees?.map(employee => ({
-      ...employee,
-      admission_date: isoToDDMMYYYY(employee.admission_date),
-      phone: phoneFormat(employee.phone)
-    })) ?? null;
-  }, [employees]);
-
-  const customRows = useCallback((employee: Employee, index: number, isLoading: boolean) => {
+  const customRows = useCallback((employee: Employee | Proccesed<Employee>, index: number, isLoading: boolean) => {
     const web = !mobile;
     if (isLoading && mobile) return (
       <tr key={`loading-${index}`}>
@@ -101,8 +92,8 @@ export default function TableEmployees() {
     const fieldIndex = fields.findIndex(f => f.name === field);
     const theField = fields[fieldIndex];
 
-    const newOrder = theField?.order === 'asc' ? 'desc' : 'asc';
-    
+    const newOrder = theField?.order === 'desc' ? 'asc' : 'desc';
+
     const query = new URLSearchParams(window.location.search);
     query.set('_sort', String(field));
     query.set('_order', newOrder);
@@ -117,14 +108,14 @@ export default function TableEmployees() {
         };
         return updatedFields;
       });
-      setFilter({ search: filter.search })
+      setFilter({ search: filter?.search || '' })
     });
   }
 
   return (
     <div className='table-wrapper'>
       <Table 
-        items={formattedEmployees} 
+        items={proccesedEmployees} 
         fields={fields} 
         mainFields={mainFields} 
         customRows={customRows}

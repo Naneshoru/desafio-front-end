@@ -1,35 +1,35 @@
-import React, { useContext, useEffect, useState, useCallback } from 'react';
+import React, { useContext, useEffect, useState } from 'react'
 import EmployeesContext from '../../contexts/employees-context';
-import { UncontrolledInput } from '../../components/input';
+import { UncontrolledInput } from '../../components/input'
 import { useDebounce } from '../../hooks/debounce';
-import SearchSvg from '../../assets/search.svg';
+import SearchSvg from '../../assets/search.svg'
 
 export default function HeaderEmployees() {
   const { getEmployees, setFilter } = useContext(EmployeesContext);
 
   const [debouncedInput, setDebouncedInput] = useState<string | null>(null);
+  
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const input = event.target.value;
+    debouncedCallback(input);
+  };
 
-  const debounce = useDebounce((value: string) => {
+  const debouncedCallback = useDebounce((value: string) => {
     setDebouncedInput(value);
   }, 300);
 
-  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const input = event.target.value;
-    debounce(input);
-  }, [debounce]);
-
   useEffect(() => {
-    if (debouncedInput == null) return;
+    if (debouncedInput == null) return
 
     const query = new URLSearchParams(window.location.search);
 
-    query.set('q', debouncedInput);
+    // query.set('q', debouncedInput)
     const newUrl = `${window.location.pathname}?${query.toString()}`;
     window.history.pushState({}, '', newUrl);
 
-    getEmployees(query.toString()).then(() =>
+    void getEmployees(query.toString()).then(() => {
       setFilter({ search: debouncedInput })
-    );
+    })
   }, [debouncedInput, getEmployees, setFilter]);
 
   return (
@@ -42,5 +42,5 @@ export default function HeaderEmployees() {
         </div>
       </header>
     </section>
-  );
+  )
 }

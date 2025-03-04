@@ -1,5 +1,6 @@
 import { createContext } from "react";
 import { Employee } from "../models/employee";
+import { Proccesed } from "../components/table";
 
 type EmployeesContextProps = {
   employees: Employee[] | null,
@@ -7,8 +8,9 @@ type EmployeesContextProps = {
   fetchEmployees: (params?: string) => Promise<Employee[]>
   getEmployees: (params?: string) => Promise<void>
   isLoading: boolean
-  filter: { search: string }
+  filter: { search: string } | null
   setFilter: ({ search }: { search: string }) => void
+  proccesedEmployees: Employee[] | Proccesed<Employee>[]
 }
 
 const initialValues = {
@@ -18,7 +20,8 @@ const initialValues = {
   getEmployees: async () => {},
   isLoading: false,
   filter: { search: '' },
-  setFilter: () => {}
+  setFilter: () => {},
+  proccesedEmployees: []
 }
 
 const EmployeesContext = createContext<EmployeesContextProps>(initialValues)

@@ -4,11 +4,12 @@ import useScreenSize from '../hooks/screen-size';
 import { Field, GenericItem } from '../models/table';
 
 import './table-row.css'
+import { Proccesed } from './table';
 
 type MobileRowProps<T extends GenericItem> = {
   fields: Field<T>[];
   mainFields: Array<keyof T>;
-  item: T
+  item: T | Proccesed<T>
 };
 
 export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: MobileRowProps<T>): React.JSX.Element {
@@ -24,7 +25,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
     setOpen(prev => !prev);
   }
 
-  const renderMainFields = (item: T, property: keyof T, isLastField: boolean): JSX.Element => {
+  const renderMainFields = (item: T | Proccesed<T>, property: keyof T, isLastField: boolean): JSX.Element => {
     const field: Field<T> | undefined = fields.find(f => f.name === property);
     
     return (
@@ -47,7 +48,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
     )
   }
  
-  const renderMoreFields = (field: Field<T>, item: T) => {
+  const renderMoreFields = (field: Field<T>, item: T | Proccesed<T>) => {
     return (
       <div className='flex justify-between gap1 dashed'>
         {
@@ -81,7 +82,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
       </tr>
       <tr className={`collapsible-row`} >
         <td colSpan={mainFields.length}>
-          <div className='collapsible-row-content pd-t2 pd-b2 gap1 flex-vertical'>
+          <div className='collapsible-row-content pd-t2 pd-b2 gap1 flex-col'>
             {moreFields?.map((field) =>
               <Fragment key={`mr-nmf-${String(field.name)}`}>
                 {renderMoreFields(field, item)}
@@ -95,7 +96,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
 }
 
 type WebRowProps<T extends GenericItem> = {
-  item: T;
+  item: T | Proccesed<T>;
   fields: Field<T>[];
 };
 
@@ -116,7 +117,7 @@ function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.
 }
 
 type TableRowProps<T extends GenericItem> = {
-  item: T;
+  item: T | Proccesed<T>;
   fields: Field<T>[];
   mainFields: Array<keyof T>;
   mobileWidth?: number
