@@ -3,13 +3,13 @@ import { JSX, useCallback, useContext, useEffect, useMemo, useState } from 'reac
 import './employees-table.css';
 import '../../styles/table.css';
 
-import Table, { Proccesed } from '@/components/table';
-import EmployeesContext from '@/contexts/employees-context';
-import { MobileRow } from '@/components/table-row';
-import { Employee } from '@/models/employee';
-import useScreenSize from '@/hooks/screen-size';
-import { SkeletonImage, SkeletonText } from '@/components/table-body';
-import { Field, GenericItem } from '@/models/table';
+import Table, { Proccesed } from '@components/table';
+import EmployeesContext from '@contexts/employees-context';
+import { MobileRow } from '@components/table-row';
+import { Employee } from '@models/employee';
+import useScreenSize from '@hooks/screen-size';
+import { SkeletonImage, SkeletonText } from '@components/table-body';
+import { Field, GenericItem } from '@models/table';
 
 export default function TableEmployees() {
   const { proccesedEmployees, getEmployees, filter, setFilter } = useContext(EmployeesContext);

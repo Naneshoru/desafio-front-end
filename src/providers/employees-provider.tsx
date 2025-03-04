@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useMemo } from "react";
-import { Employee } from "@/models/employee";
-import EmployeesContext from "@/contexts/employees-context";
-import { isoToDDMMYYYY, phoneFormat } from "@/utils/formatters";
-import { Proccesed } from "@/components/table";
-
+import { Employee } from "@models/employee";
+import EmployeesContext from "@contexts/employees-context";
+import { isoToDDMMYYYY, phoneFormat } from "@utils/formatters";
+import { Proccesed } from "@components/table";
+ 
 function EmployeesProvider({ children }: { children: React.ReactElement | React.ReactElement[] }) {
   const [employees, setEmployees] = useState<Employee[] | null>(null);
   const [filter, setFilter] = useState<{ search: string } | null>(null);

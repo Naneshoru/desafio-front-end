@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 import './employees.css'
 
 import TableEmployees from './employees-table';
-import EmployeesContext from '@/contexts/employees-context';
+import EmployeesContext from '@contexts/employees-context';
 import HeaderEmployees from './employees-header';
 
 

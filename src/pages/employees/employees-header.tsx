@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import EmployeesContext from '@/contexts/employees-context';
-import { UncontrolledInput } from '@/components/input'
-import { useDebounce } from '@/hooks/debounce';
+import EmployeesContext from '@contexts/employees-context';
+import { UncontrolledInput } from '@components/input'
+import { useDebounce } from '@hooks/debounce';
 import SearchSvg from '/assets/search.svg'
 
 export default function HeaderEmployees() {
