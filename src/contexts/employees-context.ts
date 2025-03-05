@@ -9,7 +9,7 @@ type EmployeesContextProps = {
   getEmployees: (params?: string) => Promise<void>
   filter: { search: string } | null
   setFilter: ({ search }: { search: string }) => void
-  proccesedEmployees: Employee[] | Proccesed<Employee>[]
+  proccesedEmployees: Employee[] | Proccesed<Employee>[] | null
 }
 
 const initialValues = {
@@ -19,7 +19,7 @@ const initialValues = {
   getEmployees: async () => {},
   filter: { search: '' },
   setFilter: () => {},
-  proccesedEmployees: []
+  proccesedEmployees: null
 }
 
 const EmployeesContext = createContext<EmployeesContextProps>(initialValues)

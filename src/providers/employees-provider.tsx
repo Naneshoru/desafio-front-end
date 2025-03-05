@@ -35,12 +35,12 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
         ...employee,
         admission_date: isoToDDMMYYYY(employee.admission_date),
         phone: phoneFormat(employee.phone)
-      })) ?? [];
+      })) ?? null;
   }, []);
 
   const filterbyJobNameAdmission = useCallback((employees: Array<Employee | Proccesed<Employee>>): Array<Employee | Proccesed<Employee>> => {
     const search = filter?.search;
-    if (!search) return employees ?? [];
+    if (!search) return employees;
     const filteredEmployees: Array<Employee | Proccesed<Employee>> = employees?.filter((emp: Employee | Proccesed<Employee>) => {
       const date = (emp.admission_date)
 
@@ -59,7 +59,7 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
   }, [filter]);
 
   const proccesedEmployees = useMemo(() => {
-    let proccesed: Proccesed<Employee>[] = [];
+    let proccesed: Proccesed<Employee>[] | null = null;
 
     if (employees) {
       // '2019-12-02T00:00:00.000Z' → '11/02/2020'

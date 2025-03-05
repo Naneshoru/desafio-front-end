@@ -41,7 +41,7 @@ export default function TableEmployees() {
             return (<SkeletonImage td key={`sk-${i}`} />);
           } else {
             return (<SkeletonText td key={`sk-${i}`} />);
-          }  
+          }
         })}
       </tr>
     );
@@ -52,7 +52,7 @@ export default function TableEmployees() {
             return (<SkeletonImage td key={`sk-${i}`} />);
           } else {
             return (<SkeletonText td key={`sk-${i}`} />);
-          }  
+          }
         })}
       </tr>
     );
