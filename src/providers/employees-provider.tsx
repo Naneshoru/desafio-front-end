@@ -7,19 +7,15 @@ import { Proccesed } from "@components/table";
 function EmployeesProvider({ children }: { children: React.ReactElement | React.ReactElement[] }) {
   const [employees, setEmployees] = useState<Employee[] | null>(null);
   const [filter, setFilter] = useState<{ search: string } | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchEmployees = useCallback(async (params?: string) => {
     let employees: Employee[] = [];
-    setIsLoading(true);
     try {
       const queryParams = params ?? '';
       const data = await fetch(`http://localhost:3000/employees?${queryParams}`);
       employees = await data.json();
     } catch (error) {
       alert(error);
-    } finally {
-      setIsLoading(false);
     }
     return employees;
   }, []);
@@ -53,9 +49,10 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
       return (
         emp.job.toLowerCase().includes(search.toLowerCase()) ||
         emp.name.toLowerCase().includes(search.toLowerCase()) ||
-        year.toString().includes(search) || // 05 não pode receber 2025
-        month.toString().includes((search)) || 
-        day.toString().includes((search))
+        emp.admission_date.includes(search) ||
+        year.toString().includes(search) ||
+        month.toString().includes(search) || 
+        day.toString().includes(search)
       )}
     ) ?? [];
     return filteredEmployees;
@@ -74,7 +71,7 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
   }, [filter, employees, filterbyJobNameAdmission]);
 
   return (
-    <EmployeesContext.Provider value={{ getEmployees, fetchEmployees, employees, setEmployees, proccesedEmployees, isLoading, filter, setFilter }}>
+    <EmployeesContext.Provider value={{ getEmployees, fetchEmployees, employees, setEmployees, proccesedEmployees, filter, setFilter }}>
       {children}
     </EmployeesContext.Provider>
   );
