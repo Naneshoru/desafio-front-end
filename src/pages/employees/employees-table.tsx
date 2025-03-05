@@ -66,7 +66,7 @@ export default function TableEmployees() {
     );
     if (!isLoading && web) return (
       <tr key={`cr-wr-${employee.id}`}>
-        <td key={`cr-f-1`}><img src={employee.image} alt="employee" /></td>
+        <td key={`cr-f-1`}>{employee.image ? <img src={employee.image} alt="employee" /> : null}</td>
         <td key={`cr-f-2`}><h3>{employee.name}</h3></td>
         <td key={`cr-f-3`}><h3>{employee.job}</h3></td>
         <td key={`cr-f-4`}><h3>{employee.admission_date}</h3></td>

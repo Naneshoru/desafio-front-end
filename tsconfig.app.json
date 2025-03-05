@@ -21,6 +21,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
+
+    /* paths */
     "baseUrl": ".",
     "paths": {
       "@components/*": ["./src/components/*"],
@@ -30,8 +32,14 @@
       "@pages/*": ["./src/pages/*"],
       "@providers/*": ["./src/providers/*"],
       "@styles/*": ["./src/styles/*"],
-      "@utils/*": ["./src/utils/*"],
-    }
+      "@utils/*": ["./src/utils/*"]
+    },
+
+    /* Additional Options */
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "types": ["node", "jest", "@testing-library/jest-dom"]
   },
-  "include": ["src", "assets/Logo.tsx"]
+  "include": ["src", "src/__tests__", "assets/Logo.tsx"],
+  "exclude": ["node_modules"]
 }

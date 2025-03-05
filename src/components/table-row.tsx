@@ -33,12 +33,13 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
         <div className='flex justify-between align-center'>
           {
             field?.isImage ? (
-              <img src={String(item[property])} alt={field?.alt} />
+              (item[property]) ?
+              <img src={String(item[property])} alt={field?.alt} /> : null
             ) : (
               <h3>{item[property]}</h3>
             )
           }
-          {isLastField && 
+          {isLastField && ChevronDownSvg &&
             <div className='img-box'>
               <img src={ChevronDownSvg} alt="chevron-down" onClick={toggleOpen} />
             </div>
@@ -55,7 +56,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
           field.isImage ? (
             <>
               <h2>{field.displayName}</h2>
-              <img src={String(item[field.name])} alt={field.alt} />
+              {item[field.name] ? <img src={String(item[field.name])} alt={field.alt} /> : null}
             </>
           ) : (
             <>
@@ -106,7 +107,7 @@ function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.
       {fields.map((field) => (
         <td key={`wr-f-${String(field.name)}`}>
           {field.isImage ? (
-            <img src={String(item[field.name])} />
+            item[field.name] ? <img src={String(item[field.name])} /> : null
           ) : (
             <h3>{item[field.name]}</h3>
           )}

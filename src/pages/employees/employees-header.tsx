@@ -38,7 +38,7 @@ export default function HeaderEmployees() {
         <h1>Funcionários</h1>
         <div className='input-wrapper'>
           <UncontrolledInput type="search" onChange={handleChange} placeholder='Pesquisar' />
-          <img src={SearchSvg} alt="Seach icon" />
+          {SearchSvg && <img src={SearchSvg} alt="Seach icon" />}
         </div>
       </header>
     </section>
