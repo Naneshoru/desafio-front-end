@@ -37,7 +37,7 @@ export default function HeaderEmployees() {
       <header className='flex justify-between gap2'>
         <h1>Funcionários</h1>
         <div className='input-wrapper'>
-          <UncontrolledInput type="search" onChange={handleChange} placeholder='Pesquisar' />
+          <UncontrolledInput type="search" onChange={handleChange} placeholder='Pesquisar' ariaLabel='Searchbar' />
           {SearchSvg && <img src={SearchSvg} alt="Seach icon" />}
         </div>
       </header>

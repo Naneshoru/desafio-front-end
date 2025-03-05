@@ -25,9 +25,10 @@ type UncontrolledInputProps = {
   type?: string
   placeholder?: string
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  ariaLabel?: string
 }
 
-export function UncontrolledInput ({ name, type, placeholder, onChange }: UncontrolledInputProps) {
+export function UncontrolledInput ({ name, type, placeholder, onChange, ariaLabel }: UncontrolledInputProps) {
   const ref = useRef<HTMLInputElement | null>(null)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +36,6 @@ export function UncontrolledInput ({ name, type, placeholder, onChange }: Uncont
   }
 
   return (
-    <input ref={ref} type={type} name={name} placeholder={placeholder} onChange={handleChange} />
+    <input ref={ref} type={type} name={name} placeholder={placeholder} onChange={handleChange} aria-label={ariaLabel} />
   )
 }
