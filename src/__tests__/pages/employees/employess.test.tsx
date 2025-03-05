@@ -12,7 +12,7 @@ const proccesedEmployees = employeesDb.employees.map(employee => ({
   phone: phoneFormat(employee.phone)
 }))
 
-const EmployessPageWithProvider = () => {
+const EmployeesPageWithProvider = () => {
   const setEmployees = jest.fn();
   const fetchEmployees = jest.fn();
   const getEmployees = jest.fn();
@@ -29,25 +29,25 @@ const EmployessPageWithProvider = () => {
 
 describe("Filtering functionality tests", () => {
   it("should test filtering in the 'name' column case insensitive", async () => {
-    render(<EmployessPageWithProvider />)
+    render(<EmployeesPageWithProvider />)
 
     const inputElem = screen.getByRole('searchbox', { name: /Searchbar/i })
 
     await userEvent.type(inputElem, 'ma')
     
     const tdElemMaria = screen.getByText((content, element) => {
-      return element?.parentElement?.tagName.toLowerCase() === 'td' && content === 'Maria';
+      return !!element?.closest('td') && content === 'Maria';
     });
     expect(tdElemMaria).toBeInTheDocument();
 
     const tdElemMario = screen.getByText((content, element) => {
-      return element?.parentElement?.tagName.toLowerCase() === 'td' && content === 'Mario';
+      return !!element?.closest('td') && content === 'Mario';
     });
     expect(tdElemMario).toBeInTheDocument();
   })
 
   it("should test filtering in the 'job' column", async () => {
-    render(<EmployessPageWithProvider />)
+    render(<EmployeesPageWithProvider />)
 
     const inputElem = screen.getByRole('searchbox', { name: /Searchbar/i })
 
@@ -56,24 +56,23 @@ describe("Filtering functionality tests", () => {
     const frontDevs = proccesedEmployees.filter(e => e.job === 'Front-end')
 
     const frontElems = screen.getAllByText((content, element) => {
-      return element?.parentElement?.tagName.toLowerCase() === 'td' &&  content == 'Front-end';
+      return !!element?.closest('td') &&  content == 'Front-end';
     });
     expect(frontElems.length).toBe(frontDevs.length);
     expect(frontElems.length).toBe(5);
   })
 
   it("should test filtering the date of admission by the Year in the 'admission_date' column", async () => {
-    render(<EmployessPageWithProvider />)
+    render(<EmployeesPageWithProvider />)
 
     const inputElem = screen.getByRole('searchbox', { name: /Searchbar/i })
 
     await userEvent.type(inputElem, '2020')
 
     const fromTwoThousandTwenty = proccesedEmployees.filter(e => e.admission_date.includes('2020'))
-    console.log('2020', fromTwoThousandTwenty.map(c => c.admission_date))
 
     const yearElems = screen.getAllByText((content, element) => {
-      return element?.parentElement?.tagName.toLowerCase() === 'td' && content.includes('2020');
+      return !!element?.closest('td') && content.includes('2020');
     });
     
     expect(yearElems.length).toBe(fromTwoThousandTwenty.length)
@@ -81,56 +80,70 @@ describe("Filtering functionality tests", () => {
   })
 
   it("should test filtering the date of admission by the Month in the 'admission_date' column", async () => { // or Day, Year(parcial)
-    render(<EmployessPageWithProvider />)
+    render(<EmployeesPageWithProvider />)
 
     const inputElem = screen.getByRole('searchbox', { name: /Searchbar/i })
 
     await userEvent.type(inputElem, '03')
 
-    const allRows = screen.getAllByRole("row"); 
+    const foundEmployees = proccesedEmployees.filter(e => e.admission_date.includes('03'))
 
-    // Pega a 4ª coluna de <td> (index 3)
-    const fourthColumnCells = allRows.filter(row => row.querySelectorAll("td")[3])
+    const foundElems = screen.getAllByText((content, element) => {
+      return !!element?.closest('td') && content.includes('03');
+    });
     
-    const dateElemsCount = fourthColumnCells.filter(elem => elem.textContent?.includes('03'))
-
-    expect(dateElemsCount.length).toBe(dateElemsCount.length)
-    expect(dateElemsCount.length).toBe(2)
+    expect(foundElems.length).toBe(foundEmployees.length)
+    expect(foundElems.length).toBe(2)
   })
 
   it("should test filtering the date of admission by the Day in the 'admission_date' column", async () => { // or Month, Year(parcial)
-    render(<EmployessPageWithProvider />)
+    render(<EmployeesPageWithProvider />)
 
     const inputElem = screen.getByRole('searchbox', { name: /Searchbar/i })
 
     await userEvent.type(inputElem, '31')
 
-    const allRows = screen.getAllByRole("row"); 
+    const foundEmployees = proccesedEmployees.filter(e => e.admission_date.includes('31'))
 
-    // Pega a 4ª coluna de <td> (index 3)
-    const fourthColumnCells = allRows.filter(row => row.querySelectorAll("td")[3])
-    
-    const dateElemsCount = fourthColumnCells.filter(elem => elem.textContent?.includes('31'))
+    const foundElems = screen.getAllByText((content, element) => {
+      return !!element?.closest('td') && content.includes('31');
+    });
 
-    expect(dateElemsCount.length).toBe(dateElemsCount.length)
-    expect(dateElemsCount.length).toBe(2)
+    expect(foundElems.length).toBe(foundEmployees.length)
+    expect(foundElems.length).toBe(2)
   })
 
   it("should test filtering the date of admission by Part of the Date text in the 'admission_date' column", async () => { // or Month, Year(parcial)
-    render(<EmployessPageWithProvider />)
+    render(<EmployeesPageWithProvider />)
 
     const inputElem = screen.getByRole('searchbox', { name: /Searchbar/i })
 
     await userEvent.type(inputElem, '27/04')
 
-    const allRows = screen.getAllByRole("row"); 
+    const foundEmployees = proccesedEmployees.filter(e => e.admission_date.includes('27/04'))
 
-    // Pega a 4ª coluna de <td> (index 3)
-    const fourthColumnCells = allRows.filter(row => row.querySelectorAll("td")[3])
-    
-    const dateElemsCount = fourthColumnCells.filter(elem => elem.textContent?.includes('27/04'))
+    const foundElems = screen.getAllByText((content, element) => {
+      return !!element?.closest('td') && content.includes('27/04');
+    });
 
-    expect(dateElemsCount.length).toBe(dateElemsCount.length)
-    expect(dateElemsCount.length).toBe(1)
+    expect(foundElems.length).toBe(foundEmployees.length)
+    expect(foundElems.length).toBe(1)
+  })
+
+  it("should test filtering the phone column", async () => {
+    render(<EmployeesPageWithProvider />)
+
+    const inputElem = screen.getByRole('searchbox', { name: /Searchbar/i })
+
+    await userEvent.type(inputElem, '99464')
+
+    const foundEmployees = proccesedEmployees.filter(e => e.phone.includes('99464'))
+
+    const foundElems = screen.getAllByText((content, element) => {
+      return !!element?.closest('td') && content.includes('99464');
+    });
+
+    expect(foundElems.length).toBe(foundEmployees.length)
+    expect(foundElems.length).toBe(1)
   })
 })

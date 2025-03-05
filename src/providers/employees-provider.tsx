@@ -52,7 +52,8 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
         emp.admission_date.includes(search) ||
         year.toString().includes(search) ||
         month.toString().includes(search) || 
-        day.toString().includes(search)
+        day.toString().includes(search) ||
+        emp.phone.includes(search) 
       )}
     ) ?? [];
     return filteredEmployees;
