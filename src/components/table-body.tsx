@@ -32,10 +32,9 @@ const TableBody = <T extends GenericItem>({ fields, mainFields, items, customRow
           customRows(item, index, false)
       )))
       : items.map((item) => (
-        <TableRow item={item} fields={fields} mainFields={mainFields} mobileWidth={mobileWidth} />
+        <TableRow item={item} fields={fields} mainFields={mainFields} mobileWidth={mobileWidth} key={`tb-tr-${item.id}`} />
       ))
     }
-
     return renderEmpty(mobile ? mainFields.length : fields.length)
   }
 
@@ -55,7 +54,7 @@ const TableBody = <T extends GenericItem>({ fields, mainFields, items, customRow
   }
 
   function renderEmpty (colSpan: number) {
-    return <tr>
+    return <tr key={'tb-re'}>
       <td colSpan={colSpan} className="gray-05-bg">
         <div className="render-empty flex flex-center gap05">
           <h2>Nenhum resultado encontrado</h2>

@@ -29,7 +29,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
     const field: Field<T> | undefined = fields.find(f => f.name === property);
     
     return (
-      <td className='mobile-row-line'>
+      <td className='mobile-row-cell'>
         <div className='flex justify-between align-center'>
           {
             field?.isImage ? (
@@ -70,8 +70,8 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
   }
 
   return (
-    <>
-      <tr className={`mobile-row ${open ? 'open' : ''}`}>
+    <Fragment key={item.id + '-fragment'}>
+      <tr className={`mobile-row ${open ? 'open' : ''}`}  key={String(item.id)+'-mb'}>
         {mainFields.map((property, index) => {
           const isLastField = index === mainFields.length - 1;
           return (
@@ -81,10 +81,11 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
           )
         })}
       </tr>
-      <tr className={`collapsible-row`} >
+      <tr className={`collapsible-row `} role={'row'} key={String(item.id) + '-cr'}>
         <td colSpan={mainFields.length}>
-          <div className='collapsible-row-content pd-t2 pd-b2 gap1 flex-col'>
-            {moreFields?.map((field) =>
+          <div className={`collapsible-row-content ${open ? 'open' : ''}  pd-t2 pd-b2 gap1 flex-col`}>
+            
+            {moreFields?. map((field) =>
               <Fragment key={`mr-nmf-${String(field.name)}`}>
                 {renderMoreFields(field, item)}
               </Fragment>
@@ -92,7 +93,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
           </div>
         </td>
       </tr>
-    </>
+    </Fragment>
   );
 }
 

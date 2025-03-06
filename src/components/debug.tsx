@@ -15,15 +15,16 @@ function Debug({ value, opacity, children }: Props): any {
 
   const elem = document.getElementsByClassName("debug")?.[1] as any
   if (elem) {
-    elem.style.right = ""
-    elem.style.left = "30px"
+    elem.style.right = "30px"
+    elem.style.top = "0"
   }
 
-  const elem2 = document.getElementsByClassName("debug")?.[2] as any
+  const elem2 = document.getElementsByClassName("debug")?.[0] as any
   if (elem2) {
-    elem2.style.top = "50%"
+    elem2.style.top = "200px"
     elem2.style.left = "30px"
-    elem2.style.width = "200px"
+    // elem2.style.width = "200px"
+    elem2.style.backgroundColor = "cyan"
   }
 
   return (
@@ -32,14 +33,14 @@ function Debug({ value, opacity, children }: Props): any {
       style={{
         overflow: "auto",
         position: "fixed",
-        right: "30px",
+        // right: "30px",
         top: "100px",
         maxHeight: "80vh",
         background: "white",
         zIndex: 130,
         opacity,
         color: "red",
-        width: "350px",
+        // width: "350px",
       }}
     >
       <pre>
