@@ -28,7 +28,7 @@ wbr + span {
 }
 
 .table-wrapper tbody {
-  background-color: var(--white-neutral);
+  background-color: var(--gray-00-neutral);
 }
 
 .table-wrapper table tbody tr.open {
@@ -39,6 +39,8 @@ wbr + span {
 .table-wrapper tbody tr {
   box-shadow: inset 0px 0px 1px 1px var(--gray-10-neutral);
   outline: 1px solid #00000005;
+
+  background-color: var(--white-neutral);
 }
 
 .table-wrapper tbody tr:last-child {
