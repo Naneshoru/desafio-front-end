@@ -30,7 +30,6 @@ function EmployeesProvider({ children }: { children: React.ReactElement | React.
   }, [fetchEmployees]);
 
   const formatEmployees = useCallback((employees: Array<Employee | Proccesed<Employee>>) => {
-    // console.log(employees?.map(e => e.admission_date))
     return employees?.map(employee => ({
         ...employee,
         admission_date: isoToDDMMYYYY(employee.admission_date),

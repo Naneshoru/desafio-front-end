@@ -12,11 +12,11 @@
   background-color: var(--white-neutral);
 }
 
-.mobile-row .mobile-row-line h3 {
+.mobile-row .mobile-row-cell h3 {
   margin-left: -8px;
 }
 
-.mobile-row .mobile-row-line .img-box {
+.mobile-row .mobile-row-cell .img-box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,12 +25,12 @@
   margin-right: -7px;
 }
 
-.mobile-row .mobile-row-line img[alt="chevron-down"] {
+.mobile-row .mobile-row-cell img[alt="chevron-down"] {
   transition: .3s;
   cursor: pointer;
 }
 
-.mobile-row.open .mobile-row-line img[alt="chevron-down"] {
+.mobile-row.open .mobile-row-cell img[alt="chevron-down"] {
   transform: rotate(180deg);
 }
 
