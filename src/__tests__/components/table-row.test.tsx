@@ -1,4 +1,4 @@
-import { render, screen, act } from "@testing-library/react";
+import { render, screen, act, waitFor } from "@testing-library/react";
 import employeesDb from '../../../db.json';
 import { isoToDDMMYYYY, phoneFormat } from '@utils/formatters';
 import { Field } from '@models/table';
@@ -6,14 +6,14 @@ import { Employee } from '@models/employee';
 import Table from "@components/table";
 import userEvent from "@testing-library/user-event";
 
-const proccesedEmployees = employeesDb.employees.map(employee => ({
+export const proccesedEmployees = employeesDb.employees.map(employee => ({
   ...employee,
   id: Number(employee.id),
   admission_date: isoToDDMMYYYY(employee.admission_date),
   phone: phoneFormat(employee.phone)
 }))
 
-const fields: Field<Employee>[] = [
+export const fields: Field<Employee>[] = [
   { name: 'image', displayName: 'Foto', isImage: true, alt: 'employee image' }, 
   { name: 'name', displayName: 'Nome', sortable: true }, 
   { name: 'job', displayName: 'Cargo', sortable: true }, 
@@ -21,11 +21,11 @@ const fields: Field<Employee>[] = [
   { name: 'phone', displayName: 'Telefone', sortable: true }
 ]
 
-const mainFields: Array<keyof Employee> = ['image', 'name'];
+export const mainFields: Array<keyof Employee> = ['image', 'name'];
 
-const mobileWidth = 540;
+export const mobileWidth = 540;
 
-it.only("On mobile, the table row should have open class after clicking the button to toggle", async () => {
+it("on mobile, the table row should have open class after clicking the button to toggle", async () => {
   render(
     <Table
       items={proccesedEmployees} 
@@ -50,9 +50,11 @@ it.only("On mobile, the table row should have open class after clicking the butt
     expect(mobileRow.classList).not.toContain('open')
   
     if (img) {
-      await userEvent.click(img);
-  
-      expect(mobileRow.classList).toContain('open')
+      await waitFor(async () => {
+        await userEvent.click(img);
+
+        expect(mobileRow.classList).toContain('open')
+      })
     }
   });
 });

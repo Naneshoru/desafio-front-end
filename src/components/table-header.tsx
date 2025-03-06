@@ -20,7 +20,7 @@ function MobileHeader<T extends GenericItem>({ fields, mainFields, onClick }: Mo
           const isLastField = index === mainFields.length - 1
           const field = fields.find(f => f.name === key)
           return (
-            <th key={`mh-mf-${index}`} onClick={() => onClick?.(key)} className={`${field?.sortable ? 'sortable' : ''}`}>
+            <th key={`mh-mf-${String(key)}`} onClick={() => onClick?.(key)} className={`${field?.sortable ? 'sortable' : ''}`}>
               <div className='header-cell flex justify-between align-center'>
                 <h2>{fieldsMap[key]}</h2>
                 {isLastField && <div className='white-dot' />}
@@ -41,8 +41,8 @@ type WebHeaderProps<T extends GenericItem> = {
 function WebHeader<T extends GenericItem>({ fields, onClick }: WebHeaderProps<T>) {
   return (
     <>
-      {fields.map((key, index) => (
-        <th key={`wh-f-${index}`} onClick={() => onClick?.(key.name)} className={`${key?.sortable ? 'sortable' : ''}`}><h2>{key.displayName}</h2></th>
+      {fields.map((key) => (
+        <th key={`wh-f-${String(key.name)}`} onClick={() => onClick?.(key.name)} className={`${key?.sortable ? 'sortable' : ''}`}><h2>{key.displayName}</h2></th>
       ))} 
     </>
   )

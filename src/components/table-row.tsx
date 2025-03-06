@@ -83,9 +83,9 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
       </tr>
       <tr className={`collapsible-row `} role={'row'} key={String(item.id) + '-cr'}>
         <td colSpan={mainFields.length}>
-          <div className={`collapsible-row-content ${open ? 'open' : ''}  pd-t2 pd-b2 gap1 flex-col`}>
+          <div className={`collapsible-row-content pd-t2 pd-b2 gap1 flex-col`}>
             
-            {moreFields?. map((field) =>
+            {moreFields?.map((field) =>
               <Fragment key={`mr-nmf-${String(field.name)}`}>
                 {renderMoreFields(field, item)}
               </Fragment>

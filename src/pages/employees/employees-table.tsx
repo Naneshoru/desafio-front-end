@@ -31,10 +31,10 @@ export default function TableEmployees() {
 
   const mainFields: Array<keyof Employee> = useMemo(() => ['image', 'name'], []);
 
-  const customRows = useCallback((employee: Employee | Proccesed<Employee>, index: number, isLoading: boolean) => {
+  const customRows = useCallback((employee: Employee | Proccesed<Employee>, _: number, isLoading: boolean) => {
     const web = !mobile;
     if (isLoading && mobile) return (
-      <tr key={`loading-${index}`}>
+      <tr key={`loading-${employee.id}`}>
         {mainFields.map((field, i) => {
           const fieldObj = fields?.find(f => f.name === field);
           if (fieldObj?.isImage) {
@@ -46,7 +46,7 @@ export default function TableEmployees() {
       </tr>
     );
     if (isLoading && web) return (
-      <tr key={`loading-${index}`}>
+      <tr key={`loading-${employee.id}`}>
         {fields.map((field, i) => {
           if (field?.isImage) {
             return (<SkeletonImage td key={`sk-${i}`} />);

@@ -24,7 +24,8 @@ const TableBody = <T extends GenericItem>({ fields, mainFields, items, customRow
   const mobile = size === 'mobile' 
 
   const render = () => {
-    if (items == null) return renderLoading()
+    const colSpan = mobile ? mainFields.length : fields.length
+    if (items == null) return renderLoading(colSpan)
 
     if (items != null && items.length > 0) {
       return customRows ? (
@@ -35,22 +36,30 @@ const TableBody = <T extends GenericItem>({ fields, mainFields, items, customRow
         <TableRow item={item} fields={fields} mainFields={mainFields} mobileWidth={mobileWidth} key={`tb-tr-${item.id}`} />
       ))
     }
-    return renderEmpty(mobile ? mainFields.length : fields.length)
+    return renderEmpty(colSpan)
   }
 
   return <tbody>{render()}</tbody>
 
-  function renderLoading() {
+  function renderLoading(colSpan?: number) {
     const arr: JSX.Element[] = []
-    for (let i = 0; i < 10; i++) {
-      const element = customRows?.({} as T, i, true);
-      if (element) arr.push(
-        <Fragment key={`tb-rl-${i}`}>
-          {element}
-        </Fragment>
-      );
+    if (customRows) {
+      for (let i = 0; i < 10; i++) {
+        const element = customRows({} as T, i, true);
+        arr.push(
+          <Fragment key={`tb-rl-${i}`}>
+            {element}
+          </Fragment>
+        );
+      }
+    } else {
+      for (let i = 0; i < 10; i++) {
+        arr.push(<tr key={`tb-rl-${i}`}>
+          <SkeletonText td key={`tb-rl-sk`} colSpan={colSpan} />
+        </tr>)
+      }
     }
-    return arr
+    return arr;
   }
 
   function renderEmpty (colSpan: number) {
@@ -65,12 +74,12 @@ const TableBody = <T extends GenericItem>({ fields, mainFields, items, customRow
   }
 }
 
-type SkeletonProps = { td?: boolean }
+type SkeletonProps = { td?: boolean, colSpan?: number }
 
-export function SkeletonText ({ td }: SkeletonProps): JSX.Element {
+export function SkeletonText ({ td, ...props }: SkeletonProps): JSX.Element {
   return (
     td ? (<>
-      <td>
+      <td {...props}>
         <span className='skeleton-text'></span>
       </td>
     </>)
@@ -78,10 +87,10 @@ export function SkeletonText ({ td }: SkeletonProps): JSX.Element {
   )
 }
 
-export function SkeletonImage ({ td }: SkeletonProps): JSX.Element {
+export function SkeletonImage ({ td, ...props }: SkeletonProps): JSX.Element {
   return (
     td ? (<>
-      <td>
+      <td {...props}>
         <span className='skeleton-image'></span>
       </td>
     </>)
