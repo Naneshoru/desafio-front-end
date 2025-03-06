@@ -1,5 +1,5 @@
 import EmployeesPage from '@pages/employees/employees';
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from '@testing-library/user-event'
 import EmployeesContext from "@contexts/employees-context";
 import employeesDb from '../../../../db.json';
@@ -15,7 +15,7 @@ const proccesedEmployees = employeesDb.employees.map(employee => ({
 const EmployeesPageWithProvider = () => {
   const setEmployees = jest.fn();
   const fetchEmployees = jest.fn();
-  const getEmployees = jest.fn();
+  const getEmployees = jest.fn().mockResolvedValue(Promise.resolve());
   const setFilter = jest.fn();
   const filter = null;
   const employees = null;
@@ -147,3 +147,71 @@ describe("Filtering functionality tests", () => {
     expect(foundElems.length).toBe(1)
   })
 })
+
+describe("Sorting functionality tests", () => {
+  fit("should call getEmployees with the correct params when sorting by a field", async () => {
+    const setEmployees = jest.fn();
+    const fetchEmployees = jest.fn();
+    const getEmployees = jest.fn().mockResolvedValue(Promise.resolve());
+    const setFilter = jest.fn();
+    const filter = null;
+    const employees = null;
+
+    render (
+      <EmployeesContext.Provider value={{ employees, setEmployees, fetchEmployees, getEmployees, filter, setFilter, proccesedEmployees }}>
+        <EmployeesPage />
+      </EmployeesContext.Provider>
+    );
+
+    const columnheaders = screen.getAllByRole('columnheader');
+    const sortableFields = columnheaders.filter(h => h.classList.contains("sortable"));
+
+    await userEvent.click(sortableFields[0]);
+
+    await waitFor(() => {
+      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=name&_order=desc'));
+    });
+
+    await userEvent.click(sortableFields[0]);
+
+    await waitFor(() => {
+      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=name&_order=asc'));
+    });
+
+    await userEvent.click(sortableFields[1]);
+
+    await waitFor(() => {
+      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=job&_order=desc'));
+    });
+
+    await userEvent.click(sortableFields[1]);
+
+    await waitFor(() => {
+      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=job&_order=asc'));
+    });
+
+    await userEvent.click(sortableFields[2]);
+
+    await waitFor(() => {
+      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=admission_date&_order=desc'));
+    });
+
+    await userEvent.click(sortableFields[2]);
+
+    await waitFor(() => {
+      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=admission_date&_order=asc'));
+    });
+
+    await userEvent.click(sortableFields[3]);
+
+    await waitFor(() => {
+      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=phone&_order=desc'));
+    });
+
+    await userEvent.click(sortableFields[3]);
+
+    await waitFor(() => {
+      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=phone&_order=asc'));
+    });
+  });
+});

@@ -5,8 +5,10 @@
 
 .render-empty h2 {
   font-size: 18px;
+  text-align: center;
 }
 
 .render-empty p {
   font-family: 'Helvetica';
+  text-align: center;
 }
