@@ -1,5 +1,5 @@
 import Table, { Proccesed } from "@components/table"
-import { act, getAllByRole, getByRole, render } from "@testing-library/react"
+import { act, screen, render } from "@testing-library/react"
 import { fields, mainFields, mobileWidth } from "./table-row.test"
 import { Employee } from "@models/employee"
 import { SkeletonImage, SkeletonText } from "@components/table-body"
@@ -21,7 +21,7 @@ describe('table body rendering the correct state', () => {
         window.dispatchEvent(new Event('resize'));
       });
 
-      const cells = getAllByRole(document.body, 'cell')
+      const cells = screen.getAllByRole('cell')
 
       const textElems = cells.map(cell => cell.querySelectorAll('.skeleton-text'))
 
@@ -38,7 +38,7 @@ describe('table body rendering the correct state', () => {
           />
         )
 
-      const cells = getAllByRole(document.body, 'cell')
+      const cells = screen.getAllByRole('cell')
 
       const textElems = cells.map(cell => cell.querySelectorAll('.skeleton-text'))
 
@@ -61,7 +61,7 @@ describe('table body rendering the correct state', () => {
         window.dispatchEvent(new Event('resize'));
       });
 
-      const cells = getAllByRole(document.body, 'cell')
+      const cells = screen.getAllByRole('cell')
 
       const textLoaders = cells.filter(cell => Array.from(cell.querySelectorAll('.skeleton-text')).length > 0)
 
@@ -87,7 +87,7 @@ describe('table body rendering the correct state', () => {
           customRows={customRowsWeb}
         />
       )
-      const cells = getAllByRole(document.body, 'cell')
+      const cells = screen.getAllByRole('cell')
 
       const textLoaders = cells.filter(cell => Array.from(cell.querySelectorAll('.skeleton-text')).length > 0)
 
@@ -119,7 +119,7 @@ describe('table body rendering the correct state', () => {
         window.dispatchEvent(new Event('resize'));
       });
 
-      const noResultsMessage = getByRole(document.body, 'cell', { name: /Nenhum resultado encontrado/ })
+      const noResultsMessage = screen.getByRole('cell', { name: /Nenhum resultado encontrado/ })
 
       expect(noResultsMessage).toBeInTheDocument()
     })
@@ -133,7 +133,7 @@ describe('table body rendering the correct state', () => {
         />
       )
 
-      const noResultsMessage = getByRole(document.body, 'cell', { name: /Nenhum resultado encontrado/ })
+      const noResultsMessage = screen.getByRole('cell', { name: /Nenhum resultado encontrado/ })
 
       expect(noResultsMessage).toBeInTheDocument()
     })
@@ -152,7 +152,7 @@ describe('table body rendering the correct state', () => {
         window.dispatchEvent(new Event('resize'));
       });
 
-      const noResultsMessage = getByRole(document.body, 'cell', { name: /Nenhum resultado encontrado/ })
+      const noResultsMessage = screen.getByRole('cell', { name: /Nenhum resultado encontrado/ })
 
       expect(noResultsMessage).toBeInTheDocument()
     })
@@ -167,7 +167,7 @@ describe('table body rendering the correct state', () => {
         />
       )
 
-      const noResultsMessage = getByRole(document.body, 'cell', { name: /Nenhum resultado encontrado/ })
+      const noResultsMessage = screen.getByRole('cell', { name: /Nenhum resultado encontrado/ })
 
       expect(noResultsMessage).toBeInTheDocument()
     })
