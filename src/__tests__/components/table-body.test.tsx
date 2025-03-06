@@ -1,34 +1,14 @@
 import Table, { Proccesed } from "@components/table"
-import { act, getAllByRole, render } from "@testing-library/react"
+import { act, getAllByRole, getByRole, render } from "@testing-library/react"
 import { fields, mainFields, mobileWidth } from "./table-row.test"
 import { Employee } from "@models/employee"
 import { SkeletonImage, SkeletonText } from "@components/table-body"
 import { JSX } from "react"
 
 describe('table body rendering the correct state', () => {
-  it('for mobile, should render the loading state while there is no data at all', async () => { 
-    render(
-      <Table
-        items={null} 
-        fields={fields} 
-        mainFields={mainFields} 
-        mobileWidth={mobileWidth}
-      />
-    )
-    await act(async () => {
-      window.innerWidth = 375;
-      window.dispatchEvent(new Event('resize'));
-    });
-
-    const cells = getAllByRole(document.body, 'cell')
-
-    const textElems = cells.map(cell => cell.querySelectorAll('.skeleton-text'))
-
-    expect(textElems.length).toBe(cells.length) // 10
-    expect(textElems.length).toBe(10)
-  })
-  it('should render the loading state while there is no data at all', () => {
-     render(
+  describe('loading state', () => {
+    it('for mobile, should render the loading state while there is no data at all', async () => { 
+      render(
         <Table
           items={null} 
           fields={fields} 
@@ -36,71 +16,161 @@ describe('table body rendering the correct state', () => {
           mobileWidth={mobileWidth}
         />
       )
+      await act(async () => {
+        window.innerWidth = 375;
+        window.dispatchEvent(new Event('resize'));
+      });
 
-    const cells = getAllByRole(document.body, 'cell')
+      const cells = getAllByRole(document.body, 'cell')
 
-    const textElems = cells.map(cell => cell.querySelectorAll('.skeleton-text'))
+      const textElems = cells.map(cell => cell.querySelectorAll('.skeleton-text'))
 
-    expect(textElems.length).toBe(cells.length) // 10
-    expect(textElems.length).toBe(10)
+      expect(textElems.length).toBe(cells.length) // 10
+      expect(textElems.length).toBe(10)
+    })
+    it('should render the loading state while there is no data at all', () => {
+      render(
+          <Table
+            items={null} 
+            fields={fields} 
+            mainFields={mainFields} 
+            mobileWidth={mobileWidth}
+          />
+        )
+
+      const cells = getAllByRole(document.body, 'cell')
+
+      const textElems = cells.map(cell => cell.querySelectorAll('.skeleton-text'))
+
+      expect(textElems.length).toBe(cells.length) // 10
+      expect(textElems.length).toBe(10)
+    })
+    it('for mobile custom rows, should render the loading state while there is no data at all', async () => {
+      render(
+        <Table
+          items={null} 
+          fields={fields} 
+          mainFields={mainFields} 
+          mobileWidth={mobileWidth}
+          customRows={customRowsMobile}
+        />
+      )
+
+      await act(async () => {
+        window.innerWidth = 375;
+        window.dispatchEvent(new Event('resize'));
+      });
+
+      const cells = getAllByRole(document.body, 'cell')
+
+      const textLoaders = cells.filter(cell => Array.from(cell.querySelectorAll('.skeleton-text')).length > 0)
+
+      const imgLoaders = cells.filter(cell => Array.from(cell.querySelectorAll('.skeleton-image')).length > 0)
+
+      const textFields = fields.filter(f => !f.isImage && mainFields.includes(f.name))
+
+      const imgFields = fields.filter(f => f.isImage && mainFields.includes(f.name))
+
+      expect(textLoaders.length).toBe(textFields.length * 10) // 10 * T in MF
+      expect(textLoaders.length).toBe(10)
+
+      expect(imgLoaders.length).toBe(imgFields.length * 10) // 10 * I in MF
+      expect(imgLoaders.length).toBe(10)
+    })
+    it('for web custom rows, should render the loading state while there is no data at all', () => {
+      render(
+        <Table
+          items={null} 
+          fields={fields} 
+          mainFields={mainFields} 
+          mobileWidth={mobileWidth}
+          customRows={customRowsWeb}
+        />
+      )
+      const cells = getAllByRole(document.body, 'cell')
+
+      const textLoaders = cells.filter(cell => Array.from(cell.querySelectorAll('.skeleton-text')).length > 0)
+
+      const imgLoaders = cells.filter(cell => Array.from(cell.querySelectorAll('.skeleton-image')).length > 0)
+
+      const textFields = fields.filter(f => !f.isImage)
+
+      const imgFields = fields.filter(f => f.isImage)
+
+      expect(textLoaders.length).toBe(textFields.length * 10) // 10 * T in F
+      expect(textLoaders.length).toBe(40)
+
+      expect(imgLoaders.length).toBe(imgFields.length * 10) // 10 * I in F
+      expect(imgLoaders.length).toBe(10)
+    })
   })
-  it('for mobile custom rows, should render the loading state while there is no data at all', async () => {
-    render(
-      <Table
-        items={null} 
-        fields={fields} 
-        mainFields={mainFields} 
-        mobileWidth={mobileWidth}
-        customRows={customRowsMobile}
-      />
-    )
+  describe('empty state', () => {
+    it('on mobile, default table config, should render the empty state after the request returned with 0 items', async () => {
+      render(
+        <Table
+          items={[]} 
+          fields={fields} 
+          mainFields={mainFields} 
+          mobileWidth={mobileWidth}
+        />
+      )
+      await act(async () => {
+        window.innerWidth = 375;
+        window.dispatchEvent(new Event('resize'));
+      });
 
-    await act(async () => {
-      window.innerWidth = 375;
-      window.dispatchEvent(new Event('resize'));
-    });
+      const noResultsMessage = getByRole(document.body, 'cell', { name: /Nenhum resultado encontrado/ })
 
-    const cells = getAllByRole(document.body, 'cell')
+      expect(noResultsMessage).toBeInTheDocument()
+    })
+    it('on web, default table config, should render the empty state after the request returned with 0 items', () => {
+      render(
+        <Table
+          items={[]} 
+          fields={fields} 
+          mainFields={mainFields} 
+          mobileWidth={mobileWidth}
+        />
+      )
 
-    const textLoaders = cells.filter(cell => Array.from(cell.querySelectorAll('.skeleton-text')).length > 0)
+      const noResultsMessage = getByRole(document.body, 'cell', { name: /Nenhum resultado encontrado/ })
 
-    const imgLoaders = cells.filter(cell => Array.from(cell.querySelectorAll('.skeleton-image')).length > 0)
+      expect(noResultsMessage).toBeInTheDocument()
+    })
+    it('on mobile, custom table, should render the empty state after the request returned with 0 items', async () => {
+      render(
+        <Table
+          items={[]} 
+          fields={fields} 
+          mainFields={mainFields} 
+          mobileWidth={mobileWidth}
+          customRows={customRowsMobile}
+        />
+      )
+      await act(async () => {
+        window.innerWidth = 375;
+        window.dispatchEvent(new Event('resize'));
+      });
 
-    const textFields = fields.filter(f => !f.isImage && mainFields.includes(f.name))
+      const noResultsMessage = getByRole(document.body, 'cell', { name: /Nenhum resultado encontrado/ })
 
-    const imgFields = fields.filter(f => f.isImage && mainFields.includes(f.name))
+      expect(noResultsMessage).toBeInTheDocument()
+    })
+    it('on web, custom table, should render the empty state after the request returned with 0 items', () => {
+      render(
+        <Table
+          items={[]} 
+          fields={fields} 
+          mainFields={mainFields} 
+          mobileWidth={mobileWidth}
+          customRows={customRowsWeb}
+        />
+      )
 
-    expect(textLoaders.length).toBe(textFields.length * 10) // 10 * T in MF
-    expect(textLoaders.length).toBe(10)
+      const noResultsMessage = getByRole(document.body, 'cell', { name: /Nenhum resultado encontrado/ })
 
-    expect(imgLoaders.length).toBe(imgFields.length * 10) // 10 * I in MF
-    expect(imgLoaders.length).toBe(10)
-  })
-  it('for web custom rows, should render the loading state while there is no data at all', () => {
-    render(
-      <Table
-        items={null} 
-        fields={fields} 
-        mainFields={mainFields} 
-        mobileWidth={mobileWidth}
-        customRows={customRowsWeb}
-      />
-    )
-    const cells = getAllByRole(document.body, 'cell')
-
-    const textLoaders = cells.filter(cell => Array.from(cell.querySelectorAll('.skeleton-text')).length > 0)
-
-    const imgLoaders = cells.filter(cell => Array.from(cell.querySelectorAll('.skeleton-image')).length > 0)
-
-    const textFields = fields.filter(f => !f.isImage)
-
-    const imgFields = fields.filter(f => f.isImage)
-
-    expect(textLoaders.length).toBe(textFields.length * 10) // 10 * T in F
-    expect(textLoaders.length).toBe(40)
-
-    expect(imgLoaders.length).toBe(imgFields.length * 10) // 10 * I in F
-    expect(imgLoaders.length).toBe(10)
+      expect(noResultsMessage).toBeInTheDocument()
+    })
   })
 })
 
