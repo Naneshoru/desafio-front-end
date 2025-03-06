@@ -3449,6 +3449,7 @@ __metadata:
     jest-environment-jsdom: "npm:^29.7.0"
     jest-module-name-mapper: "npm:^0.1.5"
     jest-transform-stub: "npm:^2.0.0"
+    jest-transformer-svg: "npm:^2.1.0"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     ts-jest: "npm:^29.2.6"
@@ -5057,6 +5058,16 @@ __metadata:
   version: 2.0.0
   resolution: "jest-transform-stub@npm:2.0.0"
   checksum: 10c0/75c8c193882ab6d81d07fcd34b88decdaeccc39de5fcf1b8ea2af36870223d188f89ea8b150811ceec853329e2b1a22b66e8850d84bd4482f11a5325cabe16c2
+  languageName: node
+  linkType: hard
+
+"jest-transformer-svg@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "jest-transformer-svg@npm:2.1.0"
+  peerDependencies:
+    jest: ">= 28.1.0"
+    react: ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/f654d383acde11160800603ad5b365edbf3e2a60047959e9fb451cc80420195edd9c416c8803a2b22804f695d9a4e37799aef3f60c3fe709f10e0f91aff5cf21
   languageName: node
   linkType: hard
 

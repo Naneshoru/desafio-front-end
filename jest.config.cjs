@@ -15,6 +15,7 @@ module.exports = {
   ],
   moduleNameMapper: {
     '\\.(css|less)$': 'identity-obj-proxy',
+    "^.+\\.svg$": "jest-transformer-svg",
     '@components/(.*)': '<rootDir>/src/components/$1',
     '@contexts/(.*)': '<rootDir>/src/contexts/$1',
     '@hooks/(.*)': '<rootDir>/src/hooks/$1',
