@@ -50,9 +50,8 @@ it("on mobile, the table row should have open class after clicking the button to
     expect(mobileRow.classList).not.toContain('open')
   
     if (img) {
-      await waitFor(async () => {
-        await userEvent.click(img);
-
+      await userEvent.click(img);
+      await waitFor(() => {
         expect(mobileRow.classList).toContain('open')
       })
     }

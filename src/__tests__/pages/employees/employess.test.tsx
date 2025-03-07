@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// import EmployeesPage from '@pages/employees/employees';
 import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from '@testing-library/user-event'
 import employeesDb from '../../../../db.json'
@@ -7,7 +6,6 @@ import EmployeesProvider from "@providers/employees-provider";
 import EmployeesPage from "@pages/employees/employees";
 import React from "react";
 import { isoToDDMMYYYY, phoneFormat } from "@utils/formatters";
-import EmployeesContext from "@contexts/employees-context";
 
 const employees = employeesDb.employees.map(employee => ({
   ...employee,
@@ -36,7 +34,7 @@ beforeEach(() => {
       headers: new Headers(),
       ok: true,
       status: 200,
-      statusText: 'OK',
+      statusText: 'OK'
     } as Response)
   );
 })
@@ -63,7 +61,7 @@ describe("Filtering functionality tests", () => {
 
     await userEvent.type(inputElem, 'Fr')
     
-    await waitFor(async () => {
+    await waitFor( () => {
       const frontDevs = proccesedEmployees.filter(e => e.job === 'Front-end')
   
       const frontElems = screen.getAllByText((content, element) => {
@@ -89,7 +87,7 @@ describe("Filtering functionality tests", () => {
 
     await userEvent.type(inputElem, '2020')
 
-    await waitFor(async () => {
+    await waitFor( () => {
       const fromTwoThousandTwenty = proccesedEmployees.filter(e => e.admission_date.includes('2020'))
   
       const yearElems = screen.getAllByText((content, element) => {
@@ -115,7 +113,7 @@ describe("Filtering functionality tests", () => {
 
     await userEvent.type(inputElem, '03')
 
-    await waitFor(async () => {
+    await waitFor( () => {
       const foundEmployees = proccesedEmployees.filter(e => e.admission_date.includes('03'))
 
       const foundElems = screen.getAllByText((content, element) => {
@@ -141,7 +139,7 @@ describe("Filtering functionality tests", () => {
 
     await userEvent.type(inputElem, '31')
 
-    await waitFor(async () => {
+    await waitFor( () => {
       const foundEmployees = proccesedEmployees.filter(e => e.admission_date.includes('31'))
 
       const foundElems = screen.getAllByText((content, element) => {
@@ -167,7 +165,7 @@ describe("Filtering functionality tests", () => {
 
     await userEvent.type(inputElem, '27/04')
 
-    await waitFor(async () => {
+    await waitFor( () => {
       const foundEmployees = proccesedEmployees.filter(e => e.admission_date.includes('27/04'))
   
       const foundElems = screen.getAllByText((content, element) => {
@@ -193,7 +191,7 @@ describe("Filtering functionality tests", () => {
 
     await userEvent.type(inputElem, '99464')
 
-    await waitFor(async () => {
+    await waitFor( () => {
       const foundEmployees = proccesedEmployees.filter(e => e.phone.includes('99464'))
   
       const foundElems = screen.getAllByText((content, element) => {
@@ -215,18 +213,7 @@ describe("Filtering functionality tests", () => {
 
 describe("Sorting functionality tests", () => {
   it("should call getEmployees with the correct params when sorting by a field", async () => {
-    const setEmployees = jest.fn();
-    const fetchEmployees = jest.fn();
-    const getEmployees = jest.fn().mockResolvedValue(Promise.resolve());
-    const setFilter = jest.fn();
-    const filter = null;
-    const employees = null;
-
-    render (
-      <EmployeesContext.Provider value={{ employees, setEmployees, fetchEmployees, getEmployees, filter, setFilter, proccesedEmployees }}>
-        <EmployeesPage />
-      </EmployeesContext.Provider>
-    );
+    render (< EmployeesPageWithProvider />);
 
     const columnheaders = screen.getAllByRole('columnheader');
     const sortableFields = columnheaders.filter(h => h.classList.contains("sortable"));
@@ -234,49 +221,135 @@ describe("Sorting functionality tests", () => {
     await userEvent.click(sortableFields[0]);
 
     await waitFor(() => {
-      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=name&_order=desc'));
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('_sort=name&_order=desc'));
     });
 
     await userEvent.click(sortableFields[0]);
 
     await waitFor(() => {
-      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=name&_order=asc'));
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('_sort=name&_order=asc'));
     });
 
     await userEvent.click(sortableFields[1]);
 
     await waitFor(() => {
-      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=job&_order=desc'));
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('_sort=job&_order=desc'));
     });
 
     await userEvent.click(sortableFields[1]);
 
     await waitFor(() => {
-      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=job&_order=asc'));
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('_sort=job&_order=asc'));
     });
 
     await userEvent.click(sortableFields[2]);
 
     await waitFor(() => {
-      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=admission_date&_order=desc'));
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('_sort=admission_date&_order=desc'));
     });
 
     await userEvent.click(sortableFields[2]);
 
     await waitFor(() => {
-      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=admission_date&_order=asc'));
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('_sort=admission_date&_order=asc'));
     });
 
     await userEvent.click(sortableFields[3]);
 
     await waitFor(() => {
-      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=phone&_order=desc'));
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('_sort=phone&_order=desc'));
     });
 
     await userEvent.click(sortableFields[3]);
 
     await waitFor(() => {
-      expect(getEmployees).toHaveBeenCalledWith(expect.stringContaining('_sort=phone&_order=asc'));
+      expect(global.fetch).toHaveBeenCalledWith(expect.stringContaining('_sort=phone&_order=asc'));
+    });
+  });
+});
+
+describe("Filtering and Sorting functionality combined tests", () => {
+  global.fetch = jest.fn()
+  beforeEach(() => {
+    const mockedResponses: { [key: string]: any } = {
+      '_sort=name&_order=desc': [{
+        "id": "6",
+        "name": "Mario",
+        "job": "Front-end",
+        "admission_date": "2020-10-01T00:00:00.000Z",
+        "phone": "5551234567890",
+        "image": "https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png"
+      }, {
+        "id": "3",
+        "name": "Maria",
+        "job": "Front-end",
+        "admission_date": "2020-03-15T00:00:00.000Z",
+        "phone": "5557894561230",
+        "image": "https://www.clipartmax.com/png/middle/277-2772117_user-profile-avatar-woman-icon-avatar-png-profile-icon.png"
+      },],
+      '_sort=name&_order=asc': [{
+        "id": "3",
+        "name": "Maria",
+        "job": "Front-end",
+        "admission_date": "2020-03-15T00:00:00.000Z",
+        "phone": "5557894561230",
+        "image": "https://www.clipartmax.com/png/middle/277-2772117_user-profile-avatar-woman-icon-avatar-png-profile-icon.png"
+      }, {
+        "id": "6",
+        "name": "Mario",
+        "job": "Front-end",
+        "admission_date": "2020-10-01T00:00:00.000Z",
+        "phone": "5551234567890",
+        "image": "https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png"
+      }],
+    }
+    global.fetch = jest.fn((input: RequestInfo | URL) => {
+      const url = typeof input === 'string' ? input : input.toString();
+      const params = new URLSearchParams(url.split('?')[1]);
+      const sortParam = params.get('_sort') && params.get('_order') ? `_sort=${params.get('_sort')}&_order=${params.get('_order')}` : '';
+
+      const response = mockedResponses[sortParam] || employees;
+      console.log('response', response)
+      return Promise.resolve({
+        json: () => Promise.resolve(response),
+        headers: new Headers(),
+        ok: true,
+        status: 200,
+        statusText: 'OK'
+      } as Response);
+    });
+  });
+
+  it("should filter for 'ma' string and sort by name after it", async () => {
+    render(<EmployeesPageWithProvider />);
+
+    const inputElem = screen.getByRole("searchbox");
+
+    await userEvent.type(inputElem, 'ma');
+
+    await waitFor(() => {
+      expect(screen.getByText(/Maria/)).toBeInTheDocument();
+      expect(screen.getByText(/Mario/)).toBeInTheDocument();
+      expect(screen.queryByText(/Ricardo/)).not.toBeInTheDocument();
+    });
+
+    const columnheaders = screen.getAllByRole('columnheader');
+    const sortableFields = columnheaders.filter(h => h.classList.contains("sortable"));
+
+    await userEvent.click(sortableFields[0]);
+    
+    await waitFor(() => {
+      const rows = screen.getAllByRole('row').slice(1);
+      expect(within(rows[0]).getByRole('cell', { name: /Mario/ })).toBeInTheDocument();
+      expect(within(rows[1]).getByRole('cell', { name: /Maria/ })).toBeInTheDocument();
+    });
+    
+    await userEvent.click(sortableFields[0]);
+
+    await waitFor(() => {
+      const rows = screen.getAllByRole('row').slice(1);
+      expect(within(rows[0]).getByRole('cell', { name: /Maria/ })).toBeInTheDocument();
+      expect(within(rows[1]).getByRole('cell', { name: /Mario/ })).toBeInTheDocument();
     });
   });
 });

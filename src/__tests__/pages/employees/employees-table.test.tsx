@@ -6,10 +6,10 @@ import { useContext } from "react"
 describe('functioning of the employees table', () => {
   it('should check if items receives something different than null on mounting', async () => {
     const TestComponent = () => {
-      const { proccesedEmployees } = useContext(EmployeesContext);
+      const { proccesedEmployees: items } = useContext(EmployeesContext);
 
       return <> 
-        {proccesedEmployees == null
+        {items == null
           ? 'Employees is null'
           : 'Employees is not null'}
       </>
