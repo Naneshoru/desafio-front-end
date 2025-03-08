@@ -75,7 +75,7 @@ npx json-server db.json
 ```bash
 yarn dlx json-server@0.17.4 db.json
 ```
-Agora pode abrir [http://localhost:3000/employees](http://localhost:3000/employees) no browser.
+Agora verificar em [http://localhost:3000/employees](http://localhost:3000/employees).
 
 <br>
 
