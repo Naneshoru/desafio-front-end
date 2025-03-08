@@ -55,6 +55,15 @@ wbr + span {
   background-color: var(--white-neutral);
 }
 
+table tbody tr td .clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3em;
+}
+
 /* Bordas finais */
 /* última linha geral */
 table tbody tr:last-child td:first-child {
@@ -119,8 +128,8 @@ table tbody tr:last-child td:last-child {
 
 tr th:not(:first-child):not(:last-child),
 tr td:not(:first-child):not(:last-child) {
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 /* total 1330px na tela
@@ -131,7 +140,7 @@ tr td:first-child {
   padding-top: 13.5px; 
   padding-bottom: 12.5px;
   padding-left: 2rem;
-  padding-right: 4px;
+  padding-right: 8px;
   width: 12.916%;
 }
 

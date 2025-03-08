@@ -35,7 +35,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
     
     return (
       <td className='mobile-row-cell'>
-        <div className='flex justify-between align-center'>
+        <div className='flex justify-between align-center gap1'>
           {
             field?.isImage ? (
               <div className='ball'>

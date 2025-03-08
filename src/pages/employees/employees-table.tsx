@@ -11,7 +11,7 @@ import useScreenSize from '@hooks/screen-size';
 import { SkeletonImage, SkeletonText } from '@components/table-body';
 import { Field, GenericItem } from '@models/table';
 import useObjectFit from '@hooks/object-fit';
-import { getInitials } from '@utils/formatters';
+import { abbreviateMiddleNames, getInitials } from '@utils/formatters';
 
 export default function TableEmployees() {
   const { proccesedEmployees, getEmployees, filter, setFilter } = useContext(EmployeesContext);
@@ -63,7 +63,7 @@ export default function TableEmployees() {
     );
     if (!isLoading && mobile) return (
       <MobileRow 
-        item={employee} 
+        item={({ ...employee, name: abbreviateMiddleNames(employee.name, 18 ) })} 
         fields={fields}
         mainFields={mainFields} 
         key={`cr-mr-${employee.id}`}
@@ -78,7 +78,11 @@ export default function TableEmployees() {
             : getInitials(employee.name)}
           </div>
         </td>
-        <td key={`cr-f-2`}><h3>{employee.name}</h3></td>
+        <td key={`cr-f-2`}>
+          <div className='clamp' title={employee.name}>
+            <h3>{abbreviateMiddleNames(employee.name)}</h3>
+          </div>
+        </td>
         <td key={`cr-f-3`}><h3>{employee.job}</h3></td>
         <td key={`cr-f-4`}><h3>{employee.admission_date}</h3></td>
         <td key={`cr-f-5`}><h3>{wordBreakOpportunity(employee.phone)}</h3></td>

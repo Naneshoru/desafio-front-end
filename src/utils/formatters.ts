@@ -64,4 +64,41 @@ const getInitials = (text: string) => {
   return firstInitial + lastInitial;
 }
 
-export { isoToDDMMYYYY, NN, phoneFormat, getInitials }
+function abbreviateMiddleNames(fullName: string, limit: number = 25) {
+ const nameParts = fullName.split(' ');
+
+ if (fullName.length <= limit) {
+     return fullName;
+ }
+
+ const firstName = nameParts[0];
+
+ const middleNames = nameParts.slice(1, -1);
+
+ const lastName = nameParts[nameParts.length - 1];
+
+ const abbreviateName = (name: string) => {
+     if (name === name.toLowerCase()) {
+         return name;
+     }
+     return name.charAt(0) + '.';
+ };
+
+ for (let i = middleNames.length - 1; i >= 0; i--) {
+     middleNames[i] = abbreviateName(middleNames[i]);
+
+     const currentName = `${firstName} ${middleNames.join(' ')} ${lastName}`;
+
+     if (currentName.length <= limit) {
+         return currentName;
+     }
+ }
+
+ const abbreviatedLastName = abbreviateName(lastName);
+ const finalName = `${firstName} ${middleNames.join(' ')} ${abbreviatedLastName}`;
+
+ return finalName;
+}
+
+
+export { isoToDDMMYYYY, NN, phoneFormat, getInitials, abbreviateMiddleNames }
