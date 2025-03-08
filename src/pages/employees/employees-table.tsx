@@ -12,6 +12,7 @@ import { SkeletonImage, SkeletonText } from '@components/table-body';
 import { Field, GenericItem } from '@models/table';
 import useObjectFit from '@hooks/object-fit';
 import { abbreviateMiddleNames, getInitials } from '@utils/formatters';
+import { useWindowSize } from '@uidotdev/usehooks';
 
 export default function TableEmployees() {
   const { proccesedEmployees, getEmployees, filter, setFilter } = useContext(EmployeesContext);
@@ -132,6 +133,18 @@ export default function TableEmployees() {
       setFilter({ search: filter?.search || '' })
     });
   }
+
+  const { width } = useWindowSize()
+  const admissionBreakPoint = useMemo(() => width && width < 800, [width]);
+  
+  useEffect(() => {
+    setFields(prev => {
+      const newFields = [ ...prev ]
+      newFields[3].displayName = width && width < 800 ? "Admissão" : 'Data de admissão'
+      return newFields
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [admissionBreakPoint])
 
   return (
     <div className='table-wrapper'>
