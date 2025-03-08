@@ -78,7 +78,7 @@ export default function TableEmployees() {
       </tr>
     );
     return <></>;
-  }, [mobile, fields, mainFields]);
+  }, [mobile, fields, mainFields, objectFit]);
 
   const wordBreakOpportunity = (text: string): JSX.Element => {
     const [countryCode, areaCode, phone] = text.split(' ');
