@@ -15,9 +15,9 @@ import { abbreviateMiddleNames, getInitials } from '@utils/formatters';
 
 export default function TableEmployees() {
   const { proccesedEmployees, getEmployees, filter, setFilter } = useContext(EmployeesContext);
-  const mobileWidth = 540;
+  const mobileWidth = useMemo(() => 540, []);
   const { size } = useScreenSize(mobileWidth);
-  const mobile = size === 'mobile';
+  const mobile = useMemo(() => size === 'mobile', [size]);
 
   useEffect(() => {
     return () => window.history.replaceState({}, document.title, window.location.pathname);
@@ -36,7 +36,13 @@ export default function TableEmployees() {
   const imageUrls = useMemo(() => proccesedEmployees?.map(employee => employee.image) ?? [], [proccesedEmployees]);
   const objectFit = useObjectFit(imageUrls);
 
+  const employeesAbvrev = useMemo(() => proccesedEmployees?.map((e) => ({
+    ...e,
+    name: abbreviateMiddleNames(e.name)
+  })), [proccesedEmployees]);
+    
   const customRows = useCallback((employee: Employee | Proccesed<Employee>, index: number, isLoading: boolean) => {
+    
     const web = !mobile;
     if (isLoading && mobile) return (
       <tr key={`loading-${employee.id}`}>
@@ -63,7 +69,7 @@ export default function TableEmployees() {
     );
     if (!isLoading && mobile) return (
       <MobileRow 
-        item={({ ...employee, name: abbreviateMiddleNames(employee.name) })} 
+        item={employeesAbvrev?.[index] ?? employee} 
         fields={fields}
         mainFields={mainFields} 
         key={`cr-mr-${employee.id}`}
@@ -89,7 +95,7 @@ export default function TableEmployees() {
       </tr>
     );
     return <></>;
-  }, [mobile, fields, mainFields, objectFit]);
+  }, [mobile, fields, mainFields, objectFit, employeesAbvrev]);
 
   const wordBreakOpportunity = (text: string): JSX.Element => {
     const [countryCode, areaCode, phone] = text.split(' ');

@@ -17,7 +17,7 @@ type MobileRowProps<T extends GenericItem> = {
 export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: MobileRowProps<T>): React.JSX.Element {
   const [open, setOpen] = useState(false);
 
-  const moreFields = fields.filter((notMainKey) => !mainFields.includes(notMainKey.name));
+  const moreFields = useMemo(() => fields.filter((notMainKey) => !mainFields.includes(notMainKey.name)), [fields, mainFields]);
 
   useEffect(() => {
     setOpen(false)
@@ -28,6 +28,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
   }
 
   const imageUrls = useMemo(() => fields.filter((field) => field.isImage).map(field => String(item[field.name])), [fields, item]);
+  
   const objectFit = useObjectFit(imageUrls);
   
   const renderMainFields = (item: T | Proccesed<T>, property: keyof T, isLastField: boolean, index: number): JSX.Element => {
@@ -115,7 +116,7 @@ type WebRowProps<T extends GenericItem> = {
 };
 
 function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.JSX.Element {
-  const imageUrls = fields.filter((field) => field.isImage).map(field => String(item[field.name]));
+  const imageUrls = useMemo(() => fields.filter((field) => field.isImage).map(field => String(item[field.name])), [item, fields]);
   const objectFit = useObjectFit(imageUrls);
 
   return (
@@ -144,9 +145,9 @@ type TableRowProps<T extends GenericItem> = {
   mobileWidth?: number
 };
 
-export default function TableRow<T extends GenericItem>({ item, fields, mainFields, mobileWidth }: TableRowProps<T>) {
+function TableRow<T extends GenericItem>({ item, fields, mainFields, mobileWidth }: TableRowProps<T>) {
   const { size } = useScreenSize(mobileWidth)
-  const mobile = size === 'mobile' 
+  const mobile = useMemo(() => size === 'mobile', [size])
 
   return (<>
     {mobile
@@ -156,4 +157,4 @@ export default function TableRow<T extends GenericItem>({ item, fields, mainFiel
   );
 }
 
-
+export default TableRow
