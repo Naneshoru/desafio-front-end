@@ -105,6 +105,9 @@ jest v29.7.0 <br>
 
 ---
 
-Context API, para gerenciamento dos estados <br> 
-fetch API, para requisições http
-debounce function, para reduzir o número de buscas ao digitar
+→ Context API, para gerenciamento dos estados <br> 
+→ fetch API, para requisições http <br>
+→ tratamento para reduzir o número de buscas ao digitar <br>
+→ foi adicionado tratamento para nomes (abreviação dos nomes do meio) <br>
+→ e ajuste dinâmico para uma melhor exibição das fotos <br>
+(ou iniciais do nome caso não tenha uma foto → é possível verificar isso apagando alguma string do db.json)
