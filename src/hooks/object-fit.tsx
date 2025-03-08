@@ -19,6 +19,10 @@ export default function useObjectFit(imageUrls: string[]) {
 
           resolve(imageRatio > containerRatio ? "cover" : "contain");
         };
+
+        img.onerror = () => {
+          resolve("contain");
+        };
       });
     };
 

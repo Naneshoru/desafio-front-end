@@ -38,8 +38,11 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
         <div className='flex justify-between align-center'>
           {
             field?.isImage ? (
-              (item[property]) ?
-              <img src={String(item[property])} alt={field?.alt} style={{ objectFit: objectFit[index] }} /> : <div className='ball'>{getInitials(String(item[fields[1].name]))}</div>
+              <div className='ball'>
+              {(item[property]) ?
+                <img src={String(item[property])} alt={field?.alt} style={{ objectFit: objectFit[index] }} /> 
+                : <div className='ball'>{getInitials(String(item[fields[1].name]))}</div>}
+              </div>
             ) : (
               <h3>{item[property]}</h3>
             )
@@ -121,7 +124,9 @@ function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.
         return (
           <td key={`wr-f-${String(field.name)}`}>
             {field.isImage ? (
-              item[field.name] ? <img src={String(item[field.name])} style={{ objectFit: objectFit[index] }} /> : null
+              <div className='ball'>
+                {item[field.name] ? <img src={String(item[field.name])} style={{   objectFit: objectFit[index] }} /> : <div className='ball'>{getInitials(String(item[fields[1].name]))}</div>}
+              </div>
             ) : (
               <h3>{item[field.name]}</h3>
             )}

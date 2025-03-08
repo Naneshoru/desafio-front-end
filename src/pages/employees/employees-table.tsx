@@ -71,8 +71,12 @@ export default function TableEmployees() {
     );
     if (!isLoading && web) return (
       <tr key={`cr-wr-${employee.id}`}>
-        <td key={`cr-f-1`}>{employee.image
-          ? <img src={employee.image} alt="employee" style={{ objectFit: objectFit[index] }} /> : <div className='ball'>{getInitials(employee.name)}</div>}
+        <td key={`cr-f-1`}>
+          <div className='ball'>
+          {employee.image
+            ? <img src={employee.image} alt="employee" style={{ objectFit: objectFit[index] }} />
+            : getInitials(employee.name)}
+          </div>
         </td>
         <td key={`cr-f-2`}><h3>{employee.name}</h3></td>
         <td key={`cr-f-3`}><h3>{employee.job}</h3></td>
