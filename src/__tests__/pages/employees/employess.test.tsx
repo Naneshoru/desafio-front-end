@@ -302,6 +302,7 @@ describe("Filtering and Sorting functionality combined tests", () => {
         "phone": "5551234567890",
         "image": "https://e7.pngegg.com/pngimages/550/997/png-clipart-user-icon-foreigners-avatar-child-face.png"
       }],
+      '_sort=job&_order=desc': employeesDb.employees.sort((a, b) => b.job.localeCompare(a.job))
     }
     global.fetch = jest.fn((input: RequestInfo | URL) => {
       const url = typeof input === 'string' ? input : input.toString();
@@ -309,7 +310,6 @@ describe("Filtering and Sorting functionality combined tests", () => {
       const sortParam = params.get('_sort') && params.get('_order') ? `_sort=${params.get('_sort')}&_order=${params.get('_order')}` : '';
 
       const response = mockedResponses[sortParam] || employees;
-      console.log('response', response)
       return Promise.resolve({
         json: () => Promise.resolve(response),
         headers: new Headers(),
@@ -352,4 +352,40 @@ describe("Filtering and Sorting functionality combined tests", () => {
       expect(within(rows[1]).getByRole('cell', { name: /Mario/ })).toBeInTheDocument();
     });
   });
+
+  it("should sort by job and filter for 2020", async () => {
+    render(<EmployeesPageWithProvider />)
+
+    const columnheaders = screen.getAllByRole("columnheader")
+    const sortableFields = columnheaders.filter(h => h.classList.contains("sortable"))
+
+    await userEvent.click(sortableFields[1])
+    
+    
+    await waitFor(() => {
+      const rows = screen.getAllByRole("row").slice(1)
+
+      for (let i = 0; i < 5; i++) {
+        expect(within(rows[i]).getByText("Front-end")).toBeInTheDocument();
+      }
+
+      expect(within(rows[5]).getByText("Designer")).toBeInTheDocument()
+
+      for (let i = 6; i < 10; i++) {
+        expect(within(rows[i]).getByText("Back-end")).toBeInTheDocument();
+      }
+    })
+
+    const inputElem = screen.getByRole("searchbox");
+
+    await userEvent.type(inputElem, '2020');
+    
+    await waitFor(() => {
+      const rows = screen.getAllByRole("row").slice(1)
+
+      for (let i = 0; i < rows.length; i++) {
+        expect(within(rows[i]).getByText((content) => /2020/.test(content))).toBeInTheDocument()
+      }
+    });
+  })
 });
