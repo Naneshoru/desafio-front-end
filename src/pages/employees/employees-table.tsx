@@ -11,6 +11,7 @@ import useScreenSize from '@hooks/screen-size';
 import { SkeletonImage, SkeletonText } from '@components/table-body';
 import { Field, GenericItem } from '@models/table';
 import useObjectFit from '@hooks/object-fit';
+import { getInitials } from '@utils/formatters';
 
 export default function TableEmployees() {
   const { proccesedEmployees, getEmployees, filter, setFilter } = useContext(EmployeesContext);
@@ -32,8 +33,8 @@ export default function TableEmployees() {
 
   const mainFields: Array<keyof Employee> = useMemo(() => ['image', 'name'], []);
 
-  const imageUrls = useMemo(() => proccesedEmployees?.map(employee => employee.image), [proccesedEmployees]);
-  const objectFit = useObjectFit(imageUrls ?? []);
+  const imageUrls = useMemo(() => proccesedEmployees?.map(employee => employee.image) ?? [], [proccesedEmployees]);
+  const objectFit = useObjectFit(imageUrls);
 
   const customRows = useCallback((employee: Employee | Proccesed<Employee>, index: number, isLoading: boolean) => {
     const web = !mobile;
@@ -70,7 +71,9 @@ export default function TableEmployees() {
     );
     if (!isLoading && web) return (
       <tr key={`cr-wr-${employee.id}`}>
-        <td key={`cr-f-1`}>{employee.image ? <img src={employee.image} alt="employee" style={{ objectFit: objectFit[index] }} /> : null}</td>
+        <td key={`cr-f-1`}>{employee.image
+          ? <img src={employee.image} alt="employee" style={{ objectFit: objectFit[index] }} /> : <div className='ball'>{getInitials(employee.name)}</div>}
+        </td>
         <td key={`cr-f-2`}><h3>{employee.name}</h3></td>
         <td key={`cr-f-3`}><h3>{employee.job}</h3></td>
         <td key={`cr-f-4`}><h3>{employee.admission_date}</h3></td>

@@ -32,7 +32,5 @@ export default function useObjectFit(imageUrls: string[]) {
     }
   }, [imageUrls]);
 
-  if (!imageUrls) return []
-
   return objectFits;
 }

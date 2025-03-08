@@ -6,6 +6,7 @@ import { Field, GenericItem } from '../models/table';
 import './table-row.css'
 import { Proccesed } from './table';
 import useObjectFit from '@hooks/object-fit';
+import { getInitials } from '@utils/formatters';
 
 type MobileRowProps<T extends GenericItem> = {
   fields: Field<T>[];
@@ -38,7 +39,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
           {
             field?.isImage ? (
               (item[property]) ?
-              <img src={String(item[property])} alt={field?.alt} style={{ objectFit: objectFit[index] }} /> : null
+              <img src={String(item[property])} alt={field?.alt} style={{ objectFit: objectFit[index] }} /> : <div className='ball'>{getInitials(String(item[fields[1].name]))}</div>
             ) : (
               <h3>{item[property]}</h3>
             )
@@ -54,13 +55,16 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
   }
  
   const renderMoreFields = (field: Field<T>, item: T | Proccesed<T>, index: number) => {
+    const src = String(item[field.name])
     return (
       <div className='flex justify-between gap1 dashed'>
         {
           field.isImage ? (
             <>
               <h2>{field.displayName}</h2>
-              {item[field.name] ? <img src={String(item[field.name])} alt={field.alt} style={{ objectFit: objectFit[index] }} /> : null}
+              {item[field.name] 
+                ? <img src={src} alt={field.alt} style={{ objectFit: objectFit[index] }} /> 
+                : <div className='ball'>{getInitials(String(item[fields[1].name]))}</div>}
             </>
           ) : (
             <>

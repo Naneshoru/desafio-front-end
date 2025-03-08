@@ -12,3 +12,14 @@
   font-family: 'Helvetica';
   text-align: center;
 }
+
+tbody .ball {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--blue-10);
+  color: var(--black-neutral);
+  height: 34px;
+  width: 34px;
+  border-radius: 50%;
+}
