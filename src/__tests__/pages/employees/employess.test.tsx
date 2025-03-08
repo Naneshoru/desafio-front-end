@@ -361,7 +361,6 @@ describe("Filtering and Sorting functionality combined tests", () => {
 
     await userEvent.click(sortableFields[1])
     
-    
     await waitFor(() => {
       const rows = screen.getAllByRole("row").slice(1)
 

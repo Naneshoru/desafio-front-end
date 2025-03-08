@@ -26,7 +26,6 @@ tbody tr {
 tbody tr td img {
   height: 34px;
   width: 34px;
-  object-fit: contain;
   border-radius: 50%;
 }
 

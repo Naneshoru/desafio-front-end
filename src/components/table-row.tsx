@@ -1,10 +1,11 @@
-import React, { Fragment, JSX, useEffect,  useState } from 'react';
+import React, { Fragment, JSX, useEffect, useMemo,  useState } from 'react';
 import ChevronDownSvg from '/assets/charm_chevron-down.svg';
 import useScreenSize from '../hooks/screen-size';
 import { Field, GenericItem } from '../models/table';
 
 import './table-row.css'
 import { Proccesed } from './table';
+import useObjectFit from '@hooks/object-fit';
 
 type MobileRowProps<T extends GenericItem> = {
   fields: Field<T>[];
@@ -25,7 +26,10 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
     setOpen(prev => !prev);
   }
 
-  const renderMainFields = (item: T | Proccesed<T>, property: keyof T, isLastField: boolean): JSX.Element => {
+  const imageUrls = useMemo(() => fields.filter((field) => field.isImage).map(field => String(item[field.name])), [fields, item]);
+  const objectFit = useObjectFit(imageUrls);
+  
+  const renderMainFields = (item: T | Proccesed<T>, property: keyof T, isLastField: boolean, index: number): JSX.Element => {
     const field: Field<T> | undefined = fields.find(f => f.name === property);
     
     return (
@@ -34,7 +38,7 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
           {
             field?.isImage ? (
               (item[property]) ?
-              <img src={String(item[property])} alt={field?.alt} /> : null
+              <img src={String(item[property])} alt={field?.alt} style={{ objectFit: objectFit[index] }} /> : null
             ) : (
               <h3>{item[property]}</h3>
             )
@@ -49,14 +53,14 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
     )
   }
  
-  const renderMoreFields = (field: Field<T>, item: T | Proccesed<T>) => {
+  const renderMoreFields = (field: Field<T>, item: T | Proccesed<T>, index: number) => {
     return (
       <div className='flex justify-between gap1 dashed'>
         {
           field.isImage ? (
             <>
               <h2>{field.displayName}</h2>
-              {item[field.name] ? <img src={String(item[field.name])} alt={field.alt} /> : null}
+              {item[field.name] ? <img src={String(item[field.name])} alt={field.alt} style={{ objectFit: objectFit[index] }} /> : null}
             </>
           ) : (
             <>
@@ -74,9 +78,10 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
       <tr className={`mobile-row ${open ? 'open' : ''}`}  key={String(item.id)+'-mb'}>
         {mainFields.map((property, index) => {
           const isLastField = index === mainFields.length - 1;
+
           return (
             <Fragment key={`mr-mf-${String(property)}`} >
-              {renderMainFields(item, property, isLastField)}
+              {renderMainFields(item, property, isLastField, index)}
             </Fragment>
           )
         })}
@@ -85,9 +90,9 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
         <td colSpan={mainFields.length}>
           <div className={`collapsible-row-content pd-t2 pd-b2 gap1 flex-col`}>
             
-            {moreFields?.map((field) =>
+            {moreFields?.map((field, index) =>
               <Fragment key={`mr-nmf-${String(field.name)}`}>
-                {renderMoreFields(field, item)}
+                {renderMoreFields(field, item, index)}
               </Fragment>
             )}
           </div>
@@ -103,17 +108,22 @@ type WebRowProps<T extends GenericItem> = {
 };
 
 function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.JSX.Element {
+  const imageUrls = fields.filter((field) => field.isImage).map(field => String(item[field.name]));
+  const objectFit = useObjectFit(imageUrls);
+
   return (
     <tr>
-      {fields.map((field) => (
-        <td key={`wr-f-${String(field.name)}`}>
-          {field.isImage ? (
-            item[field.name] ? <img src={String(item[field.name])} /> : null
-          ) : (
-            <h3>{item[field.name]}</h3>
-          )}
-        </td>
-      ))}
+      {fields.map((field, index) => {
+        return (
+          <td key={`wr-f-${String(field.name)}`}>
+            {field.isImage ? (
+              item[field.name] ? <img src={String(item[field.name])} style={{ objectFit: objectFit[index] }} /> : null
+            ) : (
+              <h3>{item[field.name]}</h3>
+            )}
+          </td>
+        );
+      })}
     </tr>
   );
 }
