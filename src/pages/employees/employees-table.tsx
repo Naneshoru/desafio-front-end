@@ -63,7 +63,7 @@ export default function TableEmployees() {
     );
     if (!isLoading && mobile) return (
       <MobileRow 
-        item={({ ...employee, name: abbreviateMiddleNames(employee.name, 18 ) })} 
+        item={({ ...employee, name: abbreviateMiddleNames(employee.name) })} 
         fields={fields}
         mainFields={mainFields} 
         key={`cr-mr-${employee.id}`}
