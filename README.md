@@ -9,11 +9,13 @@ componentes modularizados para simplificação do fluxo de dados.
   c. Ordenação (campos ordenáveis) via query params
   
 #### 2. Responsividade <br>
-   Tamanhos web e mobile, adaptando a tabela para uma melhor UX ao comparar as informações. (e.g. Sticky cards), <br>
-   animação ao expandir informações, pontos de quebras de linha nos textos
+   Tamanhos web e mobile, adaptando a tabela para uma melhor UX ao comparar as informações (e.g. Sticky cards). Animações ao expandir informações, adaptações e pontos de quebras de linha oportunas nos textos das diferentes colunas, além da área de ação no botão aumentada no mobile.
    
 #### 3. Testes <br>
-  ...
+  Foram criados testes visando aumentar a confiabilidade das funcionalidades do projeto em qualquer uma das configurações que permite (e.g. mobile ou web, default ou custom table) com destaque para as operações de filtragem e ordenação, além dos estados como o de carregamento, exibição dos dados e sem dados, visto que são partes importantes do funcionamento e precisam ser detectados rapidamente qualquer possível incongruência.
+
+##### Ferramentas de teste <br>
+  Foi utilizado o Jest e Testing Library / React para isso, provendo o ferramental básico de teste para rodar e simular a DOM, respectivamente, além de eventos de usuário com o user-event. As demais bibliotecas utilizadas são de suporte adicional para os testes, como suporte para uso de typescript, svg ou path aliases, por exemplo.
   
 ---
 
@@ -76,6 +78,12 @@ yarn dlx json-server@0.17.4 db.json
 Agora pode abrir [http://localhost:3000/employees](http://localhost:3000/employees) no browser.
 
 <br>
+
+para executar os testes, basta rodar:
+```bash
+yarn test
+```
+
 <br>
 
 ## 🔨 Ferramentas utilizadas
@@ -86,10 +94,14 @@ npm v8.19.4 <br>
 yarn v4.6.0
 
 ---
+
 react v19 <br> 
 vite v6.1.0 <br> 
 json-server v0.17.4 <br> 
-@uidotdev/usehooks v2.4.1 → com hooks utilitários, como um para responder a tamanhos de tela
+@uidotdev/usehooks v2.4.1 → com hooks utilitários, como um para responder a tamanhos de tela <br> 
+jest v29.7.0 <br> 
+@testing-library/react v16.2.0 <br> 
+@testing-library/user-event v14.6.1
 
 ---
 
