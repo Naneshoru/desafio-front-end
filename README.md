@@ -86,6 +86,14 @@ yarn test
 
 <br>
 
+É possível verificar de maneira gráfica os arquivos e dependências no bundle final, entre com
+```bash
+yarn build
+```
+caso, não abra no browser, você pode usar o live-server para abri-lo em dist\index.html
+
+<br>
+
 ## 🔨 Ferramentas utilizadas
 
 ---
