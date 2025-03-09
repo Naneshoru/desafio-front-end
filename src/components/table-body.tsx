@@ -1,4 +1,4 @@
-import { Fragment, JSX } from "react"
+import { Fragment, JSX, useMemo } from "react"
 import TableRow from "./table-row"
 
 import useScreenSize from "../hooks/screen-size"
@@ -21,7 +21,7 @@ type TableBodyProps <T extends GenericItem> = {
 
 const TableBody = <T extends GenericItem>({ fields, mainFields, items, customRows, mobileWidth }: TableBodyProps<T>) => {
   const { size } = useScreenSize(mobileWidth)
-  const mobile = size === 'mobile' 
+  const mobile = useMemo(() => size === 'mobile', [size])
 
   const render = () => {
     const colSpan = mobile ? mainFields.length : fields.length

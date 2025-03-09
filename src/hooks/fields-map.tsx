@@ -1,11 +1,5 @@
+import { Field, GenericItem } from '@models/table'
 import { useMemo } from 'react'
-
-type GenericItem = { [key: string]: string | number | boolean }
-
-type Field<T extends GenericItem> = {
-  name: keyof T
-  displayName: string
-}
 
 function useFieldsMap<T extends GenericItem>(fields: Field<T>[] | undefined) {
   return useMemo(() => {

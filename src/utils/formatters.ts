@@ -64,6 +64,11 @@ const getInitials = (text: string) => {
   return firstInitial + lastInitial;
 }
 
+/**
+ * @param 'José Carlos de Alcantara'
+ * @returns 'José C. de Alcantara'
+ */
+
 function abbreviateMiddleNames(fullName: string, limit: number = 25) {
  const nameParts = fullName.split(' ');
 
@@ -99,6 +104,5 @@ function abbreviateMiddleNames(fullName: string, limit: number = 25) {
 
  return finalName;
 }
-
 
 export { isoToDDMMYYYY, NN, phoneFormat, getInitials, abbreviateMiddleNames }

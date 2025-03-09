@@ -2,10 +2,10 @@ import React, { useRef, useState } from 'react'
 
 type InputProps = {
   name?: string
-  value?: string
+  value: string
   type?: string
   placeholder?: string
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export default function Input({ name = '', value = '', type, placeholder = '', onChange}: InputProps) {

@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import useFieldsMap from '../hooks/fields-map'
 import useScreenSize from '../hooks/screen-size'
 import { Field, GenericItem } from '../models/table'
@@ -20,7 +21,11 @@ function MobileHeader<T extends GenericItem>({ fields, mainFields, onClick }: Mo
           const isLastField = index === mainFields.length - 1
           const field = fields.find(f => f.name === key)
           return (
-            <th key={`mh-mf-${String(key)}`} onClick={() => onClick?.(key)} className={`${field?.sortable ? 'sortable' : ''}`}>
+            <th
+              key={`mh-mf-${String(key)}`} 
+              onClick={() => onClick?.(key)} 
+              className={`${field?.sortable ? 'sortable' : ''}`}
+            >
               <div className='header-cell flex justify-between align-center'>
                 <h2>{fieldsMap[key]}</h2>
                 {isLastField && <div className='white-dot' />}
@@ -42,7 +47,13 @@ function WebHeader<T extends GenericItem>({ fields, onClick }: WebHeaderProps<T>
   return (
     <>
       {fields.map((key) => (
-        <th key={`wh-f-${String(key.name)}`} onClick={() => onClick?.(key.name)} className={`${key?.sortable ? 'sortable' : ''}`}><h2>{key.displayName}</h2></th>
+        <th
+          key={`wh-f-${String(key.name)}`} 
+          onClick={() => onClick?.(key.name)}
+          className={`${key?.sortable ? 'sortable' : ''}`}
+        >
+          <h2>{key.displayName}</h2>
+        </th>
       ))} 
     </>
   )
@@ -57,7 +68,7 @@ type TableHeaderProps<T extends GenericItem> = {
 
 export default function TableHeader<T extends GenericItem>({ fields, mainFields, mobileWidth = 375, onClick }: TableHeaderProps<T>) {
   const { size } = useScreenSize(mobileWidth)
-  const mobile = size === 'mobile' 
+  const mobile = useMemo(() => size === 'mobile', [size])
 
   return (
     <thead>

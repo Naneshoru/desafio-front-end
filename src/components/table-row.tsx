@@ -83,7 +83,10 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
 
   return (
     <Fragment key={item.id + '-fragment'}>
-      <tr className={`mobile-row ${open ? 'open' : ''}`}  key={String(item.id)+'-mb'}>
+      <tr
+        className={`mobile-row ${open ? 'open' : ''}`}  
+        key={String(item.id)+'-mb'}
+      >
         {mainFields.map((property, index) => {
           const isLastField = index === mainFields.length - 1;
 
@@ -94,7 +97,10 @@ export function MobileRow<T extends GenericItem>({ fields, mainFields, item }: M
           )
         })}
       </tr>
-      <tr className={`collapsible-row `} role={'row'} key={String(item.id) + '-cr'}>
+      <tr 
+        className={`collapsible-row `}
+        role={'row'} key={String(item.id) + '-cr'}
+      >
         <td colSpan={mainFields.length}>
           <div className={`collapsible-row-content pd-t2 pd-b2 gap1 flex-col`}>
             
@@ -126,7 +132,13 @@ function WebRow<T extends GenericItem>({ item, fields }: WebRowProps<T>): React.
           <td key={`wr-f-${String(field.name)}`}>
             {field.isImage ? (
               <div className='ball'>
-                {item[field.name] ? <img src={String(item[field.name])} style={{   objectFit: objectFit[index] }} /> : <div className='ball'>{getInitials(String(item[fields[1].name]))}</div>}
+                {item[field.name] 
+                  ? <img 
+                    src={String(item[field.name])} 
+                    style={{ objectFit: objectFit[index] }} 
+                  /> 
+                  : <div className='ball'>
+                    {getInitials(String(item[fields[1].name]))}</div>}
               </div>
             ) : (
               <h3>{item[field.name]}</h3>
