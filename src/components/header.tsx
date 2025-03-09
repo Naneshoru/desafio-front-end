@@ -1,4 +1,4 @@
-import Logo from '../../public/assets/Logo'
+import Logo from './logo'
 
 import './header.css'
 
