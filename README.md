@@ -75,7 +75,7 @@ npx json-server db.json
 ```bash
 yarn dlx json-server@0.17.4 db.json
 ```
-Agora verificar em [http://localhost:3000/employees](http://localhost:3000/employees).
+Agora pode verificar em [http://localhost:3000/employees](http://localhost:3000/employees).
 
 <br>
 
@@ -86,11 +86,11 @@ yarn test
 
 <br>
 
-É possível verificar de maneira gráfica os arquivos e dependências no bundle final, entre com
+É possível verificar de maneira gráfica os arquivos e dependências no bundle final, entre com:
 ```bash
 yarn build
 ```
-caso, não abra no browser, você pode usar o live-server para abri-lo em dist\index.html
+caso não abra no browser, você pode usar o live-server para abri-lo em dist\index.html
 
 <br>
 
@@ -118,4 +118,4 @@ jest v29.7.0 <br>
 → tratamento para reduzir o número de buscas ao digitar <br>
 → foi adicionado tratamento para nomes (abreviação dos nomes do meio) <br>
 → e ajuste dinâmico para uma melhor exibição das fotos <br>
-(ou iniciais do nome caso não tenha uma foto → é possível verificar isso apagando alguma string do db.json)
+(ou iniciais do nome caso não tenha uma foto → é possível verificar isso apagando alguma string do campo image no db.json)
